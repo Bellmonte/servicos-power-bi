@@ -1,0 +1,367 @@
+{
+  "linhas": {
+    "valor": 1000000,
+    "celula": "C07",
+    "texto": "1.000.000"
+  },
+  "pedidos": {
+    "valor": 249858,
+    "celula": "C07",
+    "texto": "249.858"
+  },
+  "clientes_com_compra": {
+    "valor": 20000,
+    "celula": "C07",
+    "texto": "20.000"
+  },
+  "linhas_acima_cerca": {
+    "valor": 0.013694,
+    "celula": "C13",
+    "texto": "1,4%"
+  },
+  "desconto_36m": {
+    "valor": 148352385.7,
+    "celula": "C14",
+    "texto": "R$ 148,4 milhões"
+  },
+  "desconto_sobre_margem_36m": {
+    "valor": 0.17135388437338833,
+    "celula": "C14",
+    "texto": "17%"
+  },
+  "grande_share_linhas": {
+    "valor": 0.128373,
+    "celula": "C14",
+    "texto": "13%"
+  },
+  "grande_share_desconto": {
+    "valor": 0.5292618005400906,
+    "celula": "C14",
+    "texto": "53%"
+  },
+  "grande_desconto_sobre_margem": {
+    "valor": 0.25137568347473227,
+    "celula": "C14",
+    "texto": "25%"
+  },
+  "margem_12m": {
+    "valor": 307557637.34000003,
+    "celula": "C16",
+    "texto": "R$ 307,6 milhões"
+  },
+  "desconto_12m": {
+    "valor": 52668549.25,
+    "celula": "C16",
+    "texto": "R$ 52,7 milhões"
+  },
+  "grande_margem_12m": {
+    "valor": 110489312.55,
+    "celula": "C16",
+    "texto": "R$ 110,5 milhões"
+  },
+  "grande_desconto_12m": {
+    "valor": 27844138.36,
+    "celula": "C16",
+    "texto": "R$ 27,8 milhões"
+  },
+  "simples_qtd_ate_10": {
+    "valor": 6.59620765972602,
+    "celula": "C17",
+    "texto": "6,6"
+  },
+  "simples_qtd_acima_10": {
+    "valor": 22.501661599377783,
+    "celula": "C17",
+    "texto": "22,5"
+  },
+  "simples_razao": {
+    "valor": 3.4113027909604066,
+    "celula": "C17",
+    "texto": "3,4"
+  },
+  "simples_correlacao": {
+    "valor": 0.3033266508463513,
+    "celula": "C17",
+    "texto": "0,30"
+  },
+  "equilibrio_por_pp": {
+    "valor": 0.03178799118476,
+    "celula": "C20",
+    "texto": "3,2%"
+  },
+  "equilibrio_marginal_ref": {
+    "valor": 0.02800891539791781,
+    "celula": "C20",
+    "texto": "2,8%"
+  },
+  "dentro_amplitude_indice": {
+    "valor": 0.7126390976295056,
+    "celula": "C21",
+    "texto": "0,7"
+  },
+  "qtd_media_Pequeno": {
+    "valor": 3.0570111489930825,
+    "celula": "C21",
+    "texto": "3,1"
+  },
+  "qtd_media_Médio": {
+    "valor": 9.035533574047294,
+    "celula": "C21",
+    "texto": "9,0"
+  },
+  "qtd_media_Grande": {
+    "valor": 22.53219134864808,
+    "celula": "C21",
+    "texto": "22,5"
+  },
+  "efeito_principal": {
+    "valor": -0.00030727469269057906,
+    "celula": "C23",
+    "texto": "-0,031%"
+  },
+  "efeito_principal_inf": {
+    "valor": -0.0006582922908625859,
+    "celula": "C23",
+    "texto": "-0,066%"
+  },
+  "efeito_principal_sup": {
+    "valor": 4.3866199999485e-05,
+    "celula": "C23",
+    "texto": "0,004%"
+  },
+  "n_principal": {
+    "valor": 82955,
+    "celula": "C23",
+    "texto": "82.955"
+  },
+  "efeito_maior_sup_robustez": {
+    "valor": 7.127780448868195e-05,
+    "celula": "C23",
+    "texto": "0,007%"
+  },
+  "efeito_sem_porte": {
+    "valor": 0.07735633243727333,
+    "celula": "C24",
+    "texto": "7,7%"
+  },
+  "efeito_carteira_com_porte": {
+    "valor": -0.00021332887222904115,
+    "celula": "C24",
+    "texto": "-0,021%"
+  },
+  "efeito_carteira_inf": {
+    "valor": -0.0004888459521642763,
+    "celula": "C24",
+    "texto": "-0,049%"
+  },
+  "efeito_carteira_sup": {
+    "valor": 6.226415449380983e-05,
+    "celula": "C24",
+    "texto": "0,006%"
+  },
+  "efeito_conf": {
+    "valor": -0.00021667904853889497,
+    "celula": "C26",
+    "texto": "-0,022%"
+  },
+  "efeito_conf_inf": {
+    "valor": -0.0007004506055778163,
+    "celula": "C26",
+    "texto": "-0,070%"
+  },
+  "efeito_conf_sup": {
+    "valor": 0.0002673267074642327,
+    "celula": "C26",
+    "texto": "0,027%"
+  },
+  "equilibrio_conf": {
+    "valor": 0.03175404752655166,
+    "celula": "C26",
+    "texto": "3,2%"
+  },
+  "decisao": {
+    "valor": "recomendar o teto",
+    "celula": "C27",
+    "texto": "recomendar o teto"
+  },
+  "equilibrio_em_erros_padrao": {
+    "valor": 176.36154016621393,
+    "celula": "C27",
+    "texto": "176"
+  },
+  "recompra_clientes": {
+    "valor": 2567,
+    "celula": "C29",
+    "texto": "2.567"
+  },
+  "recompra_media_pedidos": {
+    "valor": 4.3681340085703155,
+    "celula": "C29",
+    "texto": "4,4"
+  },
+  "recompra_efeito": {
+    "valor": 0.001783802652454445,
+    "celula": "C29",
+    "texto": "0,2%"
+  },
+  "recompra_inf": {
+    "valor": -0.012285446754626037,
+    "celula": "C29",
+    "texto": "-1,2%"
+  },
+  "recompra_sup": {
+    "valor": 0.016053457913866264,
+    "celula": "C29",
+    "texto": "1,6%"
+  },
+  "teto_ganho_ponto": {
+    "valor": 5520980.031000003,
+    "celula": "C30",
+    "texto": "R$ 5,5 milhões"
+  },
+  "teto_linhas_afetadas_share": {
+    "valor": 0.44279800959971816,
+    "celula": "C30",
+    "texto": "44%"
+  },
+  "teto_ganho_sobre_margem_grande": {
+    "valor": 0.04996845308908571,
+    "celula": "C30",
+    "texto": "5,0%"
+  },
+  "teto_ganho_sobre_margem_total": {
+    "valor": 0.01795104188844008,
+    "celula": "C30",
+    "texto": "1,8%"
+  },
+  "teto_perda_equilibrio": {
+    "valor": 0.11570753757877261,
+    "celula": "C30",
+    "texto": "12%"
+  },
+  "teto_saida_equilibrio": {
+    "valor": 0.0475904327811705,
+    "celula": "C30",
+    "texto": "4,8%"
+  },
+  "teto_faixa_inf": {
+    "valor": 5357465.994183658,
+    "celula": "C31",
+    "texto": "R$ 5,4 milhões"
+  },
+  "teto_faixa_sup": {
+    "valor": 5691072.853025003,
+    "celula": "C31",
+    "texto": "R$ 5,7 milhões"
+  },
+  "exposicao_clientes_grandes": {
+    "valor": 2531,
+    "celula": "C32",
+    "texto": "2.531"
+  },
+  "exposicao_clientes_afetados": {
+    "valor": 2470,
+    "celula": "C32",
+    "texto": "2.470"
+  },
+  "exposicao_share_afetados": {
+    "valor": 0.975898854207823,
+    "celula": "C32",
+    "texto": "98%"
+  },
+  "exposicao_clientes_metade": {
+    "valor": 600,
+    "celula": "C32",
+    "texto": "600"
+  },
+  "exposicao_share_metade": {
+    "valor": 0.242914979757085,
+    "celula": "C32",
+    "texto": "24%"
+  },
+  "exposicao_ganho_medio_conta": {
+    "valor": 2235.214587449394,
+    "celula": "C32",
+    "texto": "R$ 2,2 mil"
+  },
+  "exposicao_maior_conta": {
+    "valor": 10746.744999999995,
+    "celula": "C32",
+    "texto": "R$ 10,7 mil"
+  },
+  "sens_10_ganho": {
+    "valor": 5520980.031000003,
+    "celula": "C33",
+    "texto": "R$ 5,5 milhões"
+  },
+  "sens_10_linhas": {
+    "valor": 0.44279800959971816,
+    "celula": "C33",
+    "texto": "44%"
+  },
+  "sens_10_perda_eq": {
+    "valor": 0.11570753757877261,
+    "celula": "C33",
+    "texto": "12%"
+  },
+  "sens_12_ganho": {
+    "valor": 3105325.0128000006,
+    "celula": "C33",
+    "texto": "R$ 3,1 milhões"
+  },
+  "sens_12_linhas": {
+    "valor": 0.33130036549385705,
+    "celula": "C33",
+    "texto": "33%"
+  },
+  "sens_12_perda_eq": {
+    "valor": 0.0920839733081752,
+    "celula": "C33",
+    "texto": "9%"
+  },
+  "sens_14_ganho": {
+    "valor": 1377746.1241999976,
+    "celula": "C33",
+    "texto": "R$ 1,4 milhão"
+  },
+  "sens_14_linhas": {
+    "valor": 0.22026509313488044,
+    "celula": "C33",
+    "texto": "22%"
+  },
+  "sens_14_perda_eq": {
+    "valor": 0.06582809938102352,
+    "celula": "C33",
+    "texto": "7%"
+  },
+  "piloto_clientes_por_grupo": {
+    "valor": 1284,
+    "celula": "C35",
+    "texto": "1.284"
+  },
+  "piloto_sem_compra_semestre": {
+    "valor": 0.11989100817438691,
+    "celula": "C35",
+    "texto": "12%"
+  },
+  "piloto_saida_detectavel": {
+    "valor": 0.03187704780852358,
+    "celula": "C35",
+    "texto": "3,2"
+  },
+  "piloto_saida_no_equilibrio": {
+    "valor": 0.04188476781558057,
+    "celula": "C35",
+    "texto": "4,2"
+  },
+  "piloto_queda_volume_ano": {
+    "valor": 0.06066931527489345,
+    "celula": "C35",
+    "texto": "6%"
+  },
+  "equilibrio_em_pontos": {
+    "valor": 0.0475904327811705,
+    "celula": "C35",
+    "texto": "4,8"
+  }
+}

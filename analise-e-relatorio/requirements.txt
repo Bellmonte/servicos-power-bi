@@ -1,0 +1,20 @@
+# Versões pinadas, testadas em 11-10-2026 com Python 3.14 no Windows 11.
+# As quatro primeiras são as mesmas do port-gerador-dados, para o mesmo ambiente gerar a base
+# e executar a análise.
+Faker==40.36.0
+numpy==2.5.2
+pandas==3.0.5
+python-dateutil==2.9.0.post0
+
+# Análise
+scipy==1.18.1
+pyfixest==0.60.0
+formulaic==1.2.2
+narwhals==2.27.1
+matplotlib==3.11.2
+
+# Execução do notebook de ponta a ponta
+nbconvert==7.17.1
+nbclient==0.11.0
+nbformat==5.11.1
+ipykernel==7.4.0

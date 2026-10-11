@@ -9,7 +9,7 @@ tem um caso completo com dados fictícios, para você ver o resultado antes de c
 |---|---|---|---|
 | [**Refatoração de painéis**](refatoracao-de-paineis/README.md) | painel que funciona, mas ficou pesado, lento e difícil de manter | painel comercial com **modelo 74% menor**, **atualização 29% mais rápida** e **consultas até 88% mais rápidas**, com os mesmos números de antes | disponível |
 | **Construção de painéis** | indicadores levantados com a área, dicionário de medidas e painel publicado na web | em preparo | em breve |
-| **Análise e relatório** | uma pergunta de negócio respondida em notebook, com conclusão e limitação | em preparo | em breve |
+| [**Análise e relatório**](analise-e-relatorio/README.md) | uma pergunta de negócio respondida em notebook, com conclusão e limitação | política de desconto: o desconto ao cliente grande **não trazia volume**, e um teto de 10% teria recuperado **R$ 5,4 a 5,7 milhões de margem no último ano**, se o volume se mantivesse | disponível |
 
 ## Como cada caso é entregue
 
