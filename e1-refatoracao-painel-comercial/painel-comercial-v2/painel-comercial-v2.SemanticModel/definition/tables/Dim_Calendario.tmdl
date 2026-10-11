@@ -1,0 +1,143 @@
+/// Calendário diário gerado pela fn_Calendario, marcado como tabela de data do modelo.
+/// A janela é a da base: da primeira venda até a data de corte, lidas do manifesto do gerador.
+table Dim_Calendario
+	lineageTag: 2df16a7f-eed2-52f0-a4c5-bebcedd4a9b4
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		lineageTag: 02df68a9-f434-5f12-8b79-aba247b654cf
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: ea98021c-e2f0-5f4a-8228-fc5574c3d31b
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: 5d511871-676c-52ba-a1f7-30b6a93c50f0
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Mes'
+		dataType: string
+		lineageTag: a3da947a-69fc-5616-b42f-df2ce8c3c2b0
+		summarizeBy: none
+		sourceColumn: Nome do Mes
+		sortByColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes Abreviado'
+		dataType: string
+		lineageTag: 5b57ce0f-b8d0-4321-a416-cbc6de9c5366
+		summarizeBy: none
+		sourceColumn: Mes Abreviado
+		sortByColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2d7be11a-86f8-5c20-8d10-33d86b07b166
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Semana do Mes'
+		dataType: string
+		lineageTag: 70387c22-c0e7-4492-b9d1-56d16e2e5978
+		summarizeBy: none
+		sourceColumn: Semana do Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes.Semana'
+		dataType: string
+		lineageTag: 46e91f31-7f4f-440b-8152-78802d601cc0
+		summarizeBy: none
+		sourceColumn: Mes.Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome do Dia'
+		dataType: string
+		lineageTag: ca1456c2-07ed-5dd6-bb18-09c0e8969257
+		summarizeBy: none
+		sourceColumn: Nome do Dia
+		sortByColumn: 'Dia da Semana'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dia da Semana'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 41bba0e4-089e-4c5d-9dd1-82024ecda85d
+		summarizeBy: none
+		sourceColumn: Dia da Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: int64
+		formatString: 0
+		lineageTag: 925abac0-083d-4fe9-ab23-1d880b656820
+		summarizeBy: none
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes.Ano'
+		dataType: string
+		lineageTag: b42168b1-8bd7-5d52-8fa2-8f3fb7267f49
+		summarizeBy: none
+		sourceColumn: Mes.Ano
+		sortByColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Ano vezes cem mais o mês; ordena o Mes.Ano em ordem cronológica.
+	column Ordem
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 96dda62f-31c4-4a52-b308-a916f2337636
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Calendario = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    // a janela vem do manifesto que o gerador grava junto da base: começa na primeira venda e
+				    // termina na data de corte, sem reler o arquivo de vendas só para achar a menor e a maior data
+				    Manifesto = Json.Document(File.Contents(pPastaDados & "_manifesto.json")),
+				    Inicio = Date.FromText(Manifesto[parametros][inicio], [Format = "yyyy-MM-dd"]),
+				    Fim = Date.FromText(Manifesto[parametros][hoje], [Format = "yyyy-MM-dd"]),
+				    Fonte = fn_Calendario(Inicio, Fim)
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

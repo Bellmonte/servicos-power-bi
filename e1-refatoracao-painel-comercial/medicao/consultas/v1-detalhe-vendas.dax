@@ -1,0 +1,39 @@
+// consulta: dvTabelaLinhas
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			ROLLUPADDISSUBTOTAL(
+				ROLLUPGROUP('Vendas'[numero_pedido], 'Vendas'[data], 'Vendas'[cliente], 'Vendas'[produto]), "IsGrandTotalRowTotal"
+			),
+			"Sumquantidade", CALCULATE(SUM('Vendas'[quantidade])),
+			"Sumreceita_bruta", CALCULATE(SUM('Vendas'[receita_bruta])),
+			"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida])),
+			"Sumcusto_total", CALCULATE(SUM('Vendas'[custo_total])),
+			"SumLucro", CALCULATE(SUM('Vendas'[Lucro]))
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(
+			502,
+			__DS0Core,
+			[IsGrandTotalRowTotal],
+			0,
+			'Vendas'[numero_pedido],
+			1,
+			'Vendas'[data],
+			1,
+			'Vendas'[cliente],
+			1,
+			'Vendas'[produto],
+			1
+		)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[IsGrandTotalRowTotal] DESC,
+	'Vendas'[numero_pedido],
+	'Vendas'[data],
+	'Vendas'[cliente],
+	'Vendas'[produto]

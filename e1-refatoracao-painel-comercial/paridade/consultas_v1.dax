@@ -1,0 +1,427 @@
+// corte: total
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_receita_ano_anterior] = [Receita Ano Anterior]
+    MEASURE Vendas[par_receita_acumulada_ano] = [Receita Acumulada no Ano]
+    MEASURE Vendas[par_crescimento_pct] = [Crescimento sobre Ano Anterior %]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+    ROW(
+        "corte", "total",
+        "chave", "total",
+        "receita_bruta", [par_receita_bruta],
+        "receita_liquida", [par_receita_liquida],
+        "custo", [par_custo],
+        "margem", [par_margem],
+        "margem_pct", [par_margem_pct],
+        "quantidade", [par_quantidade],
+        "linhas", [par_linhas],
+        "pedidos", [par_pedidos],
+        "ticket_medio", [par_ticket_medio],
+        "clientes_com_compra", [par_clientes_com_compra],
+        "receita_premium", [par_receita_premium],
+        "receita_ano_anterior", [par_receita_ano_anterior],
+        "receita_acumulada_ano", [par_receita_acumulada_ano],
+        "crescimento_pct", [par_crescimento_pct],
+        "participacao", [par_participacao],
+        "peso_mercado", [par_peso_mercado]
+    )
+
+// corte: ano_mes
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_receita_ano_anterior] = [Receita Ano Anterior]
+    MEASURE Vendas[par_receita_acumulada_ano] = [Receita Acumulada no Ano]
+    MEASURE Vendas[par_crescimento_pct] = [Crescimento sobre Ano Anterior %]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[ano_mes],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_margem_pct", [par_margem_pct],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_ticket_medio", [par_ticket_medio],
+        "v_clientes_com_compra", [par_clientes_com_compra],
+        "v_receita_premium", [par_receita_premium],
+        "v_receita_ano_anterior", [par_receita_ano_anterior],
+        "v_receita_acumulada_ano", [par_receita_acumulada_ano],
+        "v_crescimento_pct", [par_crescimento_pct],
+        "v_participacao", [par_participacao],
+        "v_peso_mercado", [par_peso_mercado]
+    ),
+    "corte", "ano_mes",
+    "chave", Vendas[ano_mes],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "margem_pct", [v_margem_pct],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "ticket_medio", [v_ticket_medio],
+    "clientes_com_compra", [v_clientes_com_compra],
+    "receita_premium", [v_receita_premium],
+    "receita_ano_anterior", [v_receita_ano_anterior],
+    "receita_acumulada_ano", [v_receita_acumulada_ano],
+    "crescimento_pct", [v_crescimento_pct],
+    "participacao", [v_participacao],
+    "peso_mercado", [v_peso_mercado]
+)
+ORDER BY [chave]
+
+// corte: regiao
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[regiao],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_margem_pct", [par_margem_pct],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_ticket_medio", [par_ticket_medio],
+        "v_clientes_com_compra", [par_clientes_com_compra],
+        "v_receita_premium", [par_receita_premium],
+        "v_participacao", [par_participacao],
+        "v_peso_mercado", [par_peso_mercado]
+    ),
+    "corte", "regiao",
+    "chave", Vendas[regiao],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "margem_pct", [v_margem_pct],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "ticket_medio", [v_ticket_medio],
+    "clientes_com_compra", [v_clientes_com_compra],
+    "receita_premium", [v_receita_premium],
+    "participacao", [v_participacao],
+    "peso_mercado", [v_peso_mercado]
+)
+ORDER BY [chave]
+
+// corte: categoria
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[categoria],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_margem_pct", [par_margem_pct],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_ticket_medio", [par_ticket_medio],
+        "v_clientes_com_compra", [par_clientes_com_compra],
+        "v_receita_premium", [par_receita_premium],
+        "v_participacao", [par_participacao],
+        "v_peso_mercado", [par_peso_mercado]
+    ),
+    "corte", "categoria",
+    "chave", Vendas[categoria],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "margem_pct", [v_margem_pct],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "ticket_medio", [v_ticket_medio],
+    "clientes_com_compra", [v_clientes_com_compra],
+    "receita_premium", [v_receita_premium],
+    "participacao", [v_participacao],
+    "peso_mercado", [v_peso_mercado]
+)
+ORDER BY [chave]
+
+// corte: porte
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[porte],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_margem_pct", [par_margem_pct],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_ticket_medio", [par_ticket_medio],
+        "v_clientes_com_compra", [par_clientes_com_compra],
+        "v_receita_premium", [par_receita_premium],
+        "v_participacao", [par_participacao],
+        "v_peso_mercado", [par_peso_mercado]
+    ),
+    "corte", "porte",
+    "chave", Vendas[porte],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "margem_pct", [v_margem_pct],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "ticket_medio", [v_ticket_medio],
+    "clientes_com_compra", [v_clientes_com_compra],
+    "receita_premium", [v_receita_premium],
+    "participacao", [v_participacao],
+    "peso_mercado", [v_peso_mercado]
+)
+ORDER BY [chave]
+
+// corte: vendedor
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[vendedor_id],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_clientes_com_compra", [par_clientes_com_compra]
+    ),
+    "corte", "vendedor",
+    "chave", Vendas[vendedor_id],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "clientes_com_compra", [v_clientes_com_compra]
+)
+ORDER BY [chave]
+
+// corte: cliente
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[cliente_id],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_clientes_com_compra", [par_clientes_com_compra]
+    ),
+    "corte", "cliente",
+    "chave", Vendas[cliente_id],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "clientes_com_compra", [v_clientes_com_compra]
+)
+ORDER BY [chave]
+
+// corte: ano_mes_regiao
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_receita_ano_anterior] = [Receita Ano Anterior]
+    MEASURE Vendas[par_receita_acumulada_ano] = [Receita Acumulada no Ano]
+    MEASURE Vendas[par_crescimento_pct] = [Crescimento sobre Ano Anterior %]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+SELECTCOLUMNS(
+    SUMMARIZECOLUMNS(
+        Vendas[ano_mes], Vendas[regiao],
+        "v_receita_bruta", [par_receita_bruta],
+        "v_receita_liquida", [par_receita_liquida],
+        "v_custo", [par_custo],
+        "v_margem", [par_margem],
+        "v_margem_pct", [par_margem_pct],
+        "v_quantidade", [par_quantidade],
+        "v_linhas", [par_linhas],
+        "v_pedidos", [par_pedidos],
+        "v_ticket_medio", [par_ticket_medio],
+        "v_clientes_com_compra", [par_clientes_com_compra],
+        "v_receita_premium", [par_receita_premium],
+        "v_receita_ano_anterior", [par_receita_ano_anterior],
+        "v_receita_acumulada_ano", [par_receita_acumulada_ano],
+        "v_crescimento_pct", [par_crescimento_pct],
+        "v_participacao", [par_participacao],
+        "v_peso_mercado", [par_peso_mercado]
+    ),
+    "corte", "ano_mes_regiao",
+    "chave", Vendas[ano_mes] & "|" & Vendas[regiao],
+    "receita_bruta", [v_receita_bruta],
+    "receita_liquida", [v_receita_liquida],
+    "custo", [v_custo],
+    "margem", [v_margem],
+    "margem_pct", [v_margem_pct],
+    "quantidade", [v_quantidade],
+    "linhas", [v_linhas],
+    "pedidos", [v_pedidos],
+    "ticket_medio", [v_ticket_medio],
+    "clientes_com_compra", [v_clientes_com_compra],
+    "receita_premium", [v_receita_premium],
+    "receita_ano_anterior", [v_receita_ano_anterior],
+    "receita_acumulada_ano", [v_receita_acumulada_ano],
+    "crescimento_pct", [v_crescimento_pct],
+    "participacao", [v_participacao],
+    "peso_mercado", [v_peso_mercado]
+)
+ORDER BY [chave]
+
+// corte: estado_b
+DEFINE
+    MEASURE Vendas[par_receita_bruta] = SUM(Vendas[receita_bruta])
+    MEASURE Vendas[par_receita_liquida] = SUM(Vendas[receita_liquida])
+    MEASURE Vendas[par_custo] = SUM(Vendas[custo_total])
+    MEASURE Vendas[par_margem] = SUM(Vendas[Lucro])
+    MEASURE Vendas[par_margem_pct] = [Margem %]
+    MEASURE Vendas[par_quantidade] = SUM(Vendas[quantidade])
+    MEASURE Vendas[par_linhas] = COUNTROWS(Vendas)
+    MEASURE Vendas[par_pedidos] = DISTINCTCOUNT(Vendas[numero_pedido])
+    MEASURE Vendas[par_ticket_medio] = [Ticket Médio]
+    MEASURE Vendas[par_clientes_com_compra] = [Clientes com Compra]
+    MEASURE Vendas[par_receita_premium] = [Receita Linha Premium]
+    MEASURE Vendas[par_receita_ano_anterior] = [Receita Ano Anterior]
+    MEASURE Vendas[par_receita_acumulada_ano] = [Receita Acumulada no Ano]
+    MEASURE Vendas[par_crescimento_pct] = [Crescimento sobre Ano Anterior %]
+    MEASURE Vendas[par_participacao] = [Participação na Receita]
+    MEASURE Vendas[par_peso_mercado] = SUM(Regioes[peso_mercado])
+EVALUATE
+    CALCULATETABLE(
+    ROW(
+        "corte", "estado_b",
+        "chave", "estado_b",
+        "receita_bruta", [par_receita_bruta],
+        "receita_liquida", [par_receita_liquida],
+        "custo", [par_custo],
+        "margem", [par_margem],
+        "margem_pct", [par_margem_pct],
+        "quantidade", [par_quantidade],
+        "linhas", [par_linhas],
+        "pedidos", [par_pedidos],
+        "ticket_medio", [par_ticket_medio],
+        "clientes_com_compra", [par_clientes_com_compra],
+        "receita_premium", [par_receita_premium],
+        "receita_ano_anterior", [par_receita_ano_anterior],
+        "receita_acumulada_ano", [par_receita_acumulada_ano],
+        "crescimento_pct", [par_crescimento_pct],
+        "participacao", [par_participacao],
+        "peso_mercado", [par_peso_mercado]
+    ),
+    Vendas[regiao] = "Sudeste", Vendas[ano] = 2026
+)

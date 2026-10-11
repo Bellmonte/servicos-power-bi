@@ -1,0 +1,85 @@
+/// Dimensão de produto, uma linha por produto, com a linha de produto a que ele pertence.
+table Dim_Produto
+	lineageTag: 5d3cc50f-545d-581b-a89e-1bc92c88ca41
+
+	column 'ID Produto'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f38c951e-8336-54ef-ae0a-b9414be6411c
+		summarizeBy: none
+		sourceColumn: ID Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Produto
+		dataType: string
+		lineageTag: 631b721b-a114-5737-8d78-6598effbab0c
+		summarizeBy: none
+		sourceColumn: Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Linha de Produto'
+		dataType: string
+		lineageTag: 5e049f5a-401c-5a87-9acc-6ffb8b58a03f
+		summarizeBy: none
+		sourceColumn: Linha de Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Preco Tabela'
+		dataType: double
+		formatString: \R\$ #,0.00
+		lineageTag: c0db0781-c62d-5978-b3a9-6cbeaf6c910f
+		summarizeBy: none
+		sourceColumn: Preco Tabela
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Custo Unitario'
+		dataType: double
+		formatString: \R\$ #,0.00
+		lineageTag: b6ac838b-a878-516c-be3f-b91b11eabacd
+		summarizeBy: none
+		sourceColumn: Custo Unitario
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Produto = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_produto.csv"),
+				        [Delimiter = ",", Columns = 5, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // o CSV usa ponto como separador decimal, por isso a cultura en-US
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ComCabecalho,
+				        {
+				            {"produto_id", Int64.Type},
+				            {"produto", type text},
+				            {"categoria", type text},
+				            {"preco_tabela", type number},
+				            {"custo_unitario", type number}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"produto_id", "ID Produto"},
+				            {"produto", "Produto"},
+				            {"categoria", "Linha de Produto"},
+				            {"preco_tabela", "Preco Tabela"},
+				            {"custo_unitario", "Custo Unitario"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

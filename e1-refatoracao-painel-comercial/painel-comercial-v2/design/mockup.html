@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel comercial reestruturado (v2) · mockup do episódio E1</title>
+<style>
+:root{
+  --tinta:#1B2430;--tinta2:#3D4756;--suave:#5F6B7A;--contorno:#7D8796;
+  --borda:#DDE2E8;--grade:#EDF0F3;--fundo:#F3F5F8;
+  --barra:#16263D;--barra-txt:#C9D3E0;
+  --acento:#1D5A8C;--acento-cl:#C9D8E8;--comp:#7D8796;
+  --bom:#1E7A4C;--ruim:#B3261E;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#D5DAE1;color:#1B2430;font-family:"Segoe UI","Segoe UI Web (West European)",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+.doc{padding:32px 32px 72px}
+.doc>header h1{font-size:22px;font-weight:600;margin:0 0 8px}
+.doc>header p{font-size:14px;line-height:1.55;color:#2E3744;margin:0 0 8px;max-width:1180px}
+.sec{margin-top:44px}
+.sec h2{font-size:17px;font-weight:600;margin:0 0 10px}
+.nota{font-size:13px;line-height:1.55;color:#2E3744;margin:10px 0 0;max-width:1280px}
+.capa{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.capa figure{margin:0}
+.rot{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3D4756;margin:0 0 6px}
+.capa figcaption{font-size:13px;line-height:1.5;color:#2E3744;margin-top:8px}
+.moldura{position:relative;overflow:hidden;outline:1px solid #AEB6C1;background:#fff}
+.canvas{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;transform-origin:0 0}
+
+/* ---------- painel v2 ---------- */
+.bb{background:var(--fundo);color:var(--tinta)}
+.bb .v{position:absolute;background:#fff;border:1px solid var(--borda);border-radius:4px;overflow:hidden}
+.bb .vt{position:absolute;left:12px;right:12px;top:10px;font-size:13.33px;font-weight:600;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb .vs{position:absolute;left:12px;right:12px;top:28px;font-size:10.67px;line-height:15px;color:var(--suave);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb .vb{position:absolute;left:12px;overflow:hidden}
+.bb .barra{position:absolute;left:0;top:0;width:1280px;height:48px;background:var(--barra)}
+.bb .marca{position:absolute;left:16px;top:0;line-height:48px;font-size:21.33px;font-weight:900;color:#fff}
+.bb .nav{position:absolute;left:184px;top:0;display:flex}
+.bb .nav span{width:180px;height:48px;line-height:48px;text-align:center;font-size:13.33px;color:var(--barra-txt)}
+.bb .nav span.on{background:var(--acento);color:#fff;font-weight:600}
+.bb .pergunta{position:absolute;left:16px;top:56px;height:48px}
+.bb .pergunta .q{font-size:17.33px;font-weight:600;line-height:26px;white-space:nowrap}
+.bb .pergunta .a{font-size:12px;line-height:20px;color:var(--suave);white-space:nowrap}
+.bb .seg{position:absolute;top:56px;height:48px}
+.bb .seg .h{font-size:10.67px;line-height:16px;color:var(--suave)}
+.bb .seg .box{position:relative;height:28px;margin-top:2px;background:#fff;border:1px solid var(--contorno);border-radius:2px;font-size:12px;line-height:26px;padding:0 24px 0 8px;white-space:nowrap;overflow:hidden}
+.bb .seg .box svg{position:absolute;right:8px;top:10px}
+.bb .rodape{position:absolute;left:16px;top:692px;width:1248px;height:20px;line-height:20px;text-align:right;font-size:10.67px;color:var(--suave)}
+.bb .rodape b{font-weight:600;color:var(--tinta2)}
+.bb .voltar{position:absolute;left:752px;top:64px;width:92px;height:32px;border:1px solid var(--contorno);border-radius:2px;background:#fff;color:var(--acento);font-size:12px;line-height:30px;text-align:center}
+.bb .cartao{display:flex}
+.bb .cel{flex:1 1 0;min-width:0;padding:8px 16px 0;border-left:1px solid var(--borda)}
+.bb .cel:first-child{border-left:0}
+.bb .cel .r{font-size:12px;line-height:15px;color:var(--suave)}
+.bb .cel .n{font-size:26.67px;line-height:32px;font-weight:600;white-space:nowrap}
+.bb .cel .ref{font-size:10.67px;line-height:14px;color:var(--suave);white-space:nowrap}
+.bb .cel .ref b{font-weight:600;color:var(--tinta)}
+.bb .cel .ref b.bom{color:var(--bom)}
+.bb svg text{font-family:inherit;font-size:10.67px;fill:var(--suave)}
+.bb svg text.cat{font-size:12px;fill:var(--tinta2)}
+.bb svg text.dl{fill:var(--tinta2)}
+.bb svg text.ano{font-weight:600;fill:var(--tinta2)}
+.bb .leg{font-size:10.67px;color:var(--tinta2);height:16px;line-height:16px;white-space:nowrap}
+.bb .leg span{margin-right:18px}
+.bb .leg i{display:inline-block;vertical-align:middle;margin:-2px 6px 0 0}
+.bb .leg i.q{width:10px;height:10px;background:var(--acento)}
+.bb .leg i.l{width:18px;height:0;border-top:2px dashed var(--comp)}
+.bb table{border-collapse:collapse;table-layout:fixed;font-size:12px}
+.bb th{font-size:10.67px;font-weight:600;color:var(--tinta2);text-align:left;height:24px;padding:0 6px 4px;border-bottom:1px solid #C9D0D9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+.bb td{height:22px;padding:0 6px;border-bottom:1px solid var(--grade);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb table.compacta td{height:20px}
+.bb .num{text-align:right;font-variant-numeric:tabular-nums}
+.bb td.db{position:relative}
+.bb td.db .bar{position:absolute;left:6px;top:4px;bottom:4px;background:var(--acento-cl)}
+.bb td.db .val{position:relative}
+.bb .tabfix{position:absolute;left:0;bottom:0}
+.bb tr.tot td{font-weight:600;background:var(--fundo);border-top:1px solid #C9D0D9;border-bottom:0}
+.bb th.grp{border-bottom:1px solid var(--borda);height:22px;padding-bottom:3px}
+.bb .dica{position:absolute;width:280px;background:#fff;border:1px solid var(--borda);box-shadow:0 2px 8px rgba(22,38,61,.18);padding:8px 10px;font-size:12px;line-height:19px;z-index:5}
+.bb .dica div{display:flex;justify-content:space-between;gap:12px}
+.bb .dica .k{color:var(--suave)}
+.bb .dica .n{font-weight:600;color:var(--tinta)}
+.bb .dica .n.bom{color:var(--bom)}
+
+/* ---------- painel v1, esquemático no padrão do Power BI ---------- */
+.pbi{background:#fff;color:#252423}
+.pbi .pv{position:absolute;overflow:hidden}
+.pbi .pt{font-size:12px;line-height:16px;padding:4px 6px 0;color:#252423;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbi .dd{margin:4px 6px 0;height:24px;border:1px solid #C8C6C4;font-size:12px;line-height:22px;padding:0 6px;color:#605E5C}
+.pbi .li{font-size:11px;line-height:16px;padding:0 6px;white-space:nowrap}
+.pbi .li i{display:inline-block;width:10px;height:10px;border:1px solid #605E5C;margin-right:5px;vertical-align:-1px}
+.pbi .cv{text-align:center;font-size:24px;line-height:30px;margin-top:12px}
+.pbi .cl{text-align:center;font-size:11px;line-height:14px;color:#605E5C;padding:0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbi svg text{font-family:inherit;font-size:9px;fill:#605E5C}
+.pbi table{border-collapse:collapse;font-size:10px;width:100%;table-layout:fixed}
+.pbi th{font-weight:600;text-align:left;padding:2px 4px;border-bottom:1px solid #C8C6C4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbi td{padding:3px 4px;white-space:nowrap;overflow:hidden}
+.pbi .sk{display:inline-block;height:6px;background:#E1DFDD;border-radius:1px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="doc">
+  <header>
+    <h1>Painel comercial reestruturado (v2), mockup</h1>
+    <p>Episódio E1 do portfólio de BI, a demonstração do serviço de refatoração de painel. Cada página tem 1280 x 720 e foi desenhada só com o que o Power BI Desktop faz com visuais nativos. Os números vêm da base sintética de 1 milhão de linhas (semente 42, janela de set/2023 a ago/2026), no estado A do protocolo de medição, sem nenhum filtro. O sistema visual está em <code>SISTEMA_VISUAL.md</code> e o layout, com a paridade de cada indicador, em <code>LAYOUT.md</code>.</p>
+    <p>Onde um corte não faz parte da paridade e por isso não havia número calculado, o bloco está declarado como ilustrativo na nota da página.</p>
+    <noscript><p><b>Os gráficos deste mockup são desenhados por JavaScript embutido no próprio arquivo. Habilite scripts para ver as páginas.</b></p></noscript>
+  </header>
+
+  <section class="sec">
+    <h2>Capa do episódio: a Visão geral na v1 e na v2</h2>
+    <div class="capa">
+      <figure>
+        <div class="rot">Painel de partida (v1)</div>
+        <div class="moldura" data-modo="capa"><div class="canvas pbi" id="capa-antes"></div></div>
+        <figcaption>A v1 abre a página com 22 visuais e 19 consultas, títulos automáticos e tema padrão. Representação esquemática nas posições reais do PBIR; a matriz e a tabela aparecem só como estrutura.</figcaption>
+      </figure>
+      <figure>
+        <div class="rot">Painel reestruturado (v2)</div>
+        <div class="moldura" data-modo="capa"><div class="canvas bb" id="capa-depois"></div></div>
+        <figcaption>A v2 tem 13 elementos, 9 deles consultam o modelo, e os mesmos números: 494.493 comparações sem divergência na base de 1 milhão de linhas. A tabela de produtos tem valores ilustrativos.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Página 1, Visão geral</h2>
+    <div class="moldura" data-modo="pagina"><div class="canvas bb" id="p1"></div></div>
+    <p class="nota">O cartão, o gráfico mensal e as três composições trazem os números da base no estado A. A dica de ferramenta aberta em ago/2026 mostra para onde foi o acumulado no ano, que na v1 ocupava um gráfico próprio. Na tabela de produtos, os nomes vêm do cadastro e os valores são ilustrativos, porque o corte por produto não faz parte da paridade; no painel, o filtro Top 20 preenche a tabela sozinho. O +55,1% do cartão compara a janela inteira com a janela deslocada em um ano, e é por isso que o print de capa recomendado é com 2026 escolhido (decisão 2 do <code>LAYOUT.md</code>). O rótulo "Médio" depende da correção de acento no gerador (decisão 3); a base de hoje grava "Medio".</p>
+  </section>
+
+  <section class="sec">
+    <h2>Página 2, Clientes e vendedores</h2>
+    <div class="moldura" data-modo="pagina"><div class="canvas bb" id="p2"></div></div>
+    <p class="nota">O ranking de clientes com o total, a tabela de regiões e a ordem dos vendedores são da base. As células mensais da matriz são ilustrativas: o total de cada vendedor na base foi rateado pela sazonalidade mensal da base, porque o corte vendedor por mês não faz parte da paridade, e por isso todas as linhas repetem o mesmo desenho de cor. No painel, cada vendedor terá o seu. No estado A a matriz tem 36 meses e rola para a direita; com um ano escolhido, os meses e o total cabem na largura.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Página 3, Clientes por trimestre</h2>
+    <div class="moldura" data-modo="pagina"><div class="canvas bb" id="p3"></div></div>
+    <p class="nota">A lista e a ordem dos clientes e a margem total de cada um são da base. Os valores por trimestre são ilustrativos, rateados pela receita de cada trimestre na base, e a margem se repete em todos os trimestres pelo mesmo motivo.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Página 4, Detalhe de vendas</h2>
+    <div class="moldura" data-modo="pagina"><div class="canvas bb" id="p4"></div></div>
+    <p class="nota">Linhas dos quatro primeiros pedidos da base, em ordem de emissão, e o total da base inteira na última linha. É a página de referência da medição, e a tabela mantém os mesmos campos e a mesma ordem da v1.</p>
+  </section>
+</div>
+
+<script>
+/* ---------- dados da base de 1 milhão de linhas, estado A ---------- */
+const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+/* ano_mes, receita líquida, receita ano anterior, receita acumulada no ano, crescimento, margem */
+const M=[
+['2023-09',57267356.65,null,57267356.65,null,23357654.96],
+['2023-10',59970829.64,null,117238186.29,null,24520208.84],
+['2023-11',63541953.07,null,180780139.36,null,25955411.61],
+['2023-12',67389583.29,null,248169722.65,null,27512808.60],
+['2024-01',45934914.30,null,45934914.30,null,18688014.52],
+['2024-02',39300666.77,null,85235581.07,null,16030666.31],
+['2024-03',50844019.65,null,136079600.72,null,20701010.04],
+['2024-04',51832831.24,null,187912431.96,null,21133240.10],
+['2024-05',56975667.68,null,244888099.64,null,23259847.35],
+['2024-06',50319576.03,null,295207675.67,null,20528021.43],
+['2024-07',56138414.76,null,351346090.43,null,22938973.08],
+['2024-08',58360655.68,null,409706746.11,null,23827732.64],
+['2024-09',62192176.38,57267356.65,471898922.49,0.08599698009633913,25433674.36],
+['2024-10',68033786.95,59970829.64,539932709.44,0.1344479867695891,27707874.76],
+['2024-11',66872319.74,63541953.07,606805029.18,0.05241209168265815,27297184.72],
+['2024-12',73987105.01,67389583.29,680792134.19,0.09790120962179936,30247779.62],
+['2025-01',47969609.75,45934914.30,47969609.75,0.044295183326378884,19561689.90],
+['2025-02',42073710.33,39300666.77,90043320.08,0.07055970770747294,17139485.55],
+['2025-03',53582665.31,50844019.65,143625985.39,0.05386367322749636,21855214.89],
+['2025-04',54957963.08,51832831.24,198583948.47,0.060292516639305155,22405125.95],
+['2025-05',58963692.11,56975667.68,257547640.58,0.034892516594375075,24049174.22],
+['2025-06',56150136.49,50319576.03,313697777.07,0.1158706197469526,22935834.79],
+['2025-07',62046382.21,56138414.76,375744159.28,0.1052392996000588,25290740.02],
+['2025-08',63383343.95,58360655.68,439127503.23,0.08606291707105103,25831103.19],
+['2025-09',68121240.18,62192176.38,507248743.41,0.0953345604722509,27794219.58],
+['2025-10',74837311.94,68033786.95,582086055.35,0.10000215032863159,30593395.93],
+['2025-11',69575550.29,66872319.74,651661605.64,0.0404237591952871,28349196.09],
+['2025-12',77093913.87,73987105.01,728755519.51,0.04199122076178122,31565413.16],
+['2026-01',48970187.62,47969609.75,48970187.62,0.020858578487810135,19948065.00],
+['2026-02',43635354.96,42073710.33,92605542.58,0.037116874593455966,17813262.96],
+['2026-03',55446710.98,53582665.31,148052253.56,0.034788222258367425,22588486.34],
+['2026-04',61538124.13,54957963.08,209590377.69,0.11973080298521145,25166785.18],
+['2026-05',61520928.30,58963692.11,271111305.99,0.04336967544755056,25134176.79],
+['2026-06',60283536.58,56150136.49,331394842.57,0.07361335783638086,24566034.45],
+['2026-07',67222360.42,62046382.21,398617202.99,0.08342111216866065,27487605.94],
+['2026-08',65105601.78,63383343.95,463722804.77,0.02717208848051,26550995.92]
+];
+const T={receita:2121440181.12,aa:1368089360.07,cresc:0.550659074646596,margem:865766108.79,mpct:0.408103003089592,
+  qtd:7496011,pedidos:249858,ticket:8490.583375837476,clientes:20000,premium:1415255258.84,
+  bruta:2269792566.82,custo:1255674072.33};
+/* região, receita líquida, participação, peso de mercado */
+const REG=[['Sudeste',718691665.37,0.33877536202343994,0.34],['Sul',475787265.60,0.22427559816879275,0.22],
+  ['Centro-Oeste',421752933.47,0.19880500860850975,0.20],['Nordeste',344584073.52,0.16242931409834954,0.16],
+  ['Norte',160624243.16,0.07571471710090809,0.08]];
+const CAT=[['Linha Premium',1415255258.84],['Linha Performance',518958370.01],['Linha Essencial',187226552.27]];
+const POR=[['Grande',796572915.94],['Médio',842468693.82],['Pequeno',482398571.36]];
+/* vendedores de maior receita líquida, com o total da base */
+const VEND=[['Maria Júlia Fogaça',24572075.88],['Théo Pimenta',24426125.42],['Carlos Eduardo Gomes',23251629.49],
+  ['Ana Liz Monteiro',22693651.91],['Dra. Nina Teixeira',22273383.73],['Henry Gabriel Monteiro',22165871.40],
+  ['Lavínia da Luz',21822764.32],['Marina Novaes',21779248.15],['João Vitor Monteiro',21754050.75],
+  ['Emilly Brito',21433067.21],['Marcos Vinicius Pimenta',21015659.36]];
+const VEND_MIN=6746421.28; /* menor total de vendedor na base, para a escala de cor */
+/* clientes de maior receita líquida: nome, receita, margem, pedidos */
+const CLI=[['da Mota 53',813161.91,311946.38,24],['Duarte 35',804848.19,315357.42,23],['Freitas 8',773853.93,307409.53,19],
+  ['Fernandes 9',772303.30,314103.27,18],['Rodrigues 25',752842.82,304145.85,24],['Costela 17',742966.00,294494.39,17],
+  ['Cavalcanti 68',732433.39,288202.33,23],['Lopes 33',716345.71,284202.31,21],['Fogaça 14',701946.53,272100.24,21],
+  ['das Neves 56',700193.94,289595.21,20],['Casa Grande - EI 9',694611.05,268695.89,21],['Brito 30',691329.71,272146.39,19],
+  ['Campos Ltda. 4',688953.30,271242.95,16],['Silva Sousa e Filhos',681063.75,270456.46,18],['Cunha Santos - EI',678451.69,255442.90,25],
+  ['Castro 2',674075.18,269505.78,21],['Peixoto 26',673553.54,270090.85,16],['Pacheco Jesus S.A.',670885.39,265066.23,20],
+  ['Fogaça 22',665582.00,267529.60,17],['Cassiano 36',662009.31,259288.10,22],['da Luz 51',655240.33,260802.57,13],
+  ['Aragão Ltda. 3',655128.58,251004.77,22]];
+/* ILUSTRATIVO: nomes do cadastro, valores estimados pelo preço de tabela; o corte por produto não está na paridade */
+const PROD=[['Harum H745',4213870.55,5007,0.430],['Quisquam C678',3792160.30,5007,0.458],['Consectetur G161',3610457.12,5003,0.465],
+  ['Quisquam L532',3389214.87,5002,0.438],['Aperiam X814',3046930.64,5003,0.447],['Ipsa F677',2961282.19,5005,0.448],
+  ['Saepe K984',2677544.03,5005,0.451],['Dolore W729',2381405.76,5002,0.424]];
+/* primeiras linhas da base, pedidos 1 a 4 */
+const DET=[
+['PV-000000001','Fonseca Castro e Filhos','Amet J407',1,177.71,175.76,102.21,73.55],
+['PV-000000001','Fonseca Castro e Filhos','Quam D748',7,922.39,868.89,562.10,306.79],
+['PV-000000001','Fonseca Castro e Filhos','Quia I886',3,477.87,463.06,278.01,185.05],
+['PV-000000001','Fonseca Castro e Filhos','Quisquam L532',4,2852.84,2775.81,1523.12,1252.69],
+['PV-000000001','Fonseca Castro e Filhos','Rerum K786',5,1007.35,926.76,611.00,315.76],
+['PV-000000001','Fonseca Castro e Filhos','Velit V467',1,439.95,416.63,244.94,171.69],
+['PV-000000002','Sousa 94','Quisquam M772',5,526.05,525.52,354.75,170.77],
+['PV-000000003','Freitas Machado - EI','Harum Y889',6,1174.86,1078.52,706.86,371.66],
+['PV-000000003','Freitas Machado - EI','Ipsa F677',3,1868.52,1691.01,979.74,711.27],
+['PV-000000003','Freitas Machado - EI','Nulla M512',4,427.48,384.73,270.92,113.81],
+['PV-000000004','Rios - ME 5','A J269',5,2444.85,2369.06,1277.30,1091.76],
+['PV-000000004','Rios - ME 5','Dolores S382',6,708.18,647.98,478.56,169.42],
+['PV-000000004','Rios - ME 5','Eius N293',1,274.98,250.23,164.90,85.33],
+['PV-000000004','Rios - ME 5','Exercitationem L566',4,1119.88,1086.28,651.96,434.32],
+['PV-000000004','Rios - ME 5','Inventore T940',7,1690.08,1532.90,1001.91,530.99],
+['PV-000000004','Rios - ME 5','Perspiciatis O148',3,931.92,926.33,531.90,394.43],
+['PV-000000004','Rios - ME 5','Quaerat G603',1,184.93,177.16,111.34,65.82],
+['PV-000000004','Rios - ME 5','Quis L178',1,134.26,124.86,86.87,37.99],
+['PV-000000004','Rios - ME 5','Saepe K984',2,1126.36,1113.97,587.08,526.89],
+['PV-000000004','Rios - ME 5','Temporibus F579',2,277.24,255.89,175.52,80.37],
+['PV-000000004','Rios - ME 5','Veniam C840',3,514.02,478.55,331.59,146.96]
+];
+
+/* ---------- formato pt-BR ---------- */
+const nf=(x,d)=>x.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl=(x,d=2)=>'R$ '+nf(x,d);
+const mi=(x,d=1)=>'R$ '+nf(x/1e6,d)+' Mi';
+const bi=(x,d=2)=>'R$ '+nf(x/1e9,d)+' Bi';
+const pc=(x,d=1)=>nf(x*100,d)+'%';
+const it=x=>nf(x,0);
+const f1=x=>x.toFixed(1);
+function mistura(a,b,t){
+  t=Math.max(0,Math.min(1,t));
+  const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  const A=p(a),B=p(b);
+  return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')+')';
+}
+
+/* ---------- blocos do painel v2 ---------- */
+const PAGINAS=['Visão geral','Clientes e vendedores','Clientes por trimestre','Detalhe de vendas'];
+function seg(x,w,rot,val){
+  return `<div class="seg" style="left:${x}px;width:${w}px"><div class="h">${rot}</div><div class="box">${val}`+
+    `<svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="#3D4756" stroke-width="1.5"/></svg></div></div>`;
+}
+function moldura(p,q,a,largQ){
+  return `<div class="barra"></div><div class="marca">B&amp;B</div>`+
+    `<div class="nav">${PAGINAS.map((n,i)=>`<span class="${i===p?'on':''}">${n}</span>`).join('')}</div>`+
+    `<div class="pergunta" style="width:${largQ||828}px"><div class="q">${q}</div><div class="a">${a}</div></div>`+
+    seg(856,96,'Ano','Todos')+seg(964,132,'Mês','Todos')+seg(1108,156,'Região','Todas')+
+    `<div class="rodape">Dado 100% sintético, gerado para demonstração · janela de set/2023 a ago/2026 &nbsp;·&nbsp; <b>B&amp;B · Matheus Belmonte</b></div>`;
+}
+function V(o){
+  const topo=o.t?(o.s?51:36):10;
+  const bw=o.w-26, bh=o.h-2-topo-10;
+  return `<div class="v" style="left:${o.x}px;top:${o.y}px;width:${o.w}px;height:${o.h}px">`+
+    (o.t?`<div class="vt">${o.t}</div>`:'')+(o.s?`<div class="vs">${o.s}</div>`:'')+
+    `<div class="vb" style="top:${topo}px;width:${bw}px;height:${bh}px">${o.corpo(bw,bh)}</div></div>`;
+}
+function cartao(){
+  const c=[
+    ['Receita líquida',bi(T.receita),[`<b class="bom">▲ +${pc(T.cresc)}</b> vs ano anterior`,`Ano anterior <b>${bi(T.aa)}</b>`]],
+    ['Margem',mi(T.margem,2),[`Margem % <b>${pc(T.mpct)}</b>`]],
+    ['Pedidos',it(T.pedidos),[`Ticket médio <b>${brl(T.ticket,0)}</b>`,`Unidades vendidas <b>${it(T.qtd)}</b>`]],
+    ['Clientes com compra',it(T.clientes),[]],
+    ['Receita da Linha Premium',bi(T.premium),[]]
+  ];
+  return `<div class="v cartao" style="left:16px;top:112px;width:1248px;height:88px">`+
+    c.map(k=>`<div class="cel"><div class="r">${k[0]}</div><div class="n">${k[1]}</div>${k[2].map(r=>`<div class="ref">${r}</div>`).join('')}</div>`).join('')+
+    `</div>`;
+}
+const CPL=58, CPR=4;
+function combo(w,h){
+  const pt=6,pb=34,pw=w-CPL-CPR,ph=h-pt-pb,n=M.length,b=pw/n,cw=b*0.62,ymax=80e6;
+  const Y=v=>pt+ph*(1-v/ymax);
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Receita líquida por mês comparada ao mesmo mês do ano anterior">`;
+  for(let t=0;t<=ymax;t+=20e6){
+    const y=Y(t);
+    s+=`<line x1="${CPL}" x2="${w-CPR}" y1="${f1(y)}" y2="${f1(y)}" stroke="#EDF0F3"/>`+
+       `<text x="${CPL-6}" y="${f1(y+3.5)}" text-anchor="end">R$ ${t/1e6} Mi</text>`;
+  }
+  M.forEach((m,i)=>{const x=CPL+i*b+(b-cw)/2,y=Y(m[1]);
+    s+=`<rect x="${f1(x)}" y="${f1(y)}" width="${f1(cw)}" height="${f1(pt+ph-y)}" fill="#1D5A8C"/>`;});
+  const pts=M.map((m,i)=>m[2]==null?null:`${f1(CPL+i*b+b/2)},${f1(Y(m[2]))}`).filter(Boolean).join(' ');
+  s+=`<polyline points="${pts}" fill="none" stroke="#7D8796" stroke-width="2" stroke-dasharray="5 3" stroke-linejoin="round"/>`;
+  s+=`<line x1="${CPL}" x2="${w-CPR}" y1="${pt+ph}" y2="${pt+ph}" stroke="#C9D0D9"/>`;
+  M.forEach((m,i)=>{s+=`<text x="${f1(CPL+i*b+b/2)}" y="${pt+ph+13}" text-anchor="middle">${MES[+m[0].slice(5)-1]}</text>`;});
+  let ini=0;
+  for(let i=1;i<=n;i++){
+    if(i===n||M[i][0].slice(0,4)!==M[ini][0].slice(0,4)){
+      const x0=CPL+ini*b,x1=CPL+i*b;
+      if(ini>0) s+=`<line x1="${f1(x0)}" x2="${f1(x0)}" y1="${pt+ph+3}" y2="${pt+ph+33}" stroke="#DDE2E8"/>`;
+      s+=`<text class="ano" x="${f1((x0+x1)/2)}" y="${pt+ph+30}" text-anchor="middle">${M[ini][0].slice(0,4)}</text>`;
+      ini=i;
+    }
+  }
+  return s+'</svg>';
+}
+function corpoCombo(dica){
+  return (bw,bh)=>{
+    let h=`<div class="leg"><span><i class="q"></i>Receita líquida</span><span><i class="l"></i>Mesmo mês do ano anterior</span></div>`+
+      `<div style="margin-top:2px">${combo(bw,bh-18)}</div>`;
+    if(dica){
+      const b=(bw-CPL-CPR)/M.length, xc=CPL+35.5*b, m=M[35];
+      h+=`<div class="dica" style="left:${Math.round(xc-280-14)}px;top:4px">`+
+        `<div><span class="k">Ano</span><span class="n">2026</span></div>`+
+        `<div><span class="k">Mês</span><span class="n">ago</span></div>`+
+        `<div><span class="k">Receita líquida</span><span class="n">${brl(m[1])}</span></div>`+
+        `<div><span class="k">Receita ano anterior</span><span class="n">${brl(m[2])}</span></div>`+
+        `<div><span class="k">Receita acumulada no ano</span><span class="n">${brl(m[3])}</span></div>`+
+        `<div><span class="k">Crescimento sobre ano anterior</span><span class="n bom">▲ +${pc(m[4])}</span></div></div>`;
+    }
+    return h;
+  };
+}
+function barras(w,h,itens,fmt,labW){
+  const valW=84,pw=w-labW-valW,n=itens.length,band=h/n,bh=Math.min(22,band*0.6),max=Math.max(...itens.map(d=>d[1]));
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Receita líquida por região">`;
+  itens.forEach((d,i)=>{const yc=i*band+band/2,L=pw*d[1]/max;
+    s+=`<text class="cat" x="${labW-8}" y="${f1(yc+4)}" text-anchor="end">${d[0]}</text>`+
+       `<rect x="${labW}" y="${f1(yc-bh/2)}" width="${f1(L)}" height="${f1(bh)}" fill="#1D5A8C"/>`+
+       `<text class="dl" x="${f1(labW+L+6)}" y="${f1(yc+4)}">${fmt(d[1])}</text>`;});
+  return s+'</svg>';
+}
+function colunas(w,h,itens,fmt,rotulo){
+  const pt=22,pb=36,ph=h-pt-pb,n=itens.length,band=w/n,cw=Math.min(56,band*0.5),max=Math.max(...itens.map(d=>d[1]));
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${rotulo}">`;
+  itens.forEach((d,i)=>{const xc=i*band+band/2,H=ph*d[1]/max,y=pt+ph-H;
+    s+=`<rect x="${f1(xc-cw/2)}" y="${f1(y)}" width="${f1(cw)}" height="${f1(H)}" fill="#1D5A8C"/>`+
+       `<text class="dl" x="${f1(xc)}" y="${f1(y-6)}" text-anchor="middle">${fmt(d[1])}</text>`;
+    const partes=d[0].split(' ');
+    if(partes.length>1&&d[0].length>10){
+      s+=`<text class="cat" x="${f1(xc)}" y="${pt+ph+16}" text-anchor="middle">${partes[0]}</text>`+
+         `<text class="cat" x="${f1(xc)}" y="${pt+ph+31}" text-anchor="middle">${partes.slice(1).join(' ')}</text>`;
+    } else s+=`<text class="cat" x="${f1(xc)}" y="${pt+ph+16}" text-anchor="middle">${d[0]}</text>`;
+  });
+  s+=`<line x1="0" x2="${w}" y1="${pt+ph}" y2="${pt+ph}" stroke="#C9D0D9"/>`;
+  return s+'</svg>';
+}
+function cel(c,v){
+  if(v&&typeof v==='object')
+    return `<td class="num db"><span class="bar" style="width:${Math.max(1,v.f*(c.w-12)).toFixed(0)}px"></span><span class="val">${v.t}</span></td>`;
+  return `<td class="${c.n?'num':''}">${v}</td>`;
+}
+function tab(cols,linhas,tot,cls){
+  const W=cols.reduce((a,c)=>a+c.w,0);
+  const cg=`<colgroup>${cols.map(c=>`<col style="width:${c.w}px">`).join('')}</colgroup>`;
+  let s=`<table class="${cls||''}" style="width:${W}px">${cg}<thead><tr>${cols.map(c=>`<th class="${c.n?'num':''}">${c.t}</th>`).join('')}</tr></thead><tbody>`;
+  linhas.forEach(r=>{s+='<tr>'+r.map((v,j)=>cel(cols[j],v)).join('')+'</tr>';});
+  s+='</tbody></table>';
+  if(tot) s+=`<table class="tabfix ${cls||''}" style="width:${W}px">${cg}<tbody><tr class="tot">${tot.map((v,j)=>`<td class="${cols[j].n?'num':''}">${v}</td>`).join('')}</tr></tbody></table>`;
+  return s;
+}
+
+/* ---------- páginas da v2 ---------- */
+function pagina1(dica){
+  return moldura(0,'Como estão a receita e a margem, e de onde vem a receita?',
+      'Ano, mês e região ao lado. Linha de produto, porte e vendedor ficam no painel de filtros, à direita.')+
+    cartao()+
+    V({x:16,y:212,w:828,h:232,t:'Receita líquida por mês',
+       s:'Colunas: mês · linha tracejada: mesmo mês do ano anterior · acumulado no ano e variação na dica',corpo:corpoCombo(dica)})+
+    V({x:856,y:212,w:408,h:232,t:'Receita líquida por região',s:'Região do cliente · participação e margem na dica',
+       corpo:(bw,bh)=>barras(bw,bh,REG.map(r=>[r[0],r[1]]),v=>mi(v),92)})+
+    V({x:16,y:456,w:303,h:228,t:'Receita líquida por linha de produto',
+       corpo:(bw,bh)=>colunas(bw,bh,CAT,v=>mi(v),'Receita líquida por linha de produto')})+
+    V({x:331,y:456,w:303,h:228,t:'Receita líquida por porte de cliente',
+       corpo:(bw,bh)=>colunas(bw,bh,POR,v=>mi(v),'Receita líquida por porte de cliente')})+
+    V({x:646,y:456,w:618,h:228,t:'20 produtos de maior receita',s:'No filtro atual, do maior para o menor',
+       corpo:()=>tab([{t:'Produto',w:198},{t:'Receita líquida',w:170,n:1},{t:'Unidades',w:110,n:1},{t:'Margem %',w:114,n:1}],
+         PROD.map(p=>[p[0],{t:brl(p[1]),f:p[1]/PROD[0][1]},it(p[2]),pc(p[3],2)]))});
+}
+function matrizVend(w){
+  const share=M.map(m=>m[1]/T.receita);
+  const vmin=VEND_MIN*Math.min(...share), vmax=VEND[0][1]*Math.max(...share);
+  const rh=170,cw=79,nc=Math.floor((w-rh)/cw)+1;
+  let s=`<table style="width:${rh+nc*cw}px"><colgroup><col style="width:${rh}px">${('<col style="width:'+cw+'px">').repeat(nc)}</colgroup>`+
+    `<thead><tr><th rowspan="2">Vendedor</th>`;
+  let i=0;
+  while(i<nc){const a=M[i][0].slice(0,4);let j=i;while(j<nc&&M[j][0].slice(0,4)===a)j++;
+    s+=`<th class="grp" colspan="${j-i}">${a}</th>`;i=j;}
+  s+='</tr><tr>'+M.slice(0,nc).map(m=>`<th class="num">${MES[+m[0].slice(5)-1]}</th>`).join('')+'</tr></thead><tbody>';
+  VEND.forEach(v=>{
+    s+=`<tr><td>${v[0]}</td>`+M.slice(0,nc).map((m,k)=>{const val=v[1]*share[k];
+      return `<td class="num" style="background:${mistura('#FFFFFF','#9DBAD8',(val-vmin)/(vmax-vmin))}">${brl(val,0)}</td>`;}).join('')+'</tr>';
+  });
+  return s+'</tbody></table>';
+}
+function pagina2(){
+  return moldura(1,'Quem gera a receita, e cada região vende na proporção do seu mercado?',
+      'Clique com o botão direito num cliente ou vendedor e escolha Detalhar para ver os itens de venda.')+
+    V({x:16,y:112,w:828,h:348,t:'Receita líquida por vendedor e mês',
+       s:'Do vendedor de maior receita para o de menor · tom mais escuro, receita maior',corpo:(bw)=>matrizVend(bw)})+
+    V({x:16,y:472,w:828,h:212,t:'Participação na receita e peso de mercado, por região',
+       s:'Participação acima do peso quer dizer região vendendo mais que o tamanho do seu mercado',
+       corpo:()=>tab([{t:'Região',w:220},{t:'Receita líquida',w:200,n:1},{t:'Participação na receita',w:191,n:1},{t:'Peso de mercado',w:191,n:1}],
+         REG.map(r=>[r[0],brl(r[1]),{t:pc(r[2],2),f:r[2]/0.34},{t:pc(r[3],2),f:r[3]/0.34}]),
+         ['Total',brl(T.receita),pc(1,2),pc(1,2)],'compacta')})+
+    V({x:856,y:112,w:408,h:572,t:'Clientes por receita líquida',s:'Todos os clientes com compra no filtro, do maior para o menor',
+       corpo:()=>tab([{t:'Cliente',w:118},{t:'Receita líquida',w:122,n:1},{t:'Pedidos',w:54,n:1},{t:'Ticket médio',w:88,n:1}],
+         CLI.slice(0,21).map(c=>[c[0],{t:brl(c[1]),f:c[1]/CLI[0][1]},it(c[3]),brl(c[1]/c[3])]),
+         ['Total',brl(T.receita),it(T.pedidos),brl(T.ticket)])});
+}
+function matrizCli(w){
+  const Q=[];
+  M.forEach(m=>{const a=m[0].slice(0,4),q=Math.ceil(+m[0].slice(5)/3),k=a+q;
+    let e=Q.find(x=>x.k===k);if(!e){e={k:k,a:a,q:q,r:0};Q.push(e);}e.r+=m[1];});
+  const rh=220,c1=92,c2=60,ng=Math.min(Q.length,Math.ceil((w-rh)/(c1+c2)));
+  const vis=Q.slice(0,ng);
+  let s=`<table style="width:${rh+ng*(c1+c2)}px"><colgroup><col style="width:${rh}px">`+
+    vis.map(()=>`<col style="width:${c1}px"><col style="width:${c2}px">`).join('')+`</colgroup><thead><tr><th rowspan="3">Cliente</th>`;
+  let i=0;
+  while(i<ng){const a=vis[i].a;let j=i;while(j<ng&&vis[j].a===a)j++;s+=`<th class="grp" colspan="${(j-i)*2}">${a}</th>`;i=j;}
+  s+='</tr><tr>'+vis.map(q=>`<th class="grp" colspan="2">T${q.q}</th>`).join('')+'</tr><tr>'+
+    vis.map(()=>`<th class="num">Receita líquida</th><th class="num">Margem %</th>`).join('')+'</tr></thead><tbody>';
+  CLI.slice(0,20).forEach(c=>{
+    s+=`<tr><td>${c[0]}</td>`+vis.map(q=>`<td class="num">${brl(c[1]*q.r/T.receita,0)}</td><td class="num">${pc(c[2]/c[1])}</td>`).join('')+'</tr>';
+  });
+  return s+'</tbody></table>';
+}
+function pagina3(){
+  return moldura(2,'Quais clientes compram mais a cada trimestre, e com que margem?',
+      'Com um ano escolhido, os quatro trimestres cabem lado a lado. Ordenado pela receita total do cliente.')+
+    V({x:16,y:112,w:1248,h:572,t:'Receita líquida e margem por cliente e trimestre',
+       s:'Role para a direita para os trimestres seguintes; o nome do cliente fica fixo',corpo:(bw)=>matrizCli(bw)});
+}
+function pagina4(){
+  return moldura(3,'Quais itens compõem cada pedido?',
+      'Uma linha por produto vendido. Para levar ao Excel, use Mais opções no canto da tabela e Exportar dados.',728)+
+    `<div class="voltar">‹ Voltar</div>`+
+    V({x:16,y:112,w:1248,h:572,t:'Itens de venda por pedido',s:'Pedidos em ordem de emissão',
+       corpo:()=>tab([{t:'Pedido',w:118},{t:'Data',w:84},{t:'Cliente',w:210},{t:'Produto',w:170},{t:'Quantidade',w:80,n:1},
+           {t:'Receita bruta',w:140,n:1},{t:'Receita líquida',w:140,n:1},{t:'Custo',w:140,n:1},{t:'Margem',w:140,n:1}],
+         DET.map(d=>[d[0],'01/09/2023',d[1],d[2],it(d[3]),brl(d[4]),brl(d[5]),brl(d[6]),brl(d[7])]),
+         ['Total','','','',it(T.qtd),brl(T.bruta),brl(T.receita),brl(T.custo),brl(T.margem)])});
+}
+
+/* ---------- painel v1, esquemático ---------- */
+function pv(x,y,w,h,t,corpo){
+  return `<div class="pv" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><div class="pt">${t}</div>${corpo}</div>`;
+}
+function linhaPBI(w,h){
+  const pl=40,pr=8,pt=22,pb=46,pw=w-pl-pr,ph=h-pt-pb,n=M.length,b=pw/n,ymax=80e6,Y=v=>pt+ph*(1-v/ymax);
+  let s=`<svg width="${w}" height="${h}"><circle cx="10" cy="9" r="4" fill="#118DFF"/><text x="18" y="12">Soma de receita_liquida</text>`+
+    `<circle cx="136" cy="9" r="4" fill="#12239E"/><text x="144" y="12">Receita Ano Anterior</text>`;
+  for(let t=0;t<=ymax;t+=20e6){const y=Y(t);
+    s+=`<line x1="${pl}" x2="${w-pr}" y1="${f1(y)}" y2="${f1(y)}" stroke="#E1DFDD" stroke-dasharray="1 2"/><text x="${pl-4}" y="${f1(y+3)}" text-anchor="end">${t/1e6} Mi</text>`;}
+  const p1=M.map((m,i)=>`${f1(pl+i*b+b/2)},${f1(Y(m[1]))}`).join(' ');
+  const p2=M.map((m,i)=>m[2]==null?null:`${f1(pl+i*b+b/2)},${f1(Y(m[2]))}`).filter(Boolean).join(' ');
+  s+=`<polyline points="${p1}" fill="none" stroke="#118DFF" stroke-width="2"/><polyline points="${p2}" fill="none" stroke="#12239E" stroke-width="2"/>`;
+  M.forEach((m,i)=>{s+=`<text transform="translate(${f1(pl+i*b+b/2)},${pt+ph+8}) rotate(-45)" text-anchor="end">${MES[+m[0].slice(5)-1]}/${m[0].slice(0,4)}</text>`;});
+  return s+'</svg>';
+}
+function colunaPBI(w,h){
+  const pl=44,pr=8,pt=10,pb=46,pw=w-pl-pr,ph=h-pt-pb,n=M.length,b=pw/n,ymax=800e6,Y=v=>pt+ph*(1-v/ymax);
+  let s=`<svg width="${w}" height="${h}">`;
+  for(let t=0;t<=ymax;t+=200e6){const y=Y(t);
+    s+=`<line x1="${pl}" x2="${w-pr}" y1="${f1(y)}" y2="${f1(y)}" stroke="#E1DFDD" stroke-dasharray="1 2"/><text x="${pl-4}" y="${f1(y+3)}" text-anchor="end">${t/1e6} Mi</text>`;}
+  M.forEach((m,i)=>{const y=Y(m[3]);s+=`<rect x="${f1(pl+i*b+b*0.15)}" y="${f1(y)}" width="${f1(b*0.7)}" height="${f1(pt+ph-y)}" fill="#118DFF"/>`;
+    s+=`<text transform="translate(${f1(pl+i*b+b/2)},${pt+ph+8}) rotate(-45)" text-anchor="end">${MES[+m[0].slice(5)-1]}/${m[0].slice(0,4)}</text>`;});
+  return s+'</svg>';
+}
+function arco(cx,cy,r0,r1,a0,a1){
+  const p=(r,a)=>[cx+r*Math.cos(a),cy+r*Math.sin(a)],g=(a1-a0)>Math.PI?1:0;
+  const [x0,y0]=p(r1,a0),[x1,y1]=p(r1,a1),[x2,y2]=p(r0,a1),[x3,y3]=p(r0,a0);
+  return `M${f1(x0)} ${f1(y0)}A${r1} ${r1} 0 ${g} 1 ${f1(x1)} ${f1(y1)}L${f1(x2)} ${f1(y2)}A${r0} ${r0} 0 ${g} 0 ${f1(x3)} ${f1(y3)}Z`;
+}
+function roscaPBI(w,h){
+  const d=[['Grande',796572915.94,'#118DFF'],['Medio',842468693.82,'#12239E'],['Pequeno',482398571.36,'#E66C37']];
+  const tot=d.reduce((a,x)=>a+x[1],0),cx=w/2,cy=h/2+10,r1=Math.min(w,h)/2-40,r0=r1*0.55;
+  let s=`<svg width="${w}" height="${h}"><text x="6" y="12">porte</text>`,lx=44;
+  d.forEach(x=>{s+=`<circle cx="${lx}" cy="9" r="4" fill="${x[2]}"/><text x="${lx+7}" y="12">${x[0]}</text>`;lx+=62;});
+  let a=-Math.PI/2;
+  d.forEach(x=>{const a1=a+2*Math.PI*x[1]/tot,am=(a+a1)/2;
+    s+=`<path d="${arco(cx,cy,r0,r1,a,a1)}" fill="${x[2]}"/>`+
+       `<text x="${f1(cx+(r1+12)*Math.cos(am))}" y="${f1(cy+(r1+12)*Math.sin(am)+3)}" text-anchor="${Math.cos(am)>=0?'start':'end'}">${nf(x[1]/1e6,2)} Mi (${nf(x[1]/tot*100,2)}%)</text>`;
+    a=a1;});
+  return s+'</svg>';
+}
+function barraPBI(w,h,itens){
+  const pl=88,pr=10,pt=4,pb=16,pw=w-pl-pr,ph=h-pt-pb,n=itens.length,band=ph/n,max=Math.max(...itens.map(d=>d[1]));
+  let s=`<svg width="${w}" height="${h}">`;
+  itens.forEach((d,i)=>{const yc=pt+i*band+band/2;
+    s+=`<text x="${pl-4}" y="${f1(yc+3)}" text-anchor="end">${d[0]}</text><rect x="${pl}" y="${f1(yc-band*0.35)}" width="${f1(pw*d[1]/max)}" height="${f1(band*0.7)}" fill="#118DFF"/>`;});
+  s+=`<text x="${pl}" y="${h-3}">0,0 Bi</text><text x="${w-pr}" y="${h-3}" text-anchor="end">${nf(max/1e9,1)} Bi</text>`;
+  return s+'</svg>';
+}
+function esqueleto(colunas,linhas,cab){
+  let s=`<table><thead><tr>${cab.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>`;
+  for(let i=0;i<linhas;i++){s+='<tr>'+cab.map((c,j)=>`<td><span class="sk" style="width:${j===0?60+((i*37)%40):30+((i*53+j*17)%30)}%"></span></td>`).join('')+'</tr>';}
+  return s+'</tbody></table>';
+}
+function antes(){
+  let s='';
+  [[8,'ano','dd'],[219,'mes','dd'],[430,'regiao',['Centro-Oeste','Nordeste']],[641,'categoria',['Linha Essencial','Linha Performance']],
+   [852,'porte',['Grande','Medio']],[1063,'vendedor','dd']].forEach(([x,t,k])=>{
+    s+=`<div class="pv" style="left:${x}px;top:8px;width:205px;height:56px"><div class="pt">${t}</div>`+
+      (k==='dd'?`<div class="dd">Todos</div>`:k.map(i=>`<div class="li"><i></i>${i}</div>`).join(''))+`</div>`;});
+  [[8,'2,12 Bi','Soma de receita_liquida'],[149,'865,77 Mi','Soma de Lucro'],[290,'40,81%','Margem %'],[431,'7,50 Mi','Soma de quantidade'],
+   [572,'249,86 Mil','Contagem distinta de numero_pedido'],[713,'8,49 Mil','Ticket Médio'],[854,'20,00 Mil','Clientes com Compra'],
+   [995,'55,07%','Crescimento sobre Ano Anterior %'],[1136,'1,42 Bi','Receita Linha Premium']].forEach(([x,v,l])=>{
+    s+=`<div class="pv" style="left:${x}px;top:72px;width:134px;height:80px"><div class="cv">${v}</div><div class="cl">${l}</div></div>`;});
+  s+=pv(8,160,500,252,'Soma de receita_liquida e Receita Ano Anterior por Mês Ano',linhaPBI(500,228));
+  s+=pv(516,160,380,252,'Receita Acumulada no Ano por Mês Ano',colunaPBI(380,228));
+  s+=pv(904,160,368,252,'Soma de receita_liquida por porte',roscaPBI(368,228));
+  s+=pv(8,420,250,140,'Soma de receita_liquida por regiao',barraPBI(250,116,REG.map(r=>[r[0],r[1]])));
+  s+=pv(8,568,250,144,'Soma de receita_liquida por categoria',barraPBI(250,120,CAT.map(c=>[c[0],c[1]])));
+  s+=pv(266,420,560,292,'',esqueleto(0,15,['cliente','2023','2024','2025','2026','Total']));
+  s+=pv(834,420,438,292,'',esqueleto(0,15,['produto','Soma de receita_liquida','Soma de quantidade','Margem %']));
+  return s;
+}
+
+/* ---------- montagem e escala ---------- */
+document.getElementById('capa-antes').innerHTML=antes();
+document.getElementById('capa-depois').innerHTML=pagina1(false);
+document.getElementById('p1').innerHTML=pagina1(true);
+document.getElementById('p2').innerHTML=pagina2();
+document.getElementById('p3').innerHTML=pagina3();
+document.getElementById('p4').innerHTML=pagina4();
+
+function ajustar(){
+  const W=document.querySelector('.doc').clientWidth-64;
+  document.querySelectorAll('.moldura').forEach(m=>{
+    let s;
+    if(m.dataset.modo==='capa'){s=(W-24)/2/1280;if(s<0.42)s=W/1280;}
+    else s=W/1280;
+    s=Math.min(1,s);
+    m.style.width=(1280*s)+'px';m.style.height=(720*s)+'px';
+    if(m.parentElement.tagName==='FIGURE') m.parentElement.style.width=(1280*s)+'px';
+    m.firstElementChild.style.transform='scale('+s+')';
+  });
+}
+window.addEventListener('resize',ajustar);
+ajustar();
+</script>
+</body>
+</html>

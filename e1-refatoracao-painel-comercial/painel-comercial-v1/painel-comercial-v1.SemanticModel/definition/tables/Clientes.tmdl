@@ -1,0 +1,55 @@
+table Clientes
+	lineageTag: b3df4b8f-2d8d-5636-ae39-9e23b280cb9e
+
+	column cliente_id
+		dataType: int64
+		lineageTag: 9d6b279f-f1d9-5487-9da2-93e440608d41
+		summarizeBy: sum
+		sourceColumn: cliente_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cliente
+		dataType: string
+		lineageTag: 59a01027-ee29-5f41-b983-7ed904c0d16a
+		summarizeBy: none
+		sourceColumn: cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column porte
+		dataType: string
+		lineageTag: 36db2f2c-9f60-5352-a15c-a4784fe2e3e9
+		summarizeBy: none
+		sourceColumn: porte
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao
+		dataType: string
+		lineageTag: 87de0e93-3b3c-5117-a9f5-d7460b9105b1
+		summarizeBy: none
+		sourceColumn: regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column cidade
+		dataType: string
+		lineageTag: b63c9ee7-01b5-5737-ba99-0492d1d0749c
+		summarizeBy: none
+		sourceColumn: cidade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clientes = m
+		mode: import
+		source =
+				let
+				    Fonte = Vendas,
+				    #"Outras Colunas Removidas" = Table.SelectColumns(Fonte, {"cliente_id", "cliente", "porte", "regiao", "cidade"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas")
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_ResultType = Table
+

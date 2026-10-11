@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 334.13589409456358,
+            "y": 399.20414327480438
+          },
+          "nodeIndex": "Clientes",
+          "nodeLineageTag": "b3df4b8f-2d8d-5636-ae39-9e23b280cb9e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 242.25898522143206
+          },
+          "nodeIndex": "Regioes",
+          "nodeLineageTag": "8d9ddf10-d331-57f0-893c-1b9104eb774c",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.13007315461971,
+            "y": -50
+          },
+          "nodeIndex": "Vendas",
+          "nodeLineageTag": "5fc52c2c-0390-5d3d-8451-905114295fd9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

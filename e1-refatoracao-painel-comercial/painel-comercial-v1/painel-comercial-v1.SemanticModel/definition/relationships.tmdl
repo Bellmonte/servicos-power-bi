@@ -1,0 +1,15 @@
+relationship 6d0c89c2-c225-590a-8e9a-a513f6de292f
+	crossFilteringBehavior: bothDirections
+	fromColumn: Vendas.regiao
+	toColumn: Regioes.regiao
+
+relationship f1d5b9ba-7531-512c-983c-3343bca290d2
+	crossFilteringBehavior: bothDirections
+	fromColumn: Vendas.cliente_id
+	toColumn: Clientes.cliente_id
+
+relationship cebb0d59-68cb-5de8-b493-6d6122660af3
+	isActive: false
+	fromColumn: Clientes.regiao
+	toColumn: Regioes.regiao
+

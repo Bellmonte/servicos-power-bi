@@ -1,0 +1,46 @@
+# .gitignore do repo publico port-analise-dados.
+# Nenhum dado entra aqui: a base e gerada localmente pelo port-gerador-dados.
+
+# --- Power BI Desktop: dado importado e preferencia da maquina ---
+**/.pbi/cache.abf
+**/.pbi/localSettings.json
+**/.pbi/unappliedChanges.json
+*.pbix
+*.abf
+*.vpax
+
+# --- Dado ---
+*.csv
+*.parquet
+*.xlsx
+dados/
+dados-locais/
+# Excecao declarada: registro das execucoes da medicao, sem dado de negocio nem caminho local.
+!e1-refatoracao-painel-comercial/medicao/resultados.csv
+
+# --- Exportacao bruta do analisador de desempenho ---
+PowerBIPerformanceData*.json
+**/medicao/*.json
+!e1-refatoracao-painel-comercial/medicao/ensaio-render-v1.json
+
+# --- Material de trabalho que nao sai ---
+_LEIA-ANTES-DE-PUBLICAR.md
+local/
+.claude/
+PRINTS.md
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- Ambiente / segredos ---
+.env
+.env.*
+
+# --- SO / editor ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

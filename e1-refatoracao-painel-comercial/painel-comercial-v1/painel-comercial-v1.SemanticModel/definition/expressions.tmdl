@@ -1,0 +1,49 @@
+expression PastaDados = "C:\dados\painel-comercial\comercial\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e74081f3-03c5-539b-8c00-a373ff268cf8
+
+	annotation PBI_ResultType = Text
+
+expression dim_produto =
+		let
+		    Fonte = Csv.Document(File.Contents(PastaDados & "dim_produto.csv"), [Delimiter = ",", Columns = 5, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"produto_id", Int64.Type}, {"produto", type text}, {"categoria", type text}, {"preco_tabela", type number}, {"custo_unitario", type number}}, "en-US")
+		in
+		    #"Tipo Alterado"
+	lineageTag: 15e337b1-8faa-5a36-bab8-5ef4aebfb217
+
+	annotation PBI_ResultType = Table
+
+expression dim_cliente =
+		let
+		    Fonte = Csv.Document(File.Contents(PastaDados & "dim_cliente.csv"), [Delimiter = ",", Columns = 5, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"cliente_id", Int64.Type}, {"cliente", type text}, {"porte", type text}, {"regiao", type text}, {"cidade", type text}}, "en-US")
+		in
+		    #"Tipo Alterado"
+	lineageTag: d90826c3-978e-5e9d-89ae-1b8265f3edde
+
+	annotation PBI_ResultType = Table
+
+expression dim_vendedor =
+		let
+		    Fonte = Csv.Document(File.Contents(PastaDados & "dim_vendedor.csv"), [Delimiter = ",", Columns = 4, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"vendedor_id", Int64.Type}, {"vendedor", type text}, {"regiao", type text}, {"fator_performance", type number}}, "en-US")
+		in
+		    #"Tipo Alterado"
+	lineageTag: d3900289-6adf-5fc7-a68c-abd3cad07707
+
+	annotation PBI_ResultType = Table
+
+expression dim_calendario =
+		let
+		    Fonte = Csv.Document(File.Contents(PastaDados & "dim_calendario.csv"), [Delimiter = ",", Columns = 8, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"data", type date}, {"ano", Int64.Type}, {"mes", Int64.Type}, {"nome_mes", type text}, {"ano_mes", type text}, {"trimestre", Int64.Type}, {"dia_semana", type text}, {"fim_de_semana", type logical}}, "en-US")
+		in
+		    #"Tipo Alterado"
+	lineageTag: d237b784-30cb-5c9f-b538-ca774e488e13
+
+	annotation PBI_ResultType = Table
+

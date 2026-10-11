@@ -1,0 +1,258 @@
+// consulta: vgBarraCategoria
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'Vendas'[categoria],
+			"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida]))
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(1001, __DS0Core, [Sumreceita_liquida], 0, 'Vendas'[categoria], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[Sumreceita_liquida] DESC, 'Vendas'[categoria]
+
+// consulta: vgBarraRegiao
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS('Vendas'[regiao], "Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida])))
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(1001, __DS0Core, [Sumreceita_liquida], 0, 'Vendas'[regiao], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[Sumreceita_liquida] DESC, 'Vendas'[regiao]
+
+// consulta: vgCartaoClientes
+EVALUATE
+	ROW(
+	"Clientes_com_Compra", 'Vendas'[Clientes com Compra]
+)
+
+// consulta: vgCartaoCrescimento
+EVALUATE
+	ROW(
+		"Crescimento_sobre_Ano_Anterior__", 'Vendas'[Crescimento sobre Ano Anterior %]
+	)
+
+// consulta: vgCartaoMargem
+EVALUATE
+	ROW(
+		"SumLucro", CALCULATE(SUM('Vendas'[Lucro]))
+	)
+
+// consulta: vgCartaoMargemPct
+EVALUATE
+	ROW(
+	"Margem__", 'Vendas'[Margem %]
+)
+
+// consulta: vgCartaoPedidos
+EVALUATE
+	ROW(
+		"DistinctCountnumero_pedido", CALCULATE(DISTINCTCOUNT('Vendas'[numero_pedido]))
+	)
+
+// consulta: vgCartaoPremium
+EVALUATE
+	ROW(
+	"Receita_Linha_Premium", 'Vendas'[Receita Linha Premium]
+)
+
+// consulta: vgCartaoQuantidade
+EVALUATE
+	ROW(
+		"Sumquantidade", CALCULATE(SUM('Vendas'[quantidade]))
+	)
+
+// consulta: vgCartaoReceita
+EVALUATE
+	ROW(
+		"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida]))
+	)
+
+// consulta: vgCartaoTicket
+EVALUATE
+	ROW(
+	"Ticket_Médio", 'Vendas'[Ticket Médio]
+)
+
+// consulta: vgColunaAcumulado
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'Vendas'[Mês Ano],
+			'Vendas'[Ordem Mês],
+			"Receita_Acumulada_no_Ano", 'Vendas'[Receita Acumulada no Ano]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(1001, __DS0Core, 'Vendas'[Ordem Mês], 1, 'Vendas'[Mês Ano], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	'Vendas'[Ordem Mês], 'Vendas'[Mês Ano]
+
+// consulta: vgLinhaReceitaMes
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'Vendas'[Mês Ano],
+			'Vendas'[Ordem Mês],
+			"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida])),
+			"Receita_Ano_Anterior", 'Vendas'[Receita Ano Anterior]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(1001, __DS0Core, 'Vendas'[Ordem Mês], 1, 'Vendas'[Mês Ano], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	'Vendas'[Ordem Mês], 'Vendas'[Mês Ano]
+
+// consulta: vgMatrizClienteTrimestre
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			ROLLUPADDISSUBTOTAL('Vendas'[cliente], "IsGrandTotalRowTotal"),
+			ROLLUPADDISSUBTOTAL('Vendas'[ano], "IsGrandTotalColumnTotal"),
+			"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida])),
+			"Margem__", 'Vendas'[Margem %]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(
+			102,
+			SUMMARIZE(__DS0Core, 'Vendas'[cliente], [IsGrandTotalRowTotal]),
+			[IsGrandTotalRowTotal],
+			0,
+			'Vendas'[cliente],
+			1
+		)
+
+	VAR __DS0SecondaryBase = 
+		SUMMARIZE(__DS0Core, 'Vendas'[ano], [IsGrandTotalColumnTotal])
+
+	VAR __DS0Secondary = 
+		TOPN(102, __DS0SecondaryBase, [IsGrandTotalColumnTotal], 1, 'Vendas'[ano], 1)
+
+	VAR __DS0BodyLimited = 
+		NATURALLEFTOUTERJOIN(
+			__DS0PrimaryWindowed,
+			SUBSTITUTEWITHINDEX(
+				__DS0Core,
+				"ColumnIndex",
+				__DS0Secondary,
+				[IsGrandTotalColumnTotal],
+				ASC,
+				'Vendas'[ano],
+				ASC
+			)
+		)
+
+EVALUATE
+	__DS0Secondary
+
+ORDER BY
+	[IsGrandTotalColumnTotal], 'Vendas'[ano]
+
+EVALUATE
+	__DS0BodyLimited
+
+ORDER BY
+	[IsGrandTotalRowTotal] DESC, 'Vendas'[cliente], [ColumnIndex]
+
+// consulta: vgRoscaPorte
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS('Vendas'[porte], "Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida])))
+
+	VAR __DS0BodyLimited = 
+		TOPN(1002, __DS0Core, 'Vendas'[porte], 1)
+
+EVALUATE
+	__DS0BodyLimited
+
+ORDER BY
+	'Vendas'[porte]
+
+// consulta: vgSegCategoria
+DEFINE
+	VAR __DS0Core = 
+		VALUES('Vendas'[categoria])
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(101, __DS0Core, 'Vendas'[categoria], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	'Vendas'[categoria]
+
+// consulta: vgSegPorte
+DEFINE
+	VAR __DS0Core = 
+		VALUES('Vendas'[porte])
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(101, __DS0Core, 'Vendas'[porte], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	'Vendas'[porte]
+
+// consulta: vgSegRegiao
+DEFINE
+	VAR __DS0Core = 
+		VALUES('Vendas'[regiao])
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(101, __DS0Core, 'Vendas'[regiao], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	'Vendas'[regiao]
+
+// consulta: vgTabelaTop20Produtos
+DEFINE
+	VAR __SQDS0Core = 
+		SUMMARIZECOLUMNS(
+			'Vendas'[produto],
+			"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida]))
+		)
+
+	VAR __SQDS0BodyLimited = 
+		TOPN(20, __SQDS0Core, [Sumreceita_liquida], 0)
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			ROLLUPADDISSUBTOTAL('Vendas'[produto], "IsGrandTotalRowTotal"),
+			__SQDS0BodyLimited,
+			"Sumreceita_liquida", CALCULATE(SUM('Vendas'[receita_liquida])),
+			"Sumquantidade", CALCULATE(SUM('Vendas'[quantidade])),
+			"Margem__", 'Vendas'[Margem %]
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(502, __DS0Core, [IsGrandTotalRowTotal], 0, [Sumreceita_liquida], 0, 'Vendas'[produto], 1)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[IsGrandTotalRowTotal] DESC, [Sumreceita_liquida] DESC, 'Vendas'[produto]

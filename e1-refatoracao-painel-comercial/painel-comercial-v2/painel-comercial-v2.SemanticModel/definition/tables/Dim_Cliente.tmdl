@@ -1,0 +1,75 @@
+/// Dimensão de cliente, uma linha por cliente, lida do cadastro e nunca das vendas (D9).
+table Dim_Cliente
+	lineageTag: b3df4b8f-2d8d-5636-ae39-9e23b280cb9e
+
+	column 'ID Cliente'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9d6b279f-f1d9-5487-9da2-93e440608d41
+		summarizeBy: none
+		sourceColumn: ID Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cliente
+		dataType: string
+		lineageTag: 59a01027-ee29-5f41-b983-7ed904c0d16a
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column Porte
+		dataType: string
+		lineageTag: 36db2f2c-9f60-5352-a15c-a4784fe2e3e9
+		summarizeBy: none
+		sourceColumn: Porte
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cidade
+		dataType: string
+		lineageTag: b63c9ee7-01b5-5737-ba99-0492d1d0749c
+		summarizeBy: none
+		sourceColumn: Cidade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Cliente = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_cliente.csv"),
+				        [Delimiter = ",", Columns = 5, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // a região do cliente já vem na venda e mora em Dim_Regiao; aqui ela sairia duplicada
+				    ColunasRemovidas = Table.RemoveColumns(ComCabecalho, {"regiao"}),
+				    // o CSV usa ponto como separador decimal, por isso a cultura en-US
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ColunasRemovidas,
+				        {
+				            {"cliente_id", Int64.Type},
+				            {"cliente", type text},
+				            {"porte", type text},
+				            {"cidade", type text}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"cliente_id", "ID Cliente"},
+				            {"cliente", "Cliente"},
+				            {"porte", "Porte"},
+				            {"cidade", "Cidade"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

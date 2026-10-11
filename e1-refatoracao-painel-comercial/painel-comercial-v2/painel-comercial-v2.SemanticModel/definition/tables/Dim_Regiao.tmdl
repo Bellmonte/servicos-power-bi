@@ -1,0 +1,54 @@
+/// Dimensão de região do cliente, uma linha por região, com o peso de cada uma no mercado.
+/// Liga às vendas pelo nome da região, porque a origem não tem código de região.
+table Dim_Regiao
+	lineageTag: 8d9ddf10-d331-57f0-893c-1b9104eb774c
+
+	column Regiao
+		dataType: string
+		lineageTag: bdd3e1e3-1f2e-526e-9b7b-1b8bfe110b94
+		summarizeBy: none
+		sourceColumn: Regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Peso Mercado'
+		dataType: double
+		isHidden
+		formatString: 0.0%
+		lineageTag: 2ab50c49-f8f5-59fb-9785-483232ce1f04
+		summarizeBy: none
+		sourceColumn: Peso Mercado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Regiao = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_regiao.csv"),
+				        [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // o CSV usa ponto como separador decimal, por isso a cultura en-US
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ComCabecalho,
+				        {
+				            {"regiao", type text},
+				            {"peso_mercado", type number}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"regiao", "Regiao"},
+				            {"peso_mercado", "Peso Mercado"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

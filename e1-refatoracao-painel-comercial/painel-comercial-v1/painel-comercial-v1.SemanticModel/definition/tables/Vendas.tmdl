@@ -1,0 +1,361 @@
+table Vendas
+	lineageTag: 5fc52c2c-0390-5d3d-8451-905114295fd9
+
+	measure 'Margem %' = DIVIDE(SUM(Vendas[Lucro]), SUM(Vendas[receita_liquida]))
+		formatString: 0.00%
+		lineageTag: 9c19eeff-86db-530f-9aee-ae57b1f390a5
+
+	measure 'Receita Linha Premium' = CALCULATE(SUM(Vendas[receita_liquida]), FILTER(Vendas, Vendas[categoria] = "Linha Premium"))
+		formatString: #,0.00
+		lineageTag: b4b5c3fc-7193-5ee0-8f33-76279961eda2
+
+	measure 'Clientes com Compra' = COUNTROWS(FILTER(VALUES(Vendas[cliente_id]), CALCULATE(SUM(Vendas[receita_liquida])) > 0))
+		formatString: #,0
+		lineageTag: 397ebf2c-4be0-53cc-b132-a4c3a1e9f6d2
+
+	measure 'Ticket Médio' = AVERAGEX(VALUES(Vendas[numero_pedido]), CALCULATE(SUM(Vendas[receita_liquida])))
+		formatString: #,0.00
+		lineageTag: c3efaae8-38b1-5488-a43b-621406b9d884
+
+	measure 'Receita Ano Anterior' =
+			CALCULATE(
+			    SUM(Vendas[receita_liquida]),
+			    SAMEPERIODLASTYEAR(Vendas[data]),
+			    ALL(Vendas[ano]), ALL(Vendas[mes]), ALL(Vendas[nome_mes]), ALL(Vendas[ano_mes]),
+			    ALL(Vendas[trimestre]), ALL(Vendas[dia_semana]), ALL(Vendas[fim_de_semana]),
+			    ALL(Vendas[Mês Ano]), ALL(Vendas[Ordem Mês])
+			)
+		formatString: #,0.00
+		lineageTag: 34e33383-2654-5ecb-9856-91070567dc99
+
+	measure 'Receita Acumulada no Ano' =
+			CALCULATE(
+			    SUM(Vendas[receita_liquida]),
+			    DATESYTD(Vendas[data]),
+			    ALL(Vendas[ano]), ALL(Vendas[mes]), ALL(Vendas[nome_mes]), ALL(Vendas[ano_mes]),
+			    ALL(Vendas[trimestre]), ALL(Vendas[dia_semana]), ALL(Vendas[fim_de_semana]),
+			    ALL(Vendas[Mês Ano]), ALL(Vendas[Ordem Mês])
+			)
+		formatString: #,0.00
+		lineageTag: 7188044f-42f1-5a19-a1d0-cec8b7d34165
+
+	measure 'Crescimento sobre Ano Anterior %' =
+			VAR Atual = SUM(Vendas[receita_liquida])
+			VAR Anterior =
+			    CALCULATE(
+			        SUM(Vendas[receita_liquida]),
+			        SAMEPERIODLASTYEAR(Vendas[data]),
+			        ALL(Vendas[ano]), ALL(Vendas[mes]), ALL(Vendas[nome_mes]), ALL(Vendas[ano_mes]),
+			        ALL(Vendas[trimestre]), ALL(Vendas[dia_semana]), ALL(Vendas[fim_de_semana]),
+			        ALL(Vendas[Mês Ano]), ALL(Vendas[Ordem Mês])
+			    )
+			RETURN
+			    IF(ISBLANK(Anterior), BLANK(), (Atual - Anterior) / Anterior)
+		formatString: 0.00%
+		lineageTag: c2490c0f-3ebd-593f-abe3-c9479b52449b
+
+	measure 'Participação na Receita' = DIVIDE(SUM(Vendas[receita_liquida]), CALCULATE(SUM(Vendas[receita_liquida]), ALL(Regioes), ALL(Vendas[regiao]), ALL(Clientes[regiao])))
+		formatString: 0.00%
+		lineageTag: 077cf151-ecda-5a78-adf0-09222902b43c
+
+	column venda_id
+		dataType: int64
+		lineageTag: 19e98e19-3512-5d89-8185-cd3353cd6661
+		summarizeBy: sum
+		sourceColumn: venda_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8a8ad23d-de0a-5662-bf63-175fbc8b94f4
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column produto_id
+		dataType: int64
+		lineageTag: 98ad5096-7c25-534d-be2f-4df328835c0c
+		summarizeBy: sum
+		sourceColumn: produto_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cliente_id
+		dataType: int64
+		lineageTag: 200279cb-9519-54d1-bf99-17ed5fcb1da8
+		summarizeBy: sum
+		sourceColumn: cliente_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendedor_id
+		dataType: int64
+		lineageTag: 21318cb5-5a4e-5321-a6c3-1e54176ef940
+		summarizeBy: sum
+		sourceColumn: vendedor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao
+		dataType: string
+		lineageTag: 6074b94a-2927-5f7a-80b3-54c65ca4b998
+		summarizeBy: none
+		sourceColumn: regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantidade
+		dataType: int64
+		lineageTag: 53648994-803a-53ae-ad45-f8367e34a005
+		summarizeBy: sum
+		sourceColumn: quantidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column desconto_pct
+		dataType: double
+		lineageTag: bac91a46-4431-59a9-8b3c-936a7a23429e
+		summarizeBy: sum
+		sourceColumn: desconto_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column receita_bruta
+		dataType: double
+		lineageTag: 936cc156-a287-5ee4-b5f4-c44ecd264718
+		summarizeBy: sum
+		sourceColumn: receita_bruta
+
+		annotation SummarizationSetBy = Automatic
+
+	column receita_liquida
+		dataType: double
+		lineageTag: e5cdebdd-78be-5b85-8294-8197c700e3e5
+		summarizeBy: sum
+		sourceColumn: receita_liquida
+
+		annotation SummarizationSetBy = Automatic
+
+	column custo_total
+		dataType: double
+		lineageTag: 5aab8918-827f-5c61-a583-c2c9f163e115
+		summarizeBy: sum
+		sourceColumn: custo_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column margem
+		dataType: double
+		lineageTag: c408175f-2320-51cb-8d4e-35ea9d92b3e7
+		summarizeBy: sum
+		sourceColumn: margem
+
+		annotation SummarizationSetBy = Automatic
+
+	column numero_pedido
+		dataType: string
+		lineageTag: 40a8ddd5-f055-5bb2-8942-0d31cc4cff1f
+		summarizeBy: none
+		sourceColumn: numero_pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_hora_emissao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2b8e8941-644d-5443-9acc-9a74a0bf3b89
+		summarizeBy: none
+		sourceColumn: data_hora_emissao
+
+		annotation SummarizationSetBy = Automatic
+
+	column produto
+		dataType: string
+		lineageTag: 5f23face-751b-5724-979a-c53df3d648b6
+		summarizeBy: none
+		sourceColumn: produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoria
+		dataType: string
+		lineageTag: 456912f7-14cf-5ecc-9cd8-3a0c2a3c6e4d
+		summarizeBy: none
+		sourceColumn: categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column preco_tabela
+		dataType: double
+		lineageTag: c0a3c8a9-7e5f-521d-a7c5-9a98b05b9a85
+		summarizeBy: sum
+		sourceColumn: preco_tabela
+
+		annotation SummarizationSetBy = Automatic
+
+	column custo_unitario
+		dataType: double
+		lineageTag: 8b3491e6-4413-524a-a615-32d5da2c7400
+		summarizeBy: sum
+		sourceColumn: custo_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+	column cliente
+		dataType: string
+		lineageTag: ce573625-e1bc-51f1-ba21-1fcb74d5bb9e
+		summarizeBy: none
+		sourceColumn: cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column porte
+		dataType: string
+		lineageTag: 37eaceaf-efc7-5b0b-a346-7b70fa2ba936
+		summarizeBy: none
+		sourceColumn: porte
+
+		annotation SummarizationSetBy = Automatic
+
+	column cidade
+		dataType: string
+		lineageTag: e85d3fda-20ae-5876-b940-b69652ae0a01
+		summarizeBy: none
+		sourceColumn: cidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendedor
+		dataType: string
+		lineageTag: 012e5053-07e1-58cd-8808-4a4dd7a7ef0d
+		summarizeBy: none
+		sourceColumn: vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao_vendedor
+		dataType: string
+		lineageTag: baba90dd-e42b-5a52-95ff-1573d5690060
+		summarizeBy: none
+		sourceColumn: regiao_vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column fator_performance
+		dataType: double
+		lineageTag: 392d8cf2-35e9-54db-b274-875acb5344e7
+		summarizeBy: sum
+		sourceColumn: fator_performance
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano
+		dataType: int64
+		lineageTag: 3824a269-2bae-5362-abe0-133fef88120e
+		summarizeBy: sum
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		lineageTag: 2bfae90a-556a-510b-b9d4-1c42309960db
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_mes
+		dataType: string
+		lineageTag: 5cf19b22-8a43-5985-b0c1-c7166e0e2e9a
+		summarizeBy: none
+		sourceColumn: nome_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano_mes
+		dataType: string
+		lineageTag: b8c74832-8e0a-543d-b1e0-133d2f2f12f6
+		summarizeBy: none
+		sourceColumn: ano_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column trimestre
+		dataType: int64
+		lineageTag: 49df8c65-51e8-5507-a634-65baa6664adb
+		summarizeBy: sum
+		sourceColumn: trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana
+		dataType: string
+		lineageTag: 85e5af1d-e52c-5831-840c-14e6f132217f
+		summarizeBy: none
+		sourceColumn: dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column fim_de_semana
+		dataType: boolean
+		lineageTag: 263141f1-4a19-5210-9cc3-a91657fe387e
+		summarizeBy: none
+		sourceColumn: fim_de_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lucro = Vendas[receita_liquida] - Vendas[custo_total]
+		dataType: double
+		lineageTag: 0828fb8a-8615-5971-9128-0fe46a46db6a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Margem % Linha' = DIVIDE(Vendas[Lucro], Vendas[receita_liquida])
+		dataType: double
+		lineageTag: deb7e8b6-649b-5e61-9901-400c80cfc4a0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês Ano' = FORMAT(Vendas[data], "mmm/yyyy")
+		dataType: string
+		lineageTag: 327a95c4-fbfa-5c10-9ab2-56b884988c3e
+		summarizeBy: none
+		sortByColumn: 'Ordem Mês'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordem Mês' = YEAR(Vendas[data]) * 100 + MONTH(Vendas[data])
+		dataType: int64
+		lineageTag: b7084977-3bcd-5d32-93c0-f5aed6a909ab
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Vendas = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "fato_vendas.csv"), [Delimiter = ",", Columns = 14, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"venda_id", Int64.Type}, {"data", type date}, {"produto_id", Int64.Type}, {"cliente_id", Int64.Type}, {"vendedor_id", Int64.Type}, {"regiao", type text}, {"quantidade", Int64.Type}, {"desconto_pct", type number}, {"receita_bruta", type number}, {"receita_liquida", type number}, {"custo_total", type number}, {"margem", type number}, {"numero_pedido", type text}, {"data_hora_emissao", type datetime}}, "en-US"),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {"produto_id"}, dim_produto, {"produto_id"}, "dim_produto", JoinKind.LeftOuter),
+				    #"dim_produto Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "dim_produto", {"produto", "categoria", "preco_tabela", "custo_unitario"}, {"produto", "categoria", "preco_tabela", "custo_unitario"}),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"dim_produto Expandido", {"cliente_id"}, dim_cliente, {"cliente_id"}, "dim_cliente", JoinKind.LeftOuter),
+				    #"dim_cliente Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "dim_cliente", {"cliente", "porte", "cidade"}, {"cliente", "porte", "cidade"}),
+				    #"Consultas Mescladas2" = Table.NestedJoin(#"dim_cliente Expandido", {"vendedor_id"}, dim_vendedor, {"vendedor_id"}, "dim_vendedor", JoinKind.LeftOuter),
+				    #"dim_vendedor Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas2", "dim_vendedor", {"vendedor", "regiao", "fator_performance"}, {"vendedor", "regiao_vendedor", "fator_performance"}),
+				    #"Consultas Mescladas3" = Table.NestedJoin(#"dim_vendedor Expandido", {"data"}, dim_calendario, {"data"}, "dim_calendario", JoinKind.LeftOuter),
+				    #"dim_calendario Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas3", "dim_calendario", {"ano", "mes", "nome_mes", "ano_mes", "trimestre", "dia_semana", "fim_de_semana"}, {"ano", "mes", "nome_mes", "ano_mes", "trimestre", "dia_semana", "fim_de_semana"})
+				in
+				    #"dim_calendario Expandido"
+
+	annotation PBI_ResultType = Table
+

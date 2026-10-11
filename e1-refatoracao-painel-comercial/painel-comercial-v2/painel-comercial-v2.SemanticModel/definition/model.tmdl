@@ -1,0 +1,54 @@
+/// INSTRUÇÕES DE NEGÓCIO PARA IA - PAINEL COMERCIAL (DEMONSTRAÇÃO, DADO SINTÉTICO)
+/// 
+/// 1. DOMÍNIO E GRÃO: Fact_Vendas tem uma linha por item de venda, isto é, um produto vendido a um cliente por um vendedor numa data. Um pedido tem vários itens. A base é sintética e cobre a janela declarada no rodapé.
+/// 
+/// 2. UNIDADES: medidas com (R$) estão em reais; (un) em unidades; (%) já saem em percentual; Pedidos, Clientes com Compra e Linhas de Venda são contagens. Nunca some grandezas de unidades diferentes.
+/// 
+/// 3. CONCEITOS QUE NÃO SE SOMAM: Pedidos e Clientes com Compra são contagens distintas e não se somam entre meses nem entre regiões. Margem (%) e Ticket Medio (R$) são razões das somas e nunca média de razões.
+/// 
+/// 4. COMPARAÇÃO: as medidas de Mes Anterior e de variação contra o mês anterior só existem com um único mês no contexto (Dim_Calendario[Mes.Ano]); com mais de um mês voltam vazias de propósito. As de ano anterior usam o mesmo período do ano anterior pelo calendário.
+/// 
+/// 5. REGIÃO: Dim_Regiao é a região do cliente. A região do vendedor existe em Dim_Vendedor, oculta, e não é usada em nenhum corte.
+/// 
+/// REGRA GERAL: para desempenho use [Receita Liquida (R$)] e [Margem (%)], quebrando por região, linha de produto, porte, vendedor ou cliente. Medidas que começam com ponto são suporte de tela e estão ocultas.
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Parametros
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Funcoes
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Tabelas Dimensao'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Tabelas Fato'
+
+	annotation PBI_QueryGroupOrder = 3
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["pPastaDados","fn_Calendario","Dim_Calendario","Dim_Produto","Dim_Cliente","Dim_Vendedor","Dim_Regiao","Fact_Vendas","Medidas"]
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table Medidas
+ref table Dim_Calendario
+ref table Dim_Produto
+ref table Dim_Cliente
+ref table Dim_Vendedor
+ref table Dim_Regiao
+ref table Fact_Vendas
+
+ref cultureInfo pt-BR
+

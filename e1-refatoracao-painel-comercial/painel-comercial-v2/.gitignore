@@ -1,0 +1,7 @@
+# PBIP do painel reestruturado (v2): o que o Power BI Desktop gera localmente e nao se versiona.
+# cache.abf guarda os dados importados (a base e gerada pelo port-gerador-dados),
+# localSettings.json guarda preferencia da maquina.
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix
+*.abf

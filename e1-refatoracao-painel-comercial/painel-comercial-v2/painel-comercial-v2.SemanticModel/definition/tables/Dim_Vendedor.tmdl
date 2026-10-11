@@ -1,0 +1,78 @@
+/// Dimensão de vendedor, uma linha por vendedor.
+table Dim_Vendedor
+	lineageTag: 389ad24f-7604-5512-a62a-0fb7a91ae534
+
+	column 'ID Vendedor'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ee413485-2850-5383-a59a-21dae0cb2d6f
+		summarizeBy: none
+		sourceColumn: ID Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: string
+		lineageTag: 440e5c15-01c8-5aa4-9bca-a8b3a30b223a
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Região de lotação do vendedor. Oculta: a região do painel é a do cliente, em Dim_Regiao.
+	column 'Regiao Vendedor'
+		dataType: string
+		isHidden
+		lineageTag: d854107b-7f2b-5e0d-a714-5fcf858a78ec
+		summarizeBy: none
+		sourceColumn: Regiao Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Parâmetro do gerador de dados sintéticos; não é indicador de negócio.
+	column 'Fator Performance'
+		dataType: double
+		isHidden
+		formatString: 0.000
+		lineageTag: 7a600f05-ec19-5743-af75-a6164c18ad6a
+		summarizeBy: none
+		sourceColumn: Fator Performance
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Vendedor = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_vendedor.csv"),
+				        [Delimiter = ",", Columns = 4, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // o CSV usa ponto como separador decimal, por isso a cultura en-US
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ComCabecalho,
+				        {
+				            {"vendedor_id", Int64.Type},
+				            {"vendedor", type text},
+				            {"regiao", type text},
+				            {"fator_performance", type number}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"vendedor_id", "ID Vendedor"},
+				            {"vendedor", "Vendedor"},
+				            {"regiao", "Regiao Vendedor"},
+				            {"fator_performance", "Fator Performance"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+
