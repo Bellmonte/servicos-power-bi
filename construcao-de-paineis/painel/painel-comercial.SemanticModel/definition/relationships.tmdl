@@ -1,0 +1,20 @@
+relationship 2ba6b169-1741-4e55-994a-e5fa6271bdba
+	fromColumn: Fact_Vendas.'Data Venda'
+	toColumn: Dim_Calendario.Data
+
+relationship 03d11d9a-3bc3-479e-9b8e-cce0ee05007d
+	fromColumn: Fact_Vendas.'ID Produto'
+	toColumn: Dim_Produto.'ID Produto'
+
+relationship b0df7d6e-d337-4fd6-b02d-4b3f80152083
+	fromColumn: Fact_Vendas.'ID Cliente'
+	toColumn: Dim_Cliente.'ID Cliente'
+
+relationship 86e1d645-9b95-4c23-a1a6-b3156674a323
+	fromColumn: Fact_Vendas.'ID Vendedor'
+	toColumn: Dim_Vendedor.'ID Vendedor'
+
+relationship d9aaf50f-f992-4a69-a476-89077e656bae
+	fromColumn: Fact_Vendas.Regiao
+	toColumn: Dim_Regiao.Regiao
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Painel comercial"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "92eb37b0-4770-4f5f-84d2-82f22a55e446"
+  }
+}

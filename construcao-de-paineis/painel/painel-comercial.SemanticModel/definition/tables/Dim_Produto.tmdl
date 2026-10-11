@@ -1,0 +1,65 @@
+/// Dimensão de produto, uma linha por produto, com a linha de produto a que ele pertence.
+table Dim_Produto
+	lineageTag: 62843166-8b42-4650-8ea8-d84d3d141ddb
+
+	column 'ID Produto'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 212101c5-1bec-4200-91ee-82d05da640ac
+		summarizeBy: none
+		sourceColumn: ID Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Produto
+		dataType: string
+		lineageTag: f2b6176c-6bbd-4c74-869c-25f50f824e8b
+		summarizeBy: none
+		sourceColumn: Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Linha de produto: Linha Essencial, Linha Performance ou Linha Premium.
+	column 'Linha de Produto'
+		dataType: string
+		lineageTag: 51f2802f-9d0f-461f-99ec-9365a56f3fce
+		summarizeBy: none
+		sourceColumn: Linha de Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Produto = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_produto.csv"),
+				        [Delimiter = ",", Columns = 5, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // preço de tabela e custo unitário não entram: receita e custo já vêm calculados em cada venda
+				    ColunasRemovidas = Table.RemoveColumns(ComCabecalho, {"preco_tabela", "custo_unitario"}),
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ColunasRemovidas,
+				        {
+				            {"produto_id", Int64.Type},
+				            {"produto", type text},
+				            {"categoria", type text}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"produto_id", "ID Produto"},
+				            {"produto", "Produto"},
+				            {"categoria", "Linha de Produto"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

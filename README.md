@@ -8,7 +8,7 @@ tem um caso completo com dados fictícios, para você ver o resultado antes de c
 | Serviço | O que resolve | Caso de exemplo | Estado |
 |---|---|---|---|
 | [**Refatoração de painéis**](refatoracao-de-paineis/README.md) | painel que funciona, mas ficou pesado, lento e difícil de manter | painel comercial com **modelo 74% menor**, **atualização 29% mais rápida** e **consultas até 88% mais rápidas**, com os mesmos números de antes | disponível |
-| **Construção de painéis** | indicadores levantados com a área, dicionário de medidas e painel publicado na web | em preparo | em breve |
+| [**Construção de painéis**](construcao-de-paineis/README.md) | painel novo que precisa nascer com indicadores combinados com a área, regra escrita e números conferidos | painel comercial com **20 indicadores** de regra escrita, **4 páginas** e **0 divergências** em 167.620 comparações com a base | disponível |
 | [**Análise e relatório**](analise-e-relatorio/README.md) | uma pergunta de negócio respondida em notebook, com conclusão e limitação | política de desconto: o desconto ao cliente grande **não trazia volume**, e um teto de 10% teria recuperado **R$ 5,4 a 5,7 milhões de margem no último ano**, se o volume se mantivesse | disponível |
 
 ## Como cada caso é entregue

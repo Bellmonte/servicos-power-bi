@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel comercial · mockup das quatro páginas</title>
+<style>
+:root{
+  --tinta:#1B2430;--tinta2:#3D4756;--suave:#5F6B7A;--marca:#16263D;
+  --borda:#DDE2E8;--sombra:#C9D0D9;--grade:#EDF0F3;--fundo:#F3F5F8;--faixa:#E8EEF5;--aba:#C9D8E6;
+  --acento:#1D5A8C;--acento-cl:#C9D8E8;--comp:#7D8796;--s3:#3E8E8B;--s4:#C27C3A;
+  --bom:#1E7A4C;--ruim:#B3261E;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#D5DAE1;color:#1B2430;font-family:"Segoe UI","Segoe UI Web (West European)",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+.doc{padding:32px 32px 72px}
+.doc>header h1{font-size:22px;font-weight:600;margin:0 0 8px}
+.doc>header p{font-size:14px;line-height:1.55;color:#2E3744;margin:0 0 8px;max-width:1180px}
+.sec{margin-top:40px}
+.sec h2{font-size:17px;font-weight:600;margin:0 0 10px}
+.nota{font-size:13px;line-height:1.55;color:#2E3744;margin:10px 0 0;max-width:1280px}
+.moldura{position:relative;overflow:hidden;outline:1px solid #AEB6C1;background:var(--fundo)}
+.canvas{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;transform-origin:0 0;background:var(--fundo);color:var(--tinta)}
+
+/* chassi */
+.faixa{position:absolute;left:0;top:0;width:1280px;height:100px;background:var(--faixa)}
+.logo{position:absolute;left:20px;top:28px;width:84px;height:44px;line-height:44px;font-size:21.33px;font-weight:900;color:var(--marca);letter-spacing:.5px}
+.perg{position:absolute;left:116px;top:6px;width:620px;height:60px}
+.perg .q{font-size:17.33px;font-weight:600;line-height:30px;color:var(--marca);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.perg .a{font-size:12px;line-height:20px;color:var(--tinta2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{position:absolute;left:116px;top:70px;width:620px;height:30px;display:flex;gap:2px}
+.nav span{flex:1 1 0;height:30px;line-height:30px;text-align:center;font-size:12px;font-weight:600;color:var(--tinta2);background:var(--aba);
+  clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%,0 8px)}
+.nav span.on{background:var(--fundo);color:var(--marca)}
+.seg{position:absolute;top:15px;height:70px}
+.seg .h{font-size:13.33px;font-weight:600;line-height:20px;color:var(--tinta)}
+.seg .box{position:relative;height:30px;margin-top:4px;background:#fff;border:1px solid #B3B3B3;border-radius:5px;font-size:10.67px;line-height:28px;padding:0 24px 0 8px;white-space:nowrap;overflow:hidden}
+.seg .box svg{position:absolute;right:8px;top:12px}
+.rod{position:absolute;left:16px;top:680px;width:1248px;height:40px;line-height:40px;text-align:center;font-size:10.67px;font-weight:600;color:var(--suave)}
+
+/* blocos de visual */
+.v{position:absolute;background:#fff;border:1px solid var(--borda);border-radius:5px;box-shadow:2px 2px 4px var(--sombra);overflow:hidden}
+.vt{position:absolute;left:12px;right:12px;top:9px;font-size:16px;font-weight:600;line-height:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs{position:absolute;left:12px;right:12px;top:31px;font-size:10.67px;line-height:15px;color:var(--suave);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vb{position:absolute;left:12px;overflow:hidden}
+
+/* cartão de indicadores */
+.cartao{position:absolute;display:flex;gap:10px;padding:4px 4px 8px}
+.bl{flex:1 1 0;min-width:0;position:relative;background:#fff;border:1px solid var(--borda);border-radius:15px;box-shadow:0 2px 6px rgba(150,163,180,.35);padding:8px 8px 6px 16px;overflow:hidden}
+.bl::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acento)}
+.bl .r{font-size:10.67px;font-weight:600;line-height:15px;color:var(--tinta2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bl .n{font-size:18.67px;font-weight:600;line-height:27px;white-space:nowrap}
+.bl .ref{font-size:12px;line-height:16px;color:var(--suave);white-space:nowrap}
+.bl .refv{font-size:12px;line-height:16px;color:var(--tinta);white-space:nowrap}
+.bl .pil{display:inline-block;margin-top:5px;font-size:12px;line-height:18px;padding:0 8px;border-radius:9px;white-space:nowrap}
+.pil.bom{color:var(--bom);background:rgba(30,122,76,.1)}
+.pil.ruim{color:var(--ruim);background:rgba(179,38,30,.1)}
+
+/* gráficos */
+svg text{font-family:inherit;font-size:10.67px;fill:var(--suave)}
+svg text.cat{font-size:12px;fill:var(--tinta2)}
+svg text.dl{fill:var(--tinta2)}
+.leg{font-size:10.67px;color:var(--tinta2);height:16px;line-height:16px;white-space:nowrap}
+.leg span{margin-right:16px}
+.leg i{display:inline-block;vertical-align:middle;margin:-2px 6px 0 0}
+.leg i.q{width:10px;height:10px}
+.leg i.d{width:18px;height:0;border-top:2px dashed var(--comp)}
+.leg i.l{width:18px;height:0;border-top:2px solid}
+.dica{position:absolute;width:262px;background:#fff;border:1px solid var(--borda);box-shadow:0 2px 8px rgba(22,38,61,.18);padding:7px 10px;font-size:12px;line-height:19px;z-index:5}
+.dica div{display:flex;justify-content:space-between;gap:12px}
+.dica .k{color:var(--suave)}
+.dica .n{font-weight:600;color:var(--tinta)}
+.dica .n.bom{color:var(--bom)}
+
+/* tabela e matriz */
+table{border-collapse:collapse;table-layout:fixed;font-size:12px}
+th{font-size:10.67px;font-weight:600;color:var(--tinta2);text-align:left;height:24px;padding:0 6px 4px;border-bottom:1px solid var(--sombra);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+th.grp{border-bottom:1px solid var(--borda);height:20px;padding-bottom:3px}
+td{height:21px;padding:0 6px;border-bottom:1px solid var(--grade);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+td.db{position:relative}
+td.db .bar{position:absolute;left:6px;top:4px;bottom:4px;background:var(--acento-cl)}
+td.db .val{position:relative}
+tr.tot td{font-weight:600;background:var(--fundo);border-top:1px solid var(--sombra);border-bottom:0}
+.tabfix{position:absolute;left:0;bottom:0}
+.rolagem{position:absolute;right:0;top:0;width:4px;border-radius:2px;background:var(--grade)}
+.rolagem i{display:block;width:4px;border-radius:2px;background:#AEB6C1}
+</style>
+</head>
+<body>
+<div class="doc">
+  <header>
+    <h1>Painel comercial, mockup das quatro páginas</h1>
+    <p>Desenho de tela do painel comercial construído do zero para a diretoria comercial de uma distribuidora fictícia. Cada página tem 1280 x 720 e usa só visuais nativos do Power BI Desktop, no sistema visual B&amp;B. O layout com os campos de cada visual está em <code>LAYOUT.md</code> e o sistema visual em <code>SISTEMA_VISUAL.md</code>.</p>
+    <p>Os números são plausíveis e seguem o perfil da base sintética: receita líquida mensal na casa de R$ 60 milhões, desconto médio de 6,5%, margem perto de 40,8%, cerca de 6.400 clientes ativos por mês e 32% da base de 12 meses sem compra há 90 dias. Onde um corte não tinha número calculado, a divisão é ilustrativa e soma o total. Nomes de cliente e de vendedor são fictícios, tirados da base sintética do gerador. Estado mostrado nas quatro páginas: ano 2026 e mês agosto escolhidos, região em Todas.</p>
+    <noscript><p><b>As páginas deste mockup são desenhadas por JavaScript embutido no próprio arquivo. Habilite scripts para vê-las.</b></p></noscript>
+  </header>
+
+  <section class="sec">
+    <h2>Página 1, Visão executiva</h2>
+    <div class="moldura"><div class="canvas" id="p1"></div></div>
+    <p class="nota">O cartão compara agosto de 2026 com agosto de 2025. O gráfico mensal mostra o ano inteiro porque a caixa Mês não o filtra, e a dica aberta em agosto traz o crescimento, o acumulado no ano e os pedidos. A margem % praticamente igual à do ano anterior aparece como ▲ +0,0 p.p., que é o que a regra escreve com uma casa. As receitas mensais seguem o perfil da base; a divisão por região, linha e porte é ilustrativa e soma o total do mês.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Página 2, Margem e desconto</h2>
+    <div class="moldura"><div class="canvas" id="p2"></div></div>
+    <p class="nota">Os cinco blocos seguem a conta, da receita bruta à margem. A matriz mostra o padrão que o perfil da base descreve: desconto perto de 9% no porte Grande e de 5% nos demais, com a margem andando no sentido contrário. Os valores por região, por mês e por produto são ilustrativos.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Página 3, Clientes</h2>
+    <div class="moldura"><div class="canvas" id="p3"></div></div>
+    <p class="nota">Com agosto de 2026 escolhido, a referência das medidas de clientes é 31/08/2026, o fim da base: 19.776 clientes na base de 12 meses e 6.346 deles sem compra há 90 dias. A divisão por região e porte e a série mensal são ilustrativas e somam os totais. A lista mostra nomes gerados, em ordem de porte e de nome; no painel, ela acompanha a caixa Região.</p>
+  </section>
+
+  <section class="sec">
+    <h2>Página 4, Vendedores</h2>
+    <div class="moldura"><div class="canvas" id="p4"></div></div>
+    <p class="nota">A tabela está em ordem de receita, a matriz em ordem de desconto total e as barras em ordem crescente de margem. A matriz separa as duas explicações para um desconto alto: o vendedor que atende mais cliente Grande, e o vendedor que concede mais dentro de cada porte. Nomes gerados e valores ilustrativos.</p>
+  </section>
+</div>
+
+<script>
+/* ---------- formato pt-BR ---------- */
+const nf=(x,d)=>x.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl=x=>'R$ '+nf(x,2);
+const pc=(x,d=1)=>nf(x*100,d)+'%';
+const it=x=>nf(Math.round(x),0);
+const mi=x=>'R$ '+nf(x/1e6,1)+' Mi';
+const f1=x=>x.toFixed(1);
+/* texto por faixa das medidas .kpi_* de reais */
+function curto(x){
+  const a=Math.abs(x),s=x<0?'-':'';
+  if(a>=999500000) return s+'R$ '+nf(a/1e9,1)+' Bi';
+  if(a>=99950000) return s+'R$ '+nf(a/1e6,0)+' Mi';
+  if(a>=999950) return s+'R$ '+nf(a/1e6,1)+' Mi';
+  return s+'R$ '+nf(a,0);
+}
+const seta=v=>v>0?'▲ +':v<0?'▼ -':'';
+const varPct=v=>seta(v)+nf(Math.abs(v)*100,1)+'%';
+const varPP=v=>seta(v)+nf(Math.abs(v),1)+' p.p.';
+const pp=v=>(v>0?'+':v<0?'-':'')+nf(Math.abs(v),1);
+const cls=v=>v>0?'bom':v<0?'ruim':'';
+
+/* ---------- dados ---------- */
+const MESES=['jan','fev','mar','abr','mai','jun','jul','ago'];
+const R26=[48970187.62,43635354.96,55446710.98,61538124.13,61520928.30,60283536.58,67222360.42,65105601.78];
+const R25=[47969609.75,42073710.33,53582665.31,54957963.08,58963692.11,56150136.49,62046382.21,63383343.95];
+const MG26=[19948065.00,17813262.96,22588486.34,25166785.18,25134176.79,24566034.45,27487605.94,26550995.92];
+const MG25=[19561689.90,17139485.55,21855214.89,22405125.95,24049174.22,22935834.79,25290740.02,25831103.19];
+const DESC26=[.066,.065,.064,.065,.066,.065,.064,.065];
+const MPCT26=MG26.map((m,i)=>m/R26[i]);
+const A={rec:R26[7],aa:R25[7],mg:MG26[7],mgaa:MG25[7],ped:7668,clientes:6412,un:230051};
+A.bruta=A.rec/(1-.065);A.desc=A.bruta-A.rec;A.custo=A.rec-A.mg;
+A.acum=R26.reduce((a,b)=>a+b,0);A.mpct=A.mg/A.rec;A.mpctaa=A.mgaa/A.aa;A.cres=A.rec/A.aa-1;A.vpp=(A.mpct-A.mpctaa)*100;
+A.ticket=A.rec/A.ped;
+
+/* ---------- chassi ---------- */
+const ABAS=['Visão executiva','Margem e desconto','Clientes','Vendedores'];
+const SETA='<svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="#3D4756" stroke-width="1.5"/></svg>';
+function seg(x,w,h,v){return `<div class="seg" style="left:${x}px;width:${w}px"><div class="h">${h}</div><div class="box">${v}${SETA}</div></div>`;}
+function chassi(p,q,a){
+  return `<div class="faixa"></div><div class="logo">B&amp;B</div>`+
+    `<div class="perg"><div class="q">${q}</div><div class="a">${a}</div></div>`+
+    `<div class="nav">${ABAS.map((n,i)=>`<span class="${i===p?'on':''}">${n}</span>`).join('')}</div>`+
+    seg(820,110,'Ano','2026')+seg(940,150,'Mês','agosto')+seg(1100,160,'Região','Todas')+
+    `<div class="rod">Dado 100% sintético, gerado para demonstração · base de set/2023 até 31/08/2026 · valores em R$ · região é a do cliente · B&amp;B</div>`;
+}
+
+/* ---------- peças ---------- */
+function V(o){
+  const topo=o.t?(o.s?52:36):10, bw=o.w-26, bh=o.h-2-topo-10;
+  return `<div class="v" style="left:${o.x}px;top:${o.y}px;width:${o.w}px;height:${o.h}px">`+
+    (o.t?`<div class="vt">${o.t}</div>`:'')+(o.s?`<div class="vs">${o.s}</div>`:'')+
+    `<div class="vb" style="top:${topo}px;width:${bw}px;height:${bh}px">${o.corpo(bw,bh)}</div></div>`;
+}
+function cartao(x,y,w,h,blocos){
+  return `<div class="cartao" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">`+
+    blocos.map(b=>`<div class="bl"><div class="r">${b.r}</div><div class="n">${b.v}</div>`+
+      (b.rt?`<div class="ref">${b.rt}</div><div class="refv">${b.rv}</div>`:'')+
+      (b.p?`<div class="pil ${b.pc}">${b.p}</div>`:'')+`</div>`).join('')+`</div>`;
+}
+function leg(itens){
+  return `<div class="leg">${itens.map(i=>{
+    const m=i.k==='q'?`<i class="q" style="background:${i.c}"></i>`:i.k==='d'?`<i class="d"></i>`:`<i class="l" style="border-color:${i.c}"></i>`;
+    return `<span>${m}${i.t}</span>`;}).join('')}</div>`;
+}
+function combo(w,h,o){
+  const pl=o.pl||60,pr=o.sec?44:10,pt=8,pb=20,pw=w-pl-pr,ph=h-pt-pb,n=o.cats.length,b=pw/n,cw=b*0.62;
+  const Y=v=>pt+ph*(1-v/o.max), Y2=v=>pt+ph*(1-v/(o.sec?o.sec.max:o.max));
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${o.aria}">`;
+  for(let i=0;i<=o.ticks;i++){
+    const t=o.max*i/o.ticks,y=Y(t);
+    s+=`<line x1="${pl}" x2="${w-pr}" y1="${f1(y)}" y2="${f1(y)}" stroke="#EDF0F3"/>`+
+       `<text x="${pl-6}" y="${f1(y+3.5)}" text-anchor="end">${o.fy(t)}</text>`;
+    if(o.sec) s+=`<text x="${w-pr+6}" y="${f1(y+3.5)}">${o.sec.fy(o.sec.max*i/o.ticks)}</text>`;
+  }
+  o.cols.forEach((v,i)=>{const x=pl+i*b+(b-cw)/2,y=Y(v);
+    s+=`<rect x="${f1(x)}" y="${f1(y)}" width="${f1(cw)}" height="${f1(pt+ph-y)}" fill="${o.cor||'#1D5A8C'}"/>`;});
+  (o.lines||[]).forEach(l=>{
+    const F=l.sec?Y2:Y;
+    const pts=l.vals.map((v,i)=>`${f1(pl+i*b+b/2)},${f1(F(v))}`).join(' ');
+    s+=`<polyline points="${pts}" fill="none" stroke="${l.c}" stroke-width="2" ${l.dash?'stroke-dasharray="5 3"':''} stroke-linejoin="round"/>`;
+    if(!l.dash) l.vals.forEach((v,i)=>{s+=`<circle cx="${f1(pl+i*b+b/2)}" cy="${f1(F(v))}" r="2.5" fill="${l.c}"/>`;});
+  });
+  s+=`<line x1="${pl}" x2="${w-pr}" y1="${pt+ph}" y2="${pt+ph}" stroke="#C9D0D9"/>`;
+  o.cats.forEach((c,i)=>{s+=`<text x="${f1(pl+i*b+b/2)}" y="${pt+ph+14}" text-anchor="middle">${c}</text>`;});
+  return s+'</svg>';
+}
+function barras(w,h,itens,fmt,labW,rolar,aria){
+  const valW=78,pw=w-labW-valW-(rolar?10:0),n=itens.length,band=rolar?26:h/n,bh=Math.min(18,band*0.62),max=Math.max(...itens.map(d=>d[1]));
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${aria}">`;
+  itens.forEach((d,i)=>{const yc=i*band+band/2,L=pw*d[1]/max;
+    if(yc+bh/2>h) return;
+    s+=`<text class="cat" x="${labW-8}" y="${f1(yc+4)}" text-anchor="end">${d[0]}</text>`+
+       `<rect x="${labW}" y="${f1(yc-bh/2)}" width="${f1(L)}" height="${f1(bh)}" fill="#1D5A8C"/>`+
+       `<text class="dl" x="${f1(labW+L+6)}" y="${f1(yc+4)}">${fmt(d[1])}</text>`;});
+  s+='</svg>';
+  if(rolar) s+=`<div class="rolagem" style="height:${h}px"><i style="height:${Math.round(h*0.07)}px"></i></div>`;
+  return s;
+}
+function cel(c,v){
+  if(v&&typeof v==='object')
+    return `<td class="num db"><span class="bar" style="width:${Math.max(1,v.f*(c.w-12)).toFixed(0)}px"></span><span class="val">${v.t}</span></td>`;
+  return `<td class="${c.n?'num':''}">${v}</td>`;
+}
+function tab(cols,linhas,tot){
+  const W=cols.reduce((a,c)=>a+c.w,0);
+  const cg=`<colgroup>${cols.map(c=>`<col style="width:${c.w}px">`).join('')}</colgroup>`;
+  let s=`<table style="width:${W}px">${cg}<thead><tr>${cols.map(c=>`<th class="${c.n?'num':''}">${c.t}</th>`).join('')}</tr></thead><tbody>`;
+  linhas.forEach(r=>{s+='<tr>'+r.map((v,j)=>cel(cols[j],v)).join('')+'</tr>';});
+  s+='</tbody></table>';
+  if(tot) s+=`<table class="tabfix" style="width:${W}px">${cg}<tbody><tr class="tot">${tot.map((v,j)=>`<td class="${cols[j].n?'num':''}">${v}</td>`).join('')}</tr></tbody></table>`;
+  return s;
+}
+function matriz(o){
+  const ns=o.subs?o.subs.length:1,nc=o.grupos.length*ns;
+  let s=`<table style="width:${o.rh+nc*o.cw}px"><colgroup><col style="width:${o.rh}px">${(`<col style="width:${o.cw}px">`).repeat(nc)}</colgroup><thead>`;
+  if(o.subs){
+    s+=`<tr><th rowspan="2">${o.rot}</th>${o.grupos.map(g=>`<th class="grp" colspan="${ns}">${g}</th>`).join('')}</tr>`+
+       `<tr>${o.grupos.map(()=>o.subs.map(x=>`<th class="num">${x}</th>`).join('')).join('')}</tr>`;
+  } else s+=`<tr><th>${o.rot}</th>${o.grupos.map(g=>`<th class="num">${g}</th>`).join('')}</tr>`;
+  s+='</thead><tbody>'+o.linhas.map(r=>`<tr><td>${r[0]}</td>${r[1].map(v=>`<td class="num">${v}</td>`).join('')}</tr>`).join('');
+  if(o.tot) s+=`<tr class="tot"><td>${o.tot[0]}</td>${o.tot[1].map(v=>`<td class="num">${v}</td>`).join('')}</tr>`;
+  return s+'</tbody></table>';
+}
+
+/* ---------- página 1, Visão executiva ---------- */
+const REG=[['Sudeste',22061384.27,20952788.51],['Sul',14597211.54,14310598.03],['Centro-Oeste',12940355.10,12478645.77],
+  ['Nordeste',10575640.48,10736691.41],['Norte',4931010.39,4904620.23]];
+const LINHA=[['Linha Premium',43425436.18],['Linha Performance',15928212.45],['Linha Essencial',5751953.15]];
+const PORTE=[['Médio',25850412.66],['Grande',24447190.37],['Pequeno',14807998.75]];
+function pagina1(){
+  const corpoCombo=(bw,bh)=>{
+    let h=leg([{k:'q',c:'#1D5A8C',t:'Receita líquida'},{k:'d',t:'Mesmo mês do ano anterior'}])+
+      `<div style="margin-top:2px">${combo(bw,bh-18,{cats:MESES,cols:R26,lines:[{vals:R25,c:'#7D8796',dash:true}],
+        max:80e6,ticks:4,fy:t=>t?'R$ '+nf(t/1e6,0)+' Mi':'R$ 0',aria:'Receita líquida por mês de 2026 comparada ao mesmo mês de 2025'})}</div>`;
+    const b=(bw-60-10)/8, xc=60+7.5*b;
+    h+=`<div class="dica" style="left:${Math.round(xc-262-16)}px;top:22px">`+
+      `<div><span class="k">Mês</span><span class="n">ago/2026</span></div>`+
+      `<div><span class="k">Receita líquida</span><span class="n">${brl(A.rec)}</span></div>`+
+      `<div><span class="k">Receita ano anterior</span><span class="n">${brl(A.aa)}</span></div>`+
+      `<div><span class="k">Crescimento</span><span class="n bom">${varPct(A.cres)}</span></div>`+
+      `<div><span class="k">Acumulado no ano</span><span class="n">${brl(A.acum)}</span></div>`+
+      `<div><span class="k">Pedidos</span><span class="n">${it(A.ped)}</span></div></div>`;
+    return h;
+  };
+  const aaTot=REG.reduce((a,r)=>a+r[2],0);
+  return chassi(0,'O resultado está acima do ano anterior, e de onde vem a receita?',
+      'Escolha um ano para ver a comparação. Linha, porte e vendedor ficam no painel de filtros.')+
+    cartao(16,110,1248,150,[
+      {r:'Receita líquida',v:curto(A.rec),rt:'Ano anterior:',rv:curto(A.aa),p:varPct(A.cres),pc:cls(A.cres)},
+      {r:'Acumulado no ano',v:curto(A.acum)},
+      {r:'Margem %',v:pc(A.mpct),rt:'Ano anterior:',rv:pc(A.mpctaa),p:varPP(A.vpp),pc:cls(A.vpp)},
+      {r:'Margem',v:curto(A.mg),rt:'Custo:',rv:curto(A.custo)},
+      {r:'Desconto médio',v:'6,5%',rt:'Concedido:',rv:curto(A.desc)},
+      {r:'Pedidos',v:it(A.ped),rt:'Ticket médio:',rv:'R$ '+it(A.ticket)}])+
+    V({x:16,y:270,w:616,h:410,t:'Receita líquida por mês',
+       s:'Linha tracejada: mesmo mês do ano anterior · crescimento e acumulado na dica · a caixa Mês não filtra',corpo:corpoCombo})+
+    V({x:644,y:270,w:620,h:220,t:'Receita líquida por região, contra o ano anterior',
+       s:'Com um ano escolhido; sem ano, o crescimento compara a janela inteira',
+       corpo:()=>tab([{t:'Região',w:110},{t:'Receita líquida',w:170,n:1},{t:'Participação',w:84,n:1},{t:'Ano anterior',w:140,n:1},{t:'Crescimento',w:84,n:1}],
+         REG.map(r=>[r[0],{t:brl(r[1]),f:r[1]/REG[0][1]},pc(r[1]/A.rec),brl(r[2]),varPct(r[1]/r[2]-1)]),
+         ['Total',brl(A.rec),'100,0%',brl(aaTot),varPct(A.rec/aaTot-1)])})+
+    V({x:644,y:500,w:304,h:180,t:'Receita líquida por linha de produto',s:'Participação e crescimento na dica',
+       corpo:(bw,bh)=>barras(bw,bh,LINHA,mi,108,false,'Receita líquida por linha de produto')})+
+    V({x:960,y:500,w:304,h:180,t:'Receita líquida por porte de cliente',s:'Participação e crescimento na dica',
+       corpo:(bw,bh)=>barras(bw,bh,PORTE,mi,64,false,'Receita líquida por porte de cliente')});
+}
+
+/* ---------- página 2, Margem e desconto ---------- */
+const MPL=[['Grande',[.088,.379,.090,.383,.091,.386,.090,.385]],['Médio',[.049,.419,.050,.422,.050,.425,.050,.423]],
+  ['Pequeno',[.050,.418,.050,.421,.051,.424,.050,.422]]];
+const MPL_TOT=['Total',[.063,.406,.065,.407,.066,.409,.065,.408]];
+const DREG=[['Sudeste',.067],['Sul',.065],['Centro-Oeste',.064],['Nordeste',.063],['Norte',.062]];
+const PROD=[['Harum H745',31204.55,.094,.372],['Quisquam C678',29876.10,.092,.375],['Consectetur G161',28410.92,.091,.379],
+  ['Aperiam X814',27935.47,.090,.381],['Ipsa F677',26702.33,.089,.384],['Saepe K984',25980.18,.088,.386],['Dolore W729',25114.60,.088,.387]];
+function pagina2(){
+  return chassi(1,'Onde o desconto está corroendo a margem?',
+      'O porte Grande recebe desconto maior. Compare cada linha de produto dentro do mesmo porte.')+
+    cartao(16,110,1248,130,[
+      {r:'Receita bruta',v:curto(A.bruta)},
+      {r:'Desconto concedido',v:curto(A.desc),rt:'Desconto médio:',rv:'6,5%'},
+      {r:'Receita líquida',v:curto(A.rec)},
+      {r:'Custo',v:curto(A.custo)},
+      {r:'Margem',v:curto(A.mg),rt:'Margem %:',rv:pc(A.mpct)}])+
+    V({x:16,y:250,w:828,h:210,t:'Desconto médio e margem por porte e linha de produto',
+       s:'Desconto maior com margem menor aponta onde rever a política',
+       corpo:()=>matriz({rot:'Porte',rh:90,cw:88,grupos:['Linha Essencial','Linha Performance','Linha Premium','Total'],subs:['Desconto médio','Margem %'],
+         linhas:MPL.map(r=>[r[0],r[1].map(v=>pc(v))]),tot:[MPL_TOT[0],MPL_TOT[1].map(v=>pc(v))]})})+
+    V({x:856,y:250,w:408,h:210,t:'Desconto médio por região',s:'Receita bruta, desconto concedido e margem na dica',
+       corpo:(bw,bh)=>barras(bw,bh,DREG,v=>pc(v),92,false,'Desconto médio por região')})+
+    V({x:16,y:470,w:828,h:210,t:'Desconto médio e margem por mês',
+       s:'Colunas: desconto médio · linha: margem % no eixo da direita · a caixa Mês não filtra',
+       corpo:(bw,bh)=>leg([{k:'q',c:'#1D5A8C',t:'Desconto médio'},{k:'l',c:'#3E8E8B',t:'Margem %'}])+
+         `<div style="margin-top:2px">${combo(bw,bh-18,{cats:MESES,cols:DESC26,lines:[{vals:MPCT26,c:'#3E8E8B',sec:true}],
+           max:.08,ticks:4,pl:40,fy:t=>nf(t*100,0)+'%',sec:{max:.5,fy:t=>nf(t*100,0)+'%'},aria:'Desconto médio e margem percentual por mês de 2026'})}</div>`})+
+    V({x:856,y:470,w:408,h:210,t:'20 produtos com mais desconto concedido',s:'No filtro atual, do maior para o menor',
+       corpo:()=>tab([{t:'Produto',w:120},{t:'Desconto concedido',w:120,n:1},{t:'Desconto médio',w:70,n:1},{t:'Margem %',w:70,n:1}],
+         PROD.map(p=>[p[0],{t:brl(p[1]),f:p[1]/PROD[0][1]},pc(p[2]),pc(p[3])]))});
+}
+
+/* ---------- página 3, Clientes ---------- */
+const ATV=[6105,5684,6338,6402,6457,6391,6588,6412];
+const SC=[.302,.310,.306,.309,.313,.316,.318,.321];
+/* região: base de 12 meses e sem compra, por porte Grande, Médio, Pequeno */
+const RP=[['Sudeste',[1009,2353,3362],[272,741,1152]],['Sul',[653,1523,2175],[170,464,750]],
+  ['Centro-Oeste',[593,1384,1978],[160,430,680]],['Nordeste',[475,1107,1582],[131,352,552]],['Norte',[237,554,791],[61,168,263]]];
+const LISTA=[
+  ['Guerra - ME','Grande','Aparecida de da Luz'],['Montenegro da Rocha S.A.','Grande','Duarte da Praia'],['Sampaio','Grande','da Costa'],
+  ['Jesus','Grande','Sales'],['Freitas','Grande','Casa Grande Verde'],['Barbosa S.A.','Grande','Mendes do Galho'],
+  ['Pimenta','Médio','Fogaça'],['Novais - EI','Médio','Sá de Vieira'],['Ramos','Médio','Nunes'],
+  ['Viana','Médio','Pires'],['da Rosa Garcia S.A.','Médio','Vargas das Flores'],['da Costa 2','Médio','Macedo de Rodrigues'],
+  ['da Rosa Santos S.A.','Médio','Pinto'],['Leão','Médio','Rocha do Galho'],
+  ['da Cruz Marques Ltda.','Pequeno','Andrade do Campo'],['da Mota Correia e Filhos','Pequeno','Costa Alegre'],['Andrade e Filhos','Pequeno','Pires'],
+  ['da Costa S.A.','Pequeno','Cavalcanti'],['Brito - EI','Pequeno','Lopes da Serra'],['Machado - EI','Pequeno','Rocha da Prata'],
+  ['da Cruz e Filhos','Pequeno','da Rosa'],['Nogueira Cunha S/A','Pequeno','da Mota da Prata']];
+function pagina3(){
+  const soma=a=>a.reduce((x,y)=>x+y,0);
+  const linhas=RP.map(r=>{const v=[];[0,1,2].forEach(k=>{v.push(it(r[2][k]),pc(r[2][k]/r[1][k]));});
+    v.push(it(soma(r[2])),pc(soma(r[2])/soma(r[1])));return [r[0],v];});
+  const tb=[0,1,2].map(k=>soma(RP.map(r=>r[1][k]))), ts=[0,1,2].map(k=>soma(RP.map(r=>r[2][k])));
+  const tv=[];[0,1,2].forEach(k=>{tv.push(it(ts[k]),pc(ts[k]/tb[k]));});tv.push(it(soma(ts)),pc(soma(ts)/soma(tb)));
+  return chassi(2,'A base de clientes está ativa ou esfriando, e onde?',
+      'Sem compra há 90 dias: comprou nos últimos 12 meses e parou. A lista segue a caixa Região.')+
+    cartao(16,110,828,130,[
+      {r:'Clientes ativos',v:it(A.clientes)},
+      {r:'Base de 12 meses',v:it(soma(tb))},
+      {r:'Sem compra há 90 dias',v:it(soma(ts)),rt:'Da base de 12 meses:',rv:pc(soma(ts)/soma(tb))},
+      {r:'Ticket médio',v:'R$ '+it(A.ticket),rt:'Pedidos:',rv:it(A.ped)}])+
+    V({x:16,y:250,w:828,h:190,t:'Clientes ativos e clientes sem compra há 90 dias, por mês',
+       s:'Colunas: clientes com compra no mês · linha: % da base de 12 meses sem compra · a caixa Mês não filtra',
+       corpo:(bw,bh)=>leg([{k:'q',c:'#1D5A8C',t:'Clientes ativos'},{k:'l',c:'#C27C3A',t:'Sem compra há 90 dias, % da base'}])+
+         `<div style="margin-top:2px">${combo(bw,bh-18,{cats:MESES,cols:ATV,lines:[{vals:SC,c:'#C27C3A',sec:true}],
+           max:8000,ticks:4,pl:44,fy:t=>it(t),sec:{max:.4,fy:t=>nf(t*100,0)+'%'},aria:'Clientes ativos por mês e percentual da base sem compra há 90 dias'})}</div>`})+
+    V({x:16,y:450,w:828,h:230,t:'Clientes sem compra há 90 dias, por região e porte',s:'Quantidade e fatia da base de 12 meses',
+       corpo:()=>matriz({rot:'Região',rh:104,cw:87,grupos:['Grande','Médio','Pequeno','Total'],subs:['Sem compra','% da base'],
+         linhas:linhas,tot:['Total',tv]})})+
+    V({x:856,y:110,w:408,h:570,t:'Lista de reativação',s:'Compraram nos últimos 12 meses e não nos últimos 90 · vazia quando ninguém parou',
+       corpo:()=>tab([{t:'Cliente',w:190},{t:'Porte',w:70},{t:'Cidade',w:120}],LISTA)});
+}
+
+/* ---------- página 4, Vendedores ---------- */
+/* nome, receita líquida, unidades, desconto médio, margem %, variação da margem em p.p., clientes */
+const VEND=[
+  ['Leandro Ramos',684312.45,2214,.086,.389,-0.8,61],['Calebe Brito',652870.10,2047,.061,.412,0.3,58],
+  ['Juan Rios',631455.82,1986,.055,.421,0.5,66],['Sarah Oliveira',618204.37,2133,.083,.392,-0.6,54],
+  ['Alana Rios',597118.06,1874,.064,.409,0.1,57],['Dr. Renan Pereira',583962.71,1958,.079,.395,-0.4,52],
+  ['Dra. Lívia Montenegro',571340.28,1792,.052,.424,0.7,63],['Joana Rodrigues',559087.93,1811,.067,.405,0.0,55],
+  ['Ana Liz Monteiro',548726.15,1736,.058,.417,0.2,60],['Maria Julia Campos',537501.64,1840,.088,.385,-1.1,49],
+  ['Luana Vargas',526933.49,1689,.060,.414,0.4,56],['Srta. Júlia Cirino',515870.22,1772,.090,.381,-1.3,47]];
+const DPORTE=[['Srta. Júlia Cirino',[.098,.064,.061,.090]],['Maria Julia Campos',[.097,.060,.059,.088]],['Leandro Ramos',[.096,.061,.058,.086]],
+  ['Sarah Oliveira',[.094,.059,.057,.083]],['Dr. Renan Pereira',[.093,.056,.055,.079]],['Joana Rodrigues',[.090,.051,.050,.067]],
+  ['Alana Rios',[.090,.050,.051,.064]],['Calebe Brito',[.089,.050,.049,.061]],['Luana Vargas',[.088,.049,.050,.060]],
+  ['Ana Liz Monteiro',[.089,.049,.048,.058]],['Juan Rios',[.087,.048,.049,.055]],['Dra. Lívia Montenegro',[.086,.048,.047,.052]]];
+const MENOR=[['Srta. Júlia Cirino',.381],['Maria Julia Campos',.385],['Leandro Ramos',.389],['Sarah Oliveira',.392],
+  ['Dr. Renan Pereira',.395],['Beatriz Borges',.396],['Giovanna Cunha',.398],['Bento Campos',.399]];
+function pagina4(){
+  return chassi(3,'Quem vende com margem saudável e quem compra volume com desconto?',
+      'Clique num vendedor na tabela para filtrar a página inteira.')+
+    V({x:16,y:110,w:828,h:360,t:'Vendedores por receita líquida',
+       s:'Clique numa linha para ver só o vendedor · variação da margem em pontos percentuais',
+       corpo:()=>tab([{t:'Vendedor',w:150},{t:'Receita líquida',w:140,n:1},{t:'Participação',w:72,n:1},{t:'Unidades',w:72,n:1},
+           {t:'Desconto médio',w:76,n:1},{t:'Margem %',w:64,n:1},{t:'Margem vs ano ant.',w:84,n:1},{t:'Clientes',w:62,n:1},{t:'Ticket médio',w:84,n:1}],
+         VEND.map(v=>[v[0],{t:brl(v[1]),f:v[1]/VEND[0][1]},pc(v[1]/A.rec),it(v[2]),pc(v[3]),pc(v[4]),pp(v[5]),it(v[6]),brl(v[1]/Math.round(v[6]*1.27))]),
+         ['Total',brl(A.rec),'100,0%',it(A.un),'6,5%',pc(A.mpct),pp(A.vpp),it(A.clientes),brl(A.ticket)])})+
+    V({x:856,y:110,w:408,h:360,t:'Desconto médio por porte de cliente',
+       s:'Compare dentro da mesma coluna: o Grande tem desconto maior por política',
+       corpo:()=>matriz({rot:'Vendedor',rh:136,cw:62,grupos:['Grande','Médio','Pequeno','Total'],
+         linhas:DPORTE.map(r=>[r[0],r[1].map(v=>pc(v))]),tot:['Total',[.090,.050,.050,.065].map(v=>pc(v))]})})+
+    V({x:16,y:480,w:828,h:200,t:'Receita, margem e desconto por mês',
+       s:'Todos os vendedores, ou o vendedor clicado na tabela · a caixa Mês não filtra',
+       corpo:(bw,bh)=>leg([{k:'q',c:'#1D5A8C',t:'Receita líquida'},{k:'l',c:'#3E8E8B',t:'Margem %'},{k:'l',c:'#C27C3A',t:'Desconto médio'}])+
+         `<div style="margin-top:2px">${combo(bw,bh-18,{cats:MESES,cols:R26,lines:[{vals:MPCT26,c:'#3E8E8B',sec:true},{vals:DESC26,c:'#C27C3A',sec:true}],
+           max:80e6,ticks:4,fy:t=>t?'R$ '+nf(t/1e6,0)+' Mi':'R$ 0',sec:{max:.5,fy:t=>nf(t*100,0)+'%'},aria:'Receita líquida, margem percentual e desconto médio por mês de 2026'})}</div>`})+
+    V({x:856,y:480,w:408,h:200,t:'Vendedores da menor para a maior margem',s:'Role para ver os demais · desconto e receita na dica',
+       corpo:(bw,bh)=>barras(bw,bh,MENOR,v=>pc(v),128,true,'Margem percentual por vendedor, da menor para a maior')});
+}
+
+/* ---------- montagem e escala ---------- */
+document.getElementById('p1').innerHTML=pagina1();
+document.getElementById('p2').innerHTML=pagina2();
+document.getElementById('p3').innerHTML=pagina3();
+document.getElementById('p4').innerHTML=pagina4();
+function ajustar(){
+  const W=document.querySelector('.doc').clientWidth-64;
+  document.querySelectorAll('.moldura').forEach(m=>{
+    const s=Math.min(1,W/1280);
+    m.style.width=(1280*s)+'px';m.style.height=(720*s)+'px';
+    m.firstElementChild.style.transform='scale('+s+')';
+  });
+}
+window.addEventListener('resize',ajustar);
+ajustar();
+</script>
+</body>
+</html>

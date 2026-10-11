@@ -1,0 +1,54 @@
+/// Dimensão de vendedor, uma linha por vendedor.
+table Dim_Vendedor
+	lineageTag: 44ae27e6-5e4d-4fde-99d6-ff697a9ad62d
+
+	column 'ID Vendedor'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: faaa1e50-6ac1-40e7-a67f-6c8a1b8fe245
+		summarizeBy: none
+		sourceColumn: ID Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: string
+		lineageTag: d1e1ba4c-7096-4aec-89f4-22103841b163
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Vendedor = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_vendedor.csv"),
+				        [Delimiter = ",", Columns = 4, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // a região do painel é a do cliente; fator_performance é parâmetro do gerador da base e não é indicador
+				    ColunasRemovidas = Table.RemoveColumns(ComCabecalho, {"regiao", "fator_performance"}),
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ColunasRemovidas,
+				        {
+				            {"vendedor_id", Int64.Type},
+				            {"vendedor", type text}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"vendedor_id", "ID Vendedor"},
+				            {"vendedor", "Vendedor"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

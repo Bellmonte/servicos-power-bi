@@ -1,0 +1,484 @@
+/// Tabela de medidas, sem coluna de dado. Toda medida do modelo mora aqui, em pastas numeradas por assunto.
+table Medidas
+	lineageTag: 5eee3ab0-2e50-4ad0-ad01-213b3d134318
+
+	/// Receita a preço de tabela, antes do desconto: soma do valor bruto de cada item de pedido, em reais com duas casas. Use para medir o tamanho da venda antes da negociação e como base do desconto concedido. Não use como faturamento do período, que é a Receita Liquida (R$).
+	measure 'Receita Bruta (R$)' = SUM ( Fact_Vendas[Valor Bruto] )
+		formatString: \R\$ #,0.00
+		displayFolder: 01 Receita
+		lineageTag: 52a9e13b-e13a-4929-9d55-eb27e2c146fb
+
+	/// Faturamento do período já descontado: soma do valor líquido de cada item de pedido, em reais com duas casas. É o indicador principal de receita do painel. Use como medida de resultado em qualquer recorte de região, linha de produto, porte, vendedor ou mês. Não use para falar de rentabilidade, que pede a Margem (R$) ou a Margem (%).
+	measure 'Receita Liquida (R$)' = SUM ( Fact_Vendas[Valor Liquido] )
+		formatString: \R\$ #,0.00
+		displayFolder: 01 Receita
+		lineageTag: c3608bb7-abdc-4ff1-a104-3e0f19239745
+
+	/// Fatia do item na receita líquida de tudo o que está selecionado na tela: a receita do item dividida pela receita do conjunto visível, respeitando segmentações e filtros, em percentual com uma casa. As fatias de um mesmo visual fecham em 100%. Use em tabela ou gráfico quebrado por região, linha de produto, porte ou vendedor, para ver quem concentra a receita. Não use em cartão sem quebra, onde o resultado é sempre 100%, nem para comparar fatias de telas com filtros diferentes.
+	measure 'Participacao na Receita (%)' =
+			DIVIDE (
+			    [Receita Liquida (R$)],
+			    CALCULATE ( [Receita Liquida (R$)], ALLSELECTED () )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 01 Receita
+		lineageTag: abc16aae-30f9-47f4-b651-998156508235
+
+	/// Quanto deixou de entrar por desconto: receita bruta menos receita líquida, em reais com duas casas. Use para dimensionar em dinheiro o custo da política de desconto num recorte. Não use para comparar recortes de tamanho diferente, que pedem o Desconto Medio (%).
+	measure 'Desconto Concedido (R$)' = [Receita Bruta (R$)] - [Receita Liquida (R$)]
+		formatString: \R\$ #,0.00
+		displayFolder: 02 Desconto e Margem
+		lineageTag: 7eafa965-ff97-413e-8372-93301ef5265e
+
+	/// Desconto médio ponderado pelo valor bruto: desconto concedido dividido pela receita bruta, razão das somas, em percentual com uma casa. Use para comparar a intensidade do desconto entre porte, linha de produto, região e vendedor. Não use a média simples do percentual de cada item no lugar dela, porque um item pequeno pesaria o mesmo que um item grande.
+	measure 'Desconto Medio (%)' = DIVIDE ( [Desconto Concedido (R$)], [Receita Bruta (R$)] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02 Desconto e Margem
+		lineageTag: 319f9513-dffb-41c4-b1d9-85a89be6ac1e
+
+	/// Custo dos itens vendidos: soma do custo total de cada item de pedido, em reais com duas casas. Use junto da receita líquida para explicar a margem. Não use como despesa da operação, que não está na base.
+	measure 'Custo (R$)' = SUM ( Fact_Vendas[Valor Custo] )
+		formatString: \R\$ #,0.00
+		displayFolder: 02 Desconto e Margem
+		lineageTag: 8dfb12e7-8b62-4f8d-bb9d-f7b46c2c5762
+
+	/// Margem bruta em valor: soma da margem de cada item, que é a receita líquida menos o custo, como vem da origem, em reais com duas casas. Use para resultado em dinheiro e para ver quem traz mais margem absoluta. Não use para comparar recortes de tamanho diferente, que pedem a Margem (%).
+	measure 'Margem (R$)' = SUM ( Fact_Vendas[Valor Margem] )
+		formatString: \R\$ #,0.00
+		displayFolder: 02 Desconto e Margem
+		lineageTag: c39ba422-081e-4e90-bc1b-5548a1c45903
+
+	/// Margem sobre a receita líquida: Margem (R$) dividida por Receita Liquida (R$), razão das somas, em percentual com uma casa. Use para comparar rentabilidade entre recortes de tamanho diferente e para acompanhar o efeito do desconto. Não use a média das margens percentuais de meses, regiões ou vendedores, porque a razão precisa ser refeita sobre as somas.
+	measure 'Margem (%)' = DIVIDE ( [Margem (R$)], [Receita Liquida (R$)] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 02 Desconto e Margem
+		lineageTag: 4b5c9eec-042d-4412-bceb-d82029c9cc28
+
+	/// Número de pedidos distintos no período, contado pelo número do pedido; um pedido tem vários itens. Use para volume de transações e como base do ticket médio. Não use somando recortes de linha de produto ou de produto, porque um pedido com itens de duas linhas conta uma vez em cada uma.
+	measure Pedidos = DISTINCTCOUNT ( Fact_Vendas[Numero Pedido] )
+		formatString: #,0
+		displayFolder: 03 Volume
+		lineageTag: 0042860e-207c-4fbd-8baa-703d0a995d7b
+
+	/// Unidades vendidas: soma da quantidade de cada item de pedido. Use para volume físico e para comparar giro entre linhas de produto. Não use como número de pedidos, nem para tratar como equivalentes produtos de preço muito diferente.
+	measure 'Quantidade (un)' = SUM ( Fact_Vendas[Quantidade Vendida] )
+		formatString: #,0
+		displayFolder: 03 Volume
+		lineageTag: 8fb24137-94b2-419e-8e96-3410927cee79
+
+	/// Receita líquida por pedido: Receita Liquida (R$) dividida por Pedidos, em reais com duas casas. Use para ver se o pedido médio cresce ou encolhe num recorte de região, porte, vendedor ou mês. Não use a média de tickets de meses ou vendedores, que precisa ser refeita sobre as somas, nem em recorte por linha de produto sem lembrar que o pedido com itens de várias linhas entra em cada uma delas.
+	measure 'Ticket Medio (R$)' = DIVIDE ( [Receita Liquida (R$)], [Pedidos] )
+		formatString: \R\$ #,0.00
+		displayFolder: 03 Volume
+		lineageTag: d0baa0d4-7a26-4c61-8d8e-f108977e8e11
+
+	/// Clientes distintos com ao menos uma compra no período selecionado. Use para acompanhar quantos clientes estão comprando, mês a mês ou por recorte. Não use somado entre meses ou vendedores, porque o mesmo cliente compra em vários meses e com mais de um vendedor, nem como tamanho da base de clientes, que olha os últimos 12 meses.
+	measure 'Clientes Ativos' = DISTINCTCOUNT ( Fact_Vendas[ID Cliente] )
+		formatString: #,0
+		displayFolder: 04 Clientes
+		lineageTag: d4bc16c3-8a2c-49b9-b865-9dad24ab9e9f
+
+	/// Clientes distintos com ao menos uma compra nos 365 dias que terminam na última data do período selecionado. Respeita todo filtro que não é de data, e sem filtro de data a referência é o fim da base. Use como denominador da leitura de clientes sem compra e para dimensionar a base de clientes viva num recorte. Não use somado mês a mês, porque cada mês olha os doze anteriores, nem nos doze primeiros meses da base, quando a janela ainda está incompleta.
+	measure 'Base de Clientes 12 Meses' =
+			VAR v_ref = MAX ( Dim_Calendario[Data] )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( Fact_Vendas[ID Cliente] ),
+			        DATESBETWEEN ( Dim_Calendario[Data], v_ref - 364, v_ref )
+			    )
+		formatString: #,0
+		displayFolder: 04 Clientes
+		lineageTag: c5a0b01a-8a91-4403-b3a1-0d76c7468569
+
+	/// Dos clientes da base de 12 meses, os que não compraram nos 90 dias que terminam na última data do período selecionado. Respeita todo filtro que não é de data, e com filtro de vendedor conta os clientes daquele vendedor. Use para montar e dimensionar a lista de reativação por região e porte. Não use somado entre meses, nem nos doze primeiros meses da base, quando a janela de 12 meses ainda está incompleta.
+	measure 'Clientes sem Compra 90 Dias' =
+			VAR v_ref = MAX ( Dim_Calendario[Data] )
+			VAR v_base =
+			    CALCULATETABLE ( VALUES ( Fact_Vendas[ID Cliente] ), DATESBETWEEN ( Dim_Calendario[Data], v_ref - 364, v_ref ) )
+			VAR v_recentes =
+			    CALCULATETABLE ( VALUES ( Fact_Vendas[ID Cliente] ), DATESBETWEEN ( Dim_Calendario[Data], v_ref - 89, v_ref ) )
+			RETURN
+			    COUNTROWS ( EXCEPT ( v_base, v_recentes ) )
+		formatString: #,0
+		displayFolder: 04 Clientes
+		lineageTag: f65d7fd0-d88d-4f94-bd02-76bbe3ee8778
+
+	/// Parcela da base de 12 meses que está sem compra há 90 dias: Clientes sem Compra 90 Dias dividido por Base de Clientes 12 Meses, em percentual com uma casa. Use para comparar regiões, portes e vendedores de tamanhos diferentes. Não use a média do percentual entre recortes, porque a razão precisa ser refeita sobre as contagens.
+	measure 'Clientes sem Compra 90 Dias (%)' = DIVIDE ( [Clientes sem Compra 90 Dias], [Base de Clientes 12 Meses] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 04 Clientes
+		lineageTag: 006a8bd5-fe3c-40c8-b5d5-fea18b4990fe
+
+	/// Receita líquida no mesmo período do ano anterior, com as datas do filtro deslocadas em um ano pelo calendário, em reais com duas casas; vazio quando o mesmo período do ano anterior não está inteiro na base, o que vale para os doze primeiros meses, para o ano de 2024 inteiro e para a base sem filtro de data. Use como referência de comparação anual em cartão, tabela ou linha do tempo mensal. Não use para comparar períodos de tamanho diferente, nem trate o vazio como zero.
+	measure 'Receita Ano Anterior (R$)' =
+			VAR v_inicio = MIN ( Dim_Calendario[Data] )
+			VAR v_inicio_base = CALCULATE ( MIN ( Dim_Calendario[Data] ), REMOVEFILTERS ( Dim_Calendario ) )
+			RETURN
+			    IF ( EDATE ( v_inicio, -12 ) >= v_inicio_base, CALCULATE ( [Receita Liquida (R$)], DATEADD ( Dim_Calendario[Data], -1, YEAR ) ) )
+		formatString: \R\$ #,0.00
+		displayFolder: 05 Ano Anterior
+		lineageTag: 8eaf02a8-ef37-40cd-aa95-d9621ff65a8d
+
+	/// Variação da receita líquida contra o mesmo período do ano anterior: a diferença entre as duas dividida pela do ano anterior, em percentual com seta; vazio quando não há ano anterior inteiro na base. Use para dizer se o período está melhor ou pior que o mesmo período do ano anterior. Não use a média das variações de meses ou recortes, nem trate o vazio dos primeiros períodos como crescimento zero.
+	measure 'Crescimento sobre Ano Anterior (%)' =
+			VAR a = [Receita Liquida (R$)]
+			VAR b = [Receita Ano Anterior (R$)]
+			RETURN
+			    IF ( ISBLANK ( b ), BLANK (), DIVIDE ( a - b, b ) )
+		formatString: ▲ +0.0%;▼ -0.0%;0.0%
+		displayFolder: 05 Ano Anterior
+		lineageTag: 60623359-6a63-4038-a6c7-8a806ccf1a85
+
+	/// Margem percentual no mesmo período do ano anterior, refeita como razão das somas sobre as datas deslocadas em um ano, em percentual com uma casa; vazio quando o mesmo período do ano anterior não está inteiro na base. Use como referência da margem atual em cartão e tabela. Não use a média das margens de anos anteriores de vários recortes, nem trate o vazio como margem zero.
+	measure 'Margem Ano Anterior (%)' =
+			VAR v_inicio = MIN ( Dim_Calendario[Data] )
+			VAR v_inicio_base = CALCULATE ( MIN ( Dim_Calendario[Data] ), REMOVEFILTERS ( Dim_Calendario ) )
+			RETURN
+			    IF ( EDATE ( v_inicio, -12 ) >= v_inicio_base, CALCULATE ( [Margem (%)], DATEADD ( Dim_Calendario[Data], -1, YEAR ) ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 05 Ano Anterior
+		lineageTag: ce6bde9a-1c76-41b3-97a0-4445fa54c6dc
+
+	/// Diferença entre a margem atual e a do mesmo período do ano anterior, em pontos percentuais: Margem (%) menos Margem Ano Anterior (%), vezes cem; vazio se faltar um dos lados. Use para dizer quantos pontos de margem o período ganhou ou perdeu. Não use como variação percentual da margem, que seria outra conta, nem trate o vazio como estabilidade.
+	measure 'Variacao Margem sobre Ano Anterior (p.p.)' =
+			VAR a = [Margem (%)]
+			VAR b = [Margem Ano Anterior (%)]
+			RETURN
+			    IF ( ISBLANK ( a ) || ISBLANK ( b ), BLANK (), ( a - b ) * 100 )
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 05 Ano Anterior
+		lineageTag: 8c4c6c22-5c90-453a-b203-228e347d5a55
+
+	/// Receita líquida de 1º de janeiro até a última data do período selecionado, dentro do mesmo ano, em reais com duas casas. Use em linha do tempo mensal para acompanhar o acumulado do ano. Não use em 2023, que começa em setembro na base e por isso acumula só quatro meses, nem somando anos diferentes.
+	measure 'Receita Acumulada no Ano (R$)' = CALCULATE ( [Receita Liquida (R$)], DATESYTD ( Dim_Calendario[Data] ) )
+		formatString: \R\$ #,0.00
+		displayFolder: 05 Ano Anterior
+		lineageTag: 114b8952-1fd1-42ba-8715-4e7395e89c94
+
+	/// Texto do rodapé de todas as páginas: origem sintética do dado, janela da base lida do calendário, unidade e recorte de região. Use só no rótulo de rodapé das páginas. Não use em cálculo, filtro ou exportação, porque o resultado é texto.
+	measure '.rodape_pagina' =
+			VAR v_inicio =
+			    CALCULATE (
+			        MIN ( Dim_Calendario[Data] ),
+			        REMOVEFILTERS ( Dim_Calendario )
+			    )
+			VAR v_fim =
+			    CALCULATE (
+			        MAX ( Dim_Calendario[Data] ),
+			        REMOVEFILTERS ( Dim_Calendario )
+			    )
+			RETURN
+			    "Dado 100% sintético, gerado para demonstração · vendas de "
+			        & FORMAT ( v_inicio, "mmm/yyyy", "pt-BR" ) & " até " & FORMAT ( v_fim, "dd/mm/yyyy", "pt-BR" )
+			        & " · valores em R$ · região é a do cliente · B&B · Matheus Belmonte"
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: eeb774ea-d5e1-45e4-bb86-08897cc7a812
+
+	/// Texto de Receita Liquida (R$) para o valor do cartão, escrito com FORMAT na cultura pt-BR e formato curto por faixa: R$ 2,1 Bi a partir de um bilhão, R$ 952 Mi de cem milhões para cima, R$ 24,8 Mi a partir de um milhão e R$ 339.930 abaixo disso; vazio quando a medida base é vazia, e o cartão mostra o hífen. Use só no valor do bloco Receita líquida dos cartões da Visão executiva e de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_receita_liquida' =
+			VAR v_valor = [Receita Liquida (R$)]
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 1c9763df-a5c0-483d-ab7d-e8868b6d6828
+
+	/// Texto de Receita Ano Anterior (R$) para a referência do cartão, escrito com FORMAT na cultura pt-BR e o mesmo formato curto por faixa dos reais; vazio quando o ano anterior é vazio. Só devolve valor com um único ano no contexto (Dim_Calendario[Ano]), e fora disso volta vazia. Use só na referência Ano anterior do bloco Receita líquida da Visão executiva. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_receita_ano_anterior' =
+			VAR v_valor = IF ( HASONEVALUE ( Dim_Calendario[Ano] ), [Receita Ano Anterior (R$)] )
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 374e37b7-ac01-404d-9870-85fb5fff780d
+
+	/// Texto da pílula de crescimento: seta para cima quando positivo, para baixo quando negativo e nenhuma no zero, seguida de Crescimento sobre Ano Anterior (%) com sinal e uma casa na cultura pt-BR, como em ▲ +2,7%. Só devolve valor com um único ano no contexto (Dim_Calendario[Ano]), e fora disso volta vazia. Use só no detalhe do bloco Receita líquida da Visão executiva. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_crescimento_ano_anterior' =
+			VAR v_valor = IF ( HASONEVALUE ( Dim_Calendario[Ano] ), [Crescimento sobre Ano Anterior (%)] )
+			VAR _seta =
+			    SWITCH (
+			        TRUE (),
+			        v_valor > 0, UNICHAR ( 9650 ) & " ",
+			        v_valor < 0, UNICHAR ( 9660 ) & " ",
+			        ""
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _seta & FORMAT ( v_valor, "+0.0%;-0.0%;0.0%", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: cd54c0b4-fc50-4085-bdbf-87704867e994
+
+	/// Texto de Receita Acumulada no Ano (R$) para o valor do cartão, escrito com FORMAT na cultura pt-BR e o mesmo formato curto por faixa dos reais; vazio quando a medida base é vazia. Use só no valor do bloco Acumulado no ano da Visão executiva. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_receita_acumulada_ano' =
+			VAR v_valor = [Receita Acumulada no Ano (R$)]
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: ad160b3d-e6ed-424c-a5cf-d60cd0b45b18
+
+	/// Texto de Margem (%) para o cartão, escrito com FORMAT na cultura pt-BR, como em 40,8%; vazio quando a medida base é vazia. Use só no valor do bloco Margem % da Visão executiva e na referência do bloco Margem de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_margem_pct' =
+			VAR v_valor = [Margem (%)]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "0.0%", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 1d5707ad-2729-465e-a7c6-47e57568bc47
+
+	/// Texto de Margem Ano Anterior (%) para a referência do cartão, escrito com FORMAT na cultura pt-BR, como em 39,9%; vazio quando o ano anterior é vazio. Só devolve valor com um único ano no contexto (Dim_Calendario[Ano]), e fora disso volta vazia. Use só na referência Ano anterior do bloco Margem % da Visão executiva. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_margem_pct_ano_anterior' =
+			VAR v_valor = IF ( HASONEVALUE ( Dim_Calendario[Ano] ), [Margem Ano Anterior (%)] )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "0.0%", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 65ea0b01-f953-4dd9-8876-b20336b4ff26
+
+	/// Texto da pílula da margem: seta para cima quando positivo, para baixo quando negativo e nenhuma no zero, seguida de Variacao Margem sobre Ano Anterior (p.p.) com sinal, uma casa e o sufixo p.p., como em ▲ +0,4 p.p. Só devolve valor com um único ano no contexto (Dim_Calendario[Ano]), e fora disso volta vazia. Use só no detalhe do bloco Margem % da Visão executiva. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_variacao_margem_pp' =
+			VAR v_valor = IF ( HASONEVALUE ( Dim_Calendario[Ano] ), [Variacao Margem sobre Ano Anterior (p.p.)] )
+			VAR _seta =
+			    SWITCH (
+			        TRUE (),
+			        v_valor > 0, UNICHAR ( 9650 ) & " ",
+			        v_valor < 0, UNICHAR ( 9660 ) & " ",
+			        ""
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _seta & FORMAT ( v_valor, "+0.0;-0.0;0.0", "pt-BR" ) & " p.p." )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 9b8b53a0-6d01-422b-ae68-41091794e698
+
+	/// Texto de Margem (R$) para o valor do cartão, escrito com FORMAT na cultura pt-BR e o mesmo formato curto por faixa dos reais; vazio quando a medida base é vazia. Use só no valor do bloco Margem dos cartões da Visão executiva e de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_margem' =
+			VAR v_valor = [Margem (R$)]
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 12dcac82-0082-464d-8a71-185d3f3ea1c2
+
+	/// Texto de Custo (R$) para o cartão, escrito com FORMAT na cultura pt-BR e o mesmo formato curto por faixa dos reais; vazio quando a medida base é vazia. Use só na referência do bloco Margem da Visão executiva e no valor do bloco Custo de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_custo' =
+			VAR v_valor = [Custo (R$)]
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: aa196429-90eb-47de-8ebc-349116c0219c
+
+	/// Texto de Desconto Medio (%) para o cartão, escrito com FORMAT na cultura pt-BR, como em 6,5%; vazio quando a medida base é vazia. Use só no valor do bloco Desconto médio da Visão executiva e na referência do bloco Desconto concedido de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_desconto_medio' =
+			VAR v_valor = [Desconto Medio (%)]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "0.0%", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 87b57f5c-0565-401d-a7a6-3829dbf40854
+
+	/// Texto de Desconto Concedido (R$) para o cartão, escrito com FORMAT na cultura pt-BR e o mesmo formato curto por faixa dos reais; vazio quando a medida base é vazia. Use só na referência do bloco Desconto médio da Visão executiva e no valor do bloco Desconto concedido de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_desconto_concedido' =
+			VAR v_valor = [Desconto Concedido (R$)]
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 64c32901-2240-480a-bf7a-06abc6c0487b
+
+	/// Texto de Receita Bruta (R$) para o valor do cartão, escrito com FORMAT na cultura pt-BR e o mesmo formato curto por faixa dos reais; vazio quando a medida base é vazia. Use só no valor do bloco Receita bruta de Margem e desconto. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_receita_bruta' =
+			VAR v_valor = [Receita Bruta (R$)]
+			VAR v_abs = ABS ( v_valor )
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			VAR _numero =
+			    SWITCH (
+			        TRUE (),
+			        -- cada corte fica meio passo abaixo da fronteira, para o arredondamento não escrever "1.000 Mi"
+			        v_abs >= 999500000, FORMAT ( v_abs / 1000000000, "#,0.0", "pt-BR" ) & " Bi",
+			        v_abs >= 99950000, FORMAT ( v_abs / 1000000, "#,0", "pt-BR" ) & " Mi",
+			        v_abs >= 999950, FORMAT ( v_abs / 1000000, "#,0.0", "pt-BR" ) & " Mi",
+			        FORMAT ( v_abs, "#,0", "pt-BR" )
+			    )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & _numero )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 3ecd0877-eaaa-4299-8d4a-118a36acb4c2
+
+	/// Texto de Pedidos para o cartão, escrito com FORMAT na cultura pt-BR, como em 1.234; vazio quando a medida base é vazia. Use só no valor do bloco Pedidos da Visão executiva. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_pedidos' =
+			VAR v_valor = [Pedidos]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "#,0", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: c56aa306-7c9c-4a9e-ac77-97e646c4e67b
+
+	/// Texto de Pedidos para a referência do cartão, com FORMAT na cultura pt-BR e a palavra pedidos no fim, como em 1.234 pedidos; vazio quando a medida base é vazia. Use só na referência do bloco Ticket médio de Clientes, onde o cartão leria um texto só com número como valor numérico e cortaria o milhar. Não use em tabela, gráfico, exportação nem paridade, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_pedidos_referencia' =
+			VAR v_valor = [Pedidos]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "#,0", "pt-BR" ) & " pedidos" )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: e24bc230-b893-4337-a092-629b75510610
+
+	/// Texto de Ticket Medio (R$) para o cartão, escrito com FORMAT na cultura pt-BR em reais cheios, sem centavos, como em R$ 1.234; vazio quando a medida base é vazia. Use só na referência do bloco Pedidos da Visão executiva e no valor do bloco Ticket médio de Clientes. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_ticket_medio' =
+			VAR v_valor = [Ticket Medio (R$)]
+			VAR _sinal = IF ( v_valor < 0, "-" )
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), _sinal & "R$ " & FORMAT ( ABS ( v_valor ), "#,0", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 889f6578-8b6e-4cc5-8a06-dbd8d8a9169b
+
+	/// Texto de Clientes Ativos para o valor do cartão, escrito com FORMAT na cultura pt-BR, como em 1.234; vazio quando a medida base é vazia. Use só no valor do bloco Clientes ativos de Clientes. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_clientes_ativos' =
+			VAR v_valor = [Clientes Ativos]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "#,0", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: ead2ed1f-a16a-488e-ba3f-22f6f1b32fbc
+
+	/// Texto de Base de Clientes 12 Meses para o valor do cartão, escrito com FORMAT na cultura pt-BR, como em 1.234; vazio quando a medida base é vazia. Use só no valor do bloco Base de 12 meses de Clientes. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_base_clientes_12m' =
+			VAR v_valor = [Base de Clientes 12 Meses]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "#,0", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: 5554c567-084b-469a-8b58-094bf3a51ddc
+
+	/// Texto de Clientes sem Compra 90 Dias para o valor do cartão, escrito com FORMAT na cultura pt-BR, como em 1.234; vazio quando a medida base é vazia. Use só no valor do bloco Sem compra há 90 dias de Clientes. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_clientes_sem_compra_90d' =
+			VAR v_valor = [Clientes sem Compra 90 Dias]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "#,0", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: c9ec5784-77ab-4f4c-a101-8d29cf28de02
+
+	/// Texto de Clientes sem Compra 90 Dias (%) para a referência do cartão, escrito com FORMAT na cultura pt-BR, como em 32,1%; vazio quando a medida base é vazia. Use só na referência Da base de 12 meses do bloco Sem compra há 90 dias de Clientes. Não use em tabela, gráfico, exportação nem paridade, que usam a medida base com formato fixo, nem em ordenação ou regra de cor, porque o resultado é texto.
+	measure '.kpi_clientes_sem_compra_90d_pct' =
+			VAR v_valor = [Clientes sem Compra 90 Dias (%)]
+			RETURN
+			    IF ( NOT ISBLANK ( v_valor ), FORMAT ( v_valor, "0.0%", "pt-BR" ) )
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: f8beca9f-37d0-4b74-b477-d4248d05c751
+
+	/// Código de cor da pílula de crescimento sobre o ano anterior: 0 sem comparação, inclusive sem um único ano no contexto, 1 quando [Crescimento sobre Ano Anterior (%)] é maior que zero, que é favorável, e 2 quando é menor. A regra condicional do cartão lê este código para a cor do texto e do fundo da pílula. Use só na regra de cor do detalhe do cartão da Visão executiva. Não use como indicador nem em cálculo, porque o número é um código e não uma grandeza.
+	measure '.cor_crescimento_ano_anterior' =
+			VAR v_var = IF ( HASONEVALUE ( Dim_Calendario[Ano] ), [Crescimento sobre Ano Anterior (%)] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( v_var ), 0,
+			        v_var > 0, 1,
+			        v_var < 0, 2,
+			        0
+			    )
+		formatString: 0
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: ca180c29-9139-4aad-b7fd-0c7ca4eceb90
+
+	/// Código de cor da pílula de variação da margem sobre o ano anterior: 0 sem comparação, inclusive sem um único ano no contexto, 1 quando [Variacao Margem sobre Ano Anterior (p.p.)] é maior que zero, que é favorável, e 2 quando é menor. A regra condicional do cartão lê este código para a cor do texto e do fundo da pílula. Use só na regra de cor do detalhe do cartão da Visão executiva. Não use como indicador nem em cálculo, porque o número é um código e não uma grandeza.
+	measure '.cor_variacao_margem_pp' =
+			VAR v_var = IF ( HASONEVALUE ( Dim_Calendario[Ano] ), [Variacao Margem sobre Ano Anterior (p.p.)] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( v_var ), 0,
+			        v_var > 0, 1,
+			        v_var < 0, 2,
+			        0
+			    )
+		formatString: 0
+		isHidden
+		displayFolder: .Internas\UI
+		lineageTag: fcb87794-2c54-4bee-bc66-0e3fc130d33e
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    TiposAjustados = Table.TransformColumnTypes(Fonte, {{"Coluna 1", type text}}),
+				    ColunasRemovidas = Table.RemoveColumns(TiposAjustados, {"Coluna 1"})
+				in
+				    ColunasRemovidas
+
+	annotation PBI_ResultType = Table
+

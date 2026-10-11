@@ -1,0 +1,53 @@
+expression pPastaDados = "C:\dados\painel-comercial\comercial\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: dcc2e679-bef5-4af4-98aa-f79ae455379d
+	queryGroup: Parametros
+
+	annotation PBI_ResultType = Text
+
+/// Gera o calendário diário entre duas datas, com as colunas de ano, trimestre, mês, semana, dia e as de ordem.
+expression fn_Calendario =
+		(dataInicial as date, dataFinal as date) =>
+		let
+		    diasDuracao = Duration.Days(dataFinal - dataInicial) + 1,
+		    Datas = List.Dates(dataInicial, diasDuracao, #duration(1, 0, 0, 0)),
+		    Cabecalho = type table [
+		        Data = date,
+		        Ano = Int32.Type,
+		        Trimestre = text,
+		        Nome do Mes = text,
+		        Mes Abreviado = text,
+		        Mes = Int32.Type,
+		        Semana do Mes = text,
+		        Mes.Semana = text,
+		        Nome do Dia = text,
+		        Dia da Semana = Int32.Type,
+		        Dia = Int32.Type,
+		        Mes.Ano = text,
+		        Ordem = Int32.Type
+		    ],
+		    Registros = List.Transform(
+		        Datas,
+		        each {
+		            _,
+		            Date.Year(_),
+		            "Tri. " & Text.From(Date.QuarterOfYear(_)),
+		            Date.MonthName(_, "pt-BR"),
+		            Text.Start(Date.MonthName(_, "pt-BR"), 3),
+		            Date.Month(_),
+		            "Sem. " & Text.From(Date.WeekOfMonth(_)),
+		            Text.Start(Date.MonthName(_, "pt-BR"), 3) & "'" & Text.From(Date.WeekOfMonth(_)),
+		            Date.DayOfWeekName(_, "pt-BR"),
+		            Date.DayOfWeek(_),
+		            Date.Day(_),
+		            Text.Start(Date.MonthName(_, "pt-BR"), 3) & "'" & Text.End(Text.From(Date.Year(_)), 2),
+		            Date.Year(_) * 100 + Date.Month(_)
+		        }
+		    ),
+		    Tabela = #table(Cabecalho, Registros)
+		in
+		    Tabela
+	lineageTag: 7d38d287-d0cf-4262-b955-53a34287177b
+	queryGroup: Funcoes
+
+	annotation PBI_ResultType = Function
+

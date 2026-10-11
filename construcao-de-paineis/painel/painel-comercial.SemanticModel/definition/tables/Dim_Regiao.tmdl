@@ -1,0 +1,43 @@
+/// Dimensão de região do cliente, uma linha por região.
+/// Liga às vendas pelo nome da região, porque a origem não tem código de região.
+table Dim_Regiao
+	lineageTag: ad184ad8-2ccb-493e-ac2d-aec867a57807
+
+	column Regiao
+		dataType: string
+		lineageTag: 5bffacaf-e1bb-455d-ab12-02d906e42c86
+		summarizeBy: none
+		sourceColumn: Regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Regiao = m
+		mode: import
+		queryGroup: 'Tabelas Dimensao'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "dim_regiao.csv"),
+				        [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // o peso de mercado não entra em nenhuma medida deste painel
+				    ColunasRemovidas = Table.RemoveColumns(ComCabecalho, {"peso_mercado"}),
+				    TiposAjustados = Table.TransformColumnTypes(
+				        ColunasRemovidas,
+				        {
+				            {"regiao", type text}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"regiao", "Regiao"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

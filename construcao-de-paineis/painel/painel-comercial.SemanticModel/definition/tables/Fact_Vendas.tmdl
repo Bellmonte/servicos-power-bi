@@ -1,0 +1,173 @@
+/// Grão: uma linha por item de pedido, isto é, um produto vendido a um cliente por um vendedor numa data.
+/// Um pedido tem vários itens. Guarda só chaves, valores e o número do pedido; os atributos moram nas dimensões.
+table Fact_Vendas
+	lineageTag: e1268bb2-cee4-4697-883f-46ad9e1e9b5d
+
+	column 'Data Venda'
+		dataType: dateTime
+		isHidden
+		formatString: dd/MM/yyyy
+		lineageTag: 93c38d58-4bb8-4b44-8646-dbe6fb9c5b95
+		summarizeBy: none
+		sourceColumn: Data Venda
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID Produto'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 27718a11-dd5f-44fb-b296-42a794a1ed2d
+		summarizeBy: none
+		sourceColumn: ID Produto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Cliente'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bfb27897-8dce-4582-ac86-e710f66bb49d
+		summarizeBy: none
+		sourceColumn: ID Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Vendedor'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d727a7e6-6974-47cc-ab2d-8f484f4e30a2
+		summarizeBy: none
+		sourceColumn: ID Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Região do cliente na venda, chave da relação com Dim_Regiao.
+	column Regiao
+		dataType: string
+		isHidden
+		lineageTag: 74999acb-85fb-47bf-a3ff-00fdaa2dbe73
+		summarizeBy: none
+		sourceColumn: Regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantidade Vendida'
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: aac33086-fbce-4329-98d3-b671e4352ba3
+		summarizeBy: none
+		sourceColumn: Quantidade Vendida
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valor Bruto'
+		dataType: double
+		isHidden
+		formatString: \R\$ #,0.00
+		lineageTag: 9e238393-df85-4f39-928e-b660d54f963f
+		summarizeBy: none
+		sourceColumn: Valor Bruto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valor Liquido'
+		dataType: double
+		isHidden
+		formatString: \R\$ #,0.00
+		lineageTag: fdcfd51f-6e44-4f01-85e7-305a2c535225
+		summarizeBy: none
+		sourceColumn: Valor Liquido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valor Custo'
+		dataType: double
+		isHidden
+		formatString: \R\$ #,0.00
+		lineageTag: 97969e97-851e-4839-8334-5973f6852651
+		summarizeBy: none
+		sourceColumn: Valor Custo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Margem da linha como vem da origem, igual ao valor líquido menos o custo.
+	column 'Valor Margem'
+		dataType: double
+		isHidden
+		formatString: \R\$ #,0.00
+		lineageTag: 6ca6db1c-ab8a-47ae-beaa-c441dad51f73
+		summarizeBy: none
+		sourceColumn: Valor Margem
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número do pedido guardado como inteiro e exibido como PV-000000123 pela máscara de formato.
+	column 'Numero Pedido'
+		dataType: int64
+		formatString: \P\V\-000000000
+		lineageTag: 816bfedf-21bd-48c2-be69-0653bb1e8cb0
+		summarizeBy: none
+		sourceColumn: Numero Pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Vendas = m
+		mode: import
+		queryGroup: 'Tabelas Fato'
+		source =
+				let
+				    Fonte = Csv.Document(
+				        File.Contents(pPastaDados & "fato_vendas.csv"),
+				        [Delimiter = ",", Columns = 14, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+				    ),
+				    ComCabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    // nenhuma medida nem corte usa estas três; o desconto médio sai da razão das somas, e não do percentual de cada item
+				    ColunasRemovidas = Table.RemoveColumns(ComCabecalho, {"venda_id", "desconto_pct", "data_hora_emissao"}),
+				    // o pedido chega como texto PV-000000123 e vira inteiro; a máscara da coluna recompõe o PV-
+				    PedidoComoNumero = Table.TransformColumns(
+				        ColunasRemovidas,
+				        {{"numero_pedido", each Number.From(Text.AfterDelimiter(_, "-")), Int64.Type}}
+				    ),
+				    // o CSV usa ponto como separador decimal, por isso a cultura en-US
+				    TiposAjustados = Table.TransformColumnTypes(
+				        PedidoComoNumero,
+				        {
+				            {"data", type date},
+				            {"produto_id", Int64.Type},
+				            {"cliente_id", Int64.Type},
+				            {"vendedor_id", Int64.Type},
+				            {"regiao", type text},
+				            {"quantidade", Int64.Type},
+				            {"receita_bruta", type number},
+				            {"receita_liquida", type number},
+				            {"custo_total", type number},
+				            {"margem", type number}
+				        },
+				        "en-US"
+				    ),
+				    Renomeadas = Table.RenameColumns(
+				        TiposAjustados,
+				        {
+				            {"data", "Data Venda"},
+				            {"produto_id", "ID Produto"},
+				            {"cliente_id", "ID Cliente"},
+				            {"vendedor_id", "ID Vendedor"},
+				            {"regiao", "Regiao"},
+				            {"quantidade", "Quantidade Vendida"},
+				            {"receita_bruta", "Valor Bruto"},
+				            {"receita_liquida", "Valor Liquido"},
+				            {"custo_total", "Valor Custo"},
+				            {"margem", "Valor Margem"},
+				            {"numero_pedido", "Numero Pedido"}
+				        }
+				    )
+				in
+				    Renomeadas
+
+	annotation PBI_ResultType = Table
+

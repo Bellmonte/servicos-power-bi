@@ -1,0 +1,52 @@
+/// INSTRUÇÕES DE NEGÓCIO PARA IA - PAINEL COMERCIAL (DEMONSTRAÇÃO, DADO SINTÉTICO)
+///
+/// 1. DOMÍNIO E GRÃO: Fact_Vendas tem uma linha por item de pedido, isto é, um produto vendido a um cliente por um vendedor numa data. Um pedido tem vários itens e é identificado por Numero Pedido. A base é sintética e cobre a janela declarada no rodapé de cada página.
+///
+/// 2. UNIDADES: medidas com (R$) estão em reais; (un) em unidades; (%) devolvem fração exibida como percentual; (p.p.) em pontos percentuais. Pedidos, Clientes Ativos, Base de Clientes 12 Meses e Clientes sem Compra 90 Dias são contagens. Nunca some grandezas de unidades diferentes.
+///
+/// 3. CONCEITOS QUE NÃO SE SOMAM: Pedidos e as medidas de clientes são contagens distintas e não se somam entre meses, linhas de produto ou vendedores. Margem (%), Desconto Medio (%), Ticket Medio (R$) e Clientes sem Compra 90 Dias (%) são razões das somas, nunca média de razões. O desconto médio é ponderado pelo valor bruto.
+///
+/// 4. CLIENTES: Clientes Ativos conta quem comprou dentro do período selecionado. Base de Clientes 12 Meses e Clientes sem Compra 90 Dias olham para trás a partir da última data do período (365 e 90 dias), respeitam todo filtro que não é de data e, sem filtro de data, tomam o fim da base como referência. Com filtro de vendedor, a leitura é a dos clientes daquele vendedor. Não existe medida de clientes novos, porque quase todo cliente faz a primeira compra no primeiro ano da base.
+///
+/// 5. COMPARAÇÃO: as medidas da pasta 05 Ano Anterior usam o mesmo período do ano anterior pelo Dim_Calendario e voltam vazias quando o ano anterior não existe na base, o que acontece nos primeiros doze meses. Receita Acumulada no Ano (R$) vai de 1º de janeiro até a última data do período.
+///
+/// 6. REGIÃO: Dim_Regiao é a região do cliente, a mesma gravada em cada venda. A região de lotação do vendedor não está no modelo.
+///
+/// REGRA GERAL: para desempenho use [Receita Liquida (R$)] e [Margem (%)], quebrando por região, linha de produto, porte do cliente, vendedor ou mês. Medidas que começam com ponto são suporte de tela, devolvem texto e estão ocultas; nunca entram em cálculo, ordenação ou comparação.
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Parametros
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Funcoes
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Tabelas Dimensao'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Tabelas Fato'
+
+	annotation PBI_QueryGroupOrder = 3
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["pPastaDados","fn_Calendario","Dim_Calendario","Dim_Produto","Dim_Cliente","Dim_Vendedor","Dim_Regiao","Fact_Vendas","Medidas"]
+
+ref table Medidas
+ref table Dim_Calendario
+ref table Dim_Produto
+ref table Dim_Cliente
+ref table Dim_Vendedor
+ref table Dim_Regiao
+ref table Fact_Vendas
+

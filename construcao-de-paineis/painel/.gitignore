@@ -1,0 +1,9 @@
+# PBIP do painel comercial: o que o Power BI Desktop gera localmente e nao se versiona.
+# cache.abf guarda os dados importados (a base e gerada localmente, nunca versionada),
+# localSettings.json guarda preferencia e destino de publicacao da maquina,
+# unappliedChanges.json guarda edicao de consulta ainda nao aplicada.
+**/.pbi/cache.abf
+**/.pbi/localSettings.json
+**/.pbi/unappliedChanges.json
+*.pbix
+*.abf
