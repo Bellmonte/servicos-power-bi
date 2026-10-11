@@ -1,4 +1,4 @@
-# .gitignore do repo publico port-analise-dados.
+# .gitignore do repo de servicos de Power BI.
 # Nenhum dado entra aqui: a base e gerada localmente pelo port-gerador-dados.
 
 # --- Power BI Desktop: dado importado e preferencia da maquina ---
@@ -16,12 +16,12 @@
 dados/
 dados-locais/
 # Excecao declarada: registro das execucoes da medicao, sem dado de negocio nem caminho local.
-!e1-refatoracao-painel-comercial/medicao/resultados.csv
+!refatoracao-de-paineis/evidencias/desempenho/resultados.csv
 
 # --- Exportacao bruta do analisador de desempenho ---
 PowerBIPerformanceData*.json
-**/medicao/*.json
-!e1-refatoracao-painel-comercial/medicao/ensaio-render-v1.json
+**/desempenho/*.json
+!refatoracao-de-paineis/evidencias/desempenho/ensaio-render-v1.json
 
 # --- Material de trabalho que nao sai ---
 _LEIA-ANTES-DE-PUBLICAR.md

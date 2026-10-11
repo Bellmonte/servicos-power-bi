@@ -1,27 +1,31 @@
-# port-analise-dados
+# B&B · Serviços de Power BI
 
-Este repositório demonstra serviços de Power BI em episódios. Cada episódio mostra um serviço
-completo, do diagnóstico à entrega, com o painel em formato PBIP, o registro do que foi feito e o
-resultado medido. Os episódios são independentes, e cada pasta tem o seu README e sobe sozinha numa
-máquina com Windows e o Power BI Desktop.
+Painéis que carregam rápido, números que se confirmam e manutenção que cabe na rotina. Cada serviço
+tem um caso completo com dados fictícios, para você ver o resultado antes de contratar.
 
-> **Dados 100% fictícios.** Os nomes e os números dos episódios são inventados, e toda base é gerada
-> pelo [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem qualquer vínculo
-> com organização ou pessoa real.
+## Serviços
 
-## Episódios
-
-| # | Episódio | O que mostra | Estado |
+| Serviço | O que resolve | Caso de exemplo | Estado |
 |---|---|---|---|
-| E1 | [Refatoração de um painel comercial](e1-refatoracao-painel-comercial/README.md) | o serviço de refatoração e manutenção aplicado a um painel com defeitos comuns de mercado, reestruturado sem mudar nenhum número de negócio: modelo 74% menor, atualização 29% mais rápida e as consultas da página principal de 22% a 88% mais rápidas, com a paridade conferida, o registro de cada mudança e o catálogo de técnicas do serviço | publicado |
-| E2 | Construção de painel do zero | levantamento de indicadores no formato que o serviço entrega, dicionário de medidas e painel publicado na web, sobre a mesma base | próximo |
-| E3 | Relatório e análise | uma pergunta de negócio respondida em notebook, com relatório que traz conclusão e limitação | depois do E2 |
+| [**Refatoração de painéis**](refatoracao-de-paineis/README.md) | painel que funciona, mas ficou pesado, lento e difícil de manter | painel comercial com **modelo 74% menor**, **atualização 29% mais rápida** e **consultas até 88% mais rápidas**, com os mesmos números de antes | disponível |
+| **Construção de painéis** | indicadores levantados com a área, dicionário de medidas e painel publicado na web | em preparo | em breve |
+| **Análise e relatório** | uma pergunta de negócio respondida em notebook, com conclusão e limitação | em preparo | em breve |
 
-## O que todo episódio traz
+## Como cada caso é entregue
 
-Cada episódio sobe do zero seguindo só o README dele. A base é sintética e sai de um comando com
-data fixa, para os números serem os mesmos em qualquer máquina, e o custo vem declarado. Até aqui
-ele é zero, porque o Power BI Desktop e o gerador são gratuitos e nada fica hospedado.
+Todo caso sobe do zero numa máquina com Windows e o Power BI Desktop, seguindo só o README dele. A
+base é sintética e sai de um comando com data fixa, para os números serem os mesmos em qualquer
+máquina. O custo vem declarado, e até aqui é zero, porque as ferramentas são gratuitas e nada fica
+hospedado.
+
+> **Dados 100% fictícios.** Nomes e números são inventados, e toda base é gerada pelo
+> [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem qualquer vínculo com
+> organização ou pessoa real.
+
+## Contato
+
+Para levar um resultado assim para o seu painel, fale comigo pelo
+[LinkedIn](https://www.linkedin.com/in/mbelmontee).
 
 ## Licença
 

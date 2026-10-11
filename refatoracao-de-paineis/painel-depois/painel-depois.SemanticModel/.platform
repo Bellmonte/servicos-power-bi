@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Painel comercial depois"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7e2c9a14-6b3f-4d51-8a0e-c4f1d2e3b6a7"
+  }
+}
