@@ -34,6 +34,12 @@ interno num cabeçalho de tabela, e a emenda de forma no fim do enquadramento de
 O hash depois da emenda é
 `8fbaf555c5a6ed0d3b692491c4d45cf568c9b7e33b5992e98a6847fe59ca5ca3`.
 
+Depois houve uma emenda de método, também posterior à execução e registrada no fim do enquadramento:
+efeito fixo de cliente na robustez, logaritmo fora da votação, ganho como ponto em vez de faixa e
+piloto sorteado por vendedor. Ela não muda a decisão, porque a versão anterior leva ao mesmo
+resultado. O hash depois dela é
+`3eb2eb04d4cbb230aaf2c3381bd75cae870fe56b7730286a55a1618931ced54c`.
+
 Para ser exato sobre o que já se sabia: antes do adendo, a triagem de viabilidade olhou a
 quantidade média por faixa de desconto e por porte, e um teste da biblioteca de regressão rodou
 uma vez sobre a janela de estimação para conferir que ela aguentava o volume. A regra do gerador,
@@ -47,8 +53,10 @@ pública, já dizia o que esses números mostraram.
 | Poisson por pseudo-máxima verossimilhança como estimador principal | mede o efeito sobre a quantidade média, que é a escala da conta de margem |
 | só clientes grandes no modelo principal | a decisão é sobre o teto do cliente grande, e só ele recebe desconto acima de 10% |
 | erro agrupado por cliente e por vendedor | as linhas de um mesmo cliente e de um mesmo vendedor não são independentes |
-| ponto de equilíbrio derivado da conta do teto | critério e faixa saem da mesma função, sem aproximação |
-| reamostragem por cliente na faixa | o ganho de um ano futuro não é o do ano realizado |
+| ponto de equilíbrio derivado da conta do teto | critério e ganho saem da mesma função, sem aproximação |
+| ganho apresentado como ponto, com cenários de saída de clientes | a conta usa todos os clientes do período, então não há incerteza amostral a declarar; uma faixa por reamostragem chegou a ser usada e foi retirada, porque passava ao gestor uma precisão que não existia justamente onde o risco é maior |
+| efeito fixo de cliente na robustez, e o logaritmo fora da votação | o cliente é o primeiro controle que um revisor pediria em dado real; o logaritmo mede a mediana, enquanto o equilíbrio está na escala da média |
+| piloto sorteado dentro de cada vendedor principal, lido como não inferioridade | os dois grupos ficam com a mesma mistura de vendedores, e o poder é medido como a chance de demonstrar que a saída fica abaixo da margem, que é como esse tipo de teste se lê |
 | conferência da base pelo manifesto, e não por hash do CSV | o separador de linha do CSV muda entre Windows e Linux, e o hash mudaria sem o dado mudar; o manifesto confere parâmetros, contagem e somas |
 | `pyfixest` para a regressão | absorve efeitos fixos e agrupa o erro em duas dimensões, com a correção de graus de liberdade feita pela biblioteca |
 

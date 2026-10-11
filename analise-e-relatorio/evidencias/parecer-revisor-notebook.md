@@ -203,3 +203,55 @@ alternativo do gráfico 3 fala em sete especificações. `df_recompra`, `df_ganh
 | Severidade | Onde | Observação | Sugestão |
 |---|---|---|---|
 | menor | relatório, seção 4 | O grupo de controle permanente aparece como o meio de cobrir a queda pequena e uniforme de volume. Como ele é uma parte menor da carteira, tem menos poder que o piloto meio a meio, que já não enxerga 4,8% em 12 meses, e só chega lá com mais tempo de comparação. O texto não diz isso. | Acrescentar que o tamanho e a duração do grupo de controle precisam de dimensionamento próprio, e que a cobertura desse risco vem com o tempo de acompanhamento. |
+
+## Quarta passada (11-10-2026)
+
+A quarta leitura cobriu as mudanças da rodada nova: a votação em C23 e C27, o ganho como ponto com
+cenários de saída em C31, o desenho estratificado do piloto em C35, os gráficos refeitos e os
+trechos reescritos do relatório. O notebook foi lido com as saídas da execução nova.
+
+### Veredito
+
+**Sem bloqueante. Uma pendência importante, de registro e não de conta, e quatro menores.** As
+contas da C31 e da C35 estão corretas, e a decisão continua a mesma.
+
+**C31.** O ganho líquido com saída de clientes de margem média é `G(1 − x) − xM`, que é o ganho
+`G` menos a margem pós-teto `x(M + G)` de quem sai, e zera em `x = G/(G + M)`, coerente com a C30.
+Com `G` de R$ 5,52 milhões e `M` de R$ 110,5 milhões, os cenários de 1%, 2% e 3% dão R$ 4,4, R$ 3,2
+e R$ 2,0 milhões, que são os números impressos e citados no relatório. O ganho com o pior efeito
+plausível usa o maior limite superior entre as Poisson que votam (0,008%) e fica em R$ 5,5 milhões.
+
+**C35.** Com 12% de clientes sem compra no semestre e 1.284 por grupo, o erro padrão da diferença é
+cerca de 1,28 ponto. A margem de não inferioridade é 4,8% vezes 88%, ou 4,19 pontos. O poder sem
+saída real é `Φ(margem/ep − z_α)`, que dá `Φ(3,27 − 1,645)`, cerca de 95%, e a maior alta real que
+ainda deixa 80% de poder é `margem − (z_α + z_β)·ep`, cerca de 1,0 ponto. As duas leituras são as
+corretas para não inferioridade, e o texto da seção 4 as descreve sem exagero. O sorteio
+estratificado usa semente, sai com 1.285 e 1.284 clientes, e o erro padrão sem crédito pela
+estratificação deixa a conta conservadora. A métrica de volume continua declarada como fora do
+alcance do piloto, com 6,1% detectáveis contra 4,8% do equilíbrio.
+
+### O que pende
+
+| Severidade | Onde | Achado | Correção sugerida |
+|---|---|---|---|
+| importante | enquadramento, C23, C27, C31, relatório seção 2 | Duas mudanças desta rodada alteram o que o adendo do enquadramento fixou antes da execução. O logaritmo por MQO, que o adendo punha entre as robustezes que podem rebaixar a decisão, saiu da votação. A faixa por reamostragem de clientes, que o adendo previa para a incerteza do ano seguinte, saiu do resultado. Também entrou uma especificação nova na votação. Os motivos são defensáveis e estão no registro de decisões, e nenhuma mudança altera a decisão, porque o logaritmo também recomenda o teto e a faixa removida ia de R$ 5,4 a R$ 5,7 milhões. Mas o próprio enquadramento diz que mudança entra no fim dele, com data e motivo, e a única emenda lá é de forma e afirma que nada no método mudou. O relatório continua dizendo que o critério foi fixado antes para não ser ajustado ao número. Sem a emenda, a prova de pré-registro que sustenta o caso fica incompleta. | Acrescentar ao enquadramento uma emenda de método, datada e marcada como posterior à execução, com as três mudanças, o motivo de cada uma e a frase de que a versão pré-registrada leva à mesma decisão. Atualizar o hash no registro de decisões. |
+| menor | relatório, seção 3 e resumo; C31 | "Conta sobre todos os clientes do período, sem margem de erro a declarar" vale para o que o teto teria rendido no ano passado. A decisão olha para o ano seguinte, que varia de um ano para o outro mesmo sem saída de clientes. A variação é pequena perto dos cenários de saída, e é por isso que a mudança se sustenta, mas o texto a apresenta como inexistente. | Dizer que o número descreve o ano realizado e que a variação de um ano para o outro é pequena perto do risco de saída, citando a ordem de grandeza. |
+| menor | C35, relatório seção 4 | "O vendedor principal explica 5% da variação da métrica" lê como efeito real um número que o acaso já produz. Com cerca de 17 clientes por vendedor, a variância das médias por vendedor responde por perto de 6% da variância total mesmo sem nenhum efeito de vendedor, então 5% é compatível com efeito nulo. | Usar uma medida corrigida pelo acaso, como a correlação intraclasse pela análise de variância, ou dizer que a parcela não se distingue do esperado por acaso. |
+| menor | C23, C27, relatório seção 2 e anexo A | A justificativa de que o logaritmo por MQO "mede a mediana" é imprecisa. O coeficiente volta como efeito na média geométrica, que coincide com a mediana só se o erro em log for simétrico. O motivo sólido para ele ficar fora é que, com variância que muda com o nível, o MQO em log não estima o efeito sobre a média, que é a escala do equilíbrio. | Trocar a frase pela justificativa da escala da média e da heterocedasticidade. |
+| menor | C35 | O grupo começa como "controle" para todos, e só cliente com vendedor principal entra no sorteio. Hoje todo cliente grande do cadastro tem compra, então ninguém fica de fora, mas nada garante isso numa base nova. | Acrescentar asserção de que todo cliente do cadastro tem vendedor principal antes do sorteio. |
+
+Os pontos da terceira passada continuam fechados, e a observação dela sobre o grupo de controle
+permanente foi atendida na seção 4. O texto alternativo do gráfico 3 fala em oito especificações,
+que é o que o gráfico desenha agora.
+
+## Correções aplicadas depois da quarta passada
+
+| Achado | O que mudou |
+|---|---|
+| mudanças de método sem registro no enquadramento | emenda de método datada no fim do enquadramento, posterior à execução, com as quatro mudanças e a constatação de que a versão anterior leva à mesma decisão; o hash novo está em `decisoes.md` |
+| "sem margem de erro" | o relatório diz que isso vale para o ano realizado, e que num ano seguinte o valor varia pouco perto do risco de saída |
+| parcela explicada pelo vendedor | a C35 calcula também o que o acaso explicaria, (k − 1) / (n − 1), que dá 6% contra os 5% medidos; o texto diz que o sorteio por vendedor serve ao equilíbrio dos grupos e não muda o tamanho necessário |
+| motivo de o logaritmo sair | trocado para a escala: com variância crescendo junto com a quantidade, o efeito no logaritmo não se traduz no efeito sobre a média |
+| cliente sem vendedor principal | asserção antes do sorteio |
+
+O notebook foi reexecutado do zero, e a conferência do relatório terminou com zero problemas.

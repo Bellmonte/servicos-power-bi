@@ -151,3 +151,25 @@ Depois da execução, a revisão de segurança antes da publicação pediu a tro
 O cabeçalho da segunda coluna da tabela de metodologias passou a "Roteiro de método", no lugar de
 um nome de acervo interno de estudos. É a única mudança no texto acima, de forma e sem efeito sobre
 pergunta, linha de base, critério ou método. Os dois hashes estão em `decisoes.md`.
+
+## Emenda de método, 11-10-2026, posterior à execução
+
+Depois da primeira execução, um confronto do caso com o material de estudo que sustenta o método
+levou a quatro mudanças. Elas vêm registradas aqui porque contrariam o adendo, que foi escrito antes
+de qualquer resultado.
+
+1. **Efeito fixo de cliente** entrou entre as especificações de robustez que votam na decisão.
+2. **A regressão do logaritmo da quantidade saiu da votação** e ficou como leitura à parte, porque o
+   efeito no logaritmo não se traduz no efeito sobre a média quando a variância cresce com a
+   quantidade, e o ponto de equilíbrio está na escala da média.
+3. **A faixa do ganho por reamostragem de clientes saiu.** O ganho é uma conta sobre todos os
+   clientes do período, sem incerteza amostral, e passou a ser apresentado como ponto, ao lado do
+   ganho com o pior efeito plausível e de cenários de saída de clientes.
+4. **O piloto** passou a ser sorteado dentro de cada vendedor principal, e o poder passou a ser lido
+   como teste de não inferioridade.
+
+Nenhuma das mudanças altera a decisão. Pela versão escrita antes da execução, com o logaritmo
+votando e sem o efeito fixo de cliente, todas as especificações e a confirmação ficam com o
+intervalo abaixo do ponto de equilíbrio, e a decisão é a mesma, recomendar o teto. Pergunta, linhas
+de base, ponto de equilíbrio e critério de decisão continuam como estão. O hash depois desta emenda
+está em `decisoes.md`.

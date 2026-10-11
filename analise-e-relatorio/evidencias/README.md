@@ -102,7 +102,7 @@ junto do registro do que já se sabia antes.
 | conferir a base | parâmetros e somas de controle contra o manifesto | C03, C05 |
 | perfilar | grão, classificação, distribuição, centro, domínio e média ponderada, pelo roteiro de perfilamento | C07 a C14 |
 | linhas de base | política atual nos últimos 12 meses e leitura simples por faixa de desconto | C16, C17 |
-| ponto de equilíbrio | efeito que zeraria o ganho do teto, pela mesma função da faixa | C20 |
+| ponto de equilíbrio | efeito que zeraria o ganho do teto, pela mesma função que calcula o ganho | C20 |
 | efeito principal | Poisson da quantidade sobre o desconto, só clientes grandes, erro agrupado por cliente e vendedor | C23 |
 | robustez | logaritmo da quantidade, efeitos fixos de produto, vendedor e mês | C23 |
 | leitura simples corrigida | inclinação sem e com efeito fixo de porte, na carteira inteira | C24 |
@@ -110,9 +110,9 @@ junto do registro do que já se sabia antes.
 | confirmação | mesma especificação nos 12 meses seguintes | C26 |
 | decisão | tabela do critério, com a regra de concordância | C27 |
 | ganho do teto e robustez | ganho sem perda de volume, e a perda de volume ou a saída de clientes que o zeraria | C30 |
-| faixa do ganho | envoltória do cenário pessimista e do sem perda, com reamostragem de clientes, 1.000 vezes, semente 42 | C31 |
+| sensibilidade do ganho | o ganho com o pior efeito plausível do desconto e com saída de 1%, 2% e 3% da margem do porte; o ganho é conta sobre todos os clientes, sem faixa amostral | C31 |
 | exposição e tetos alternativos | concentração do ganho por conta, e tetos de 12% e 14% | C32, C33 |
-| piloto | menor piora detectável na saída de clientes e no volume por cliente, num piloto de 12 meses, por teste de não inferioridade | C35 |
+| piloto | sorteio dentro de cada vendedor principal, com semente 42, e poder do teste de não inferioridade na saída de clientes e no volume por cliente, em 12 meses | C35 |
 
 Os roteiros de método seguidos estão listados no fim do enquadramento. O [perfilamento](perfilamento.md)
 resume o estado da base e as decisões sobre o que foi encontrado. O parecer da revisão do
@@ -123,7 +123,7 @@ notebook está em [`parecer-revisor-notebook.md`](parecer-revisor-notebook.md).
 | Caminho | O que é |
 |---|---|
 | [`../analise.ipynb`](../analise.ipynb) | o notebook, que roda do zero |
-| [`../relatorio.md`](../relatorio.md) e `../relatorio.docx` | o relatório de entrega, em markdown e em Word |
+| [`../relatorio.md`](../relatorio.md) e `../relatorio.pdf` | o relatório de entrega, em markdown e em PDF |
 | [`../requirements.txt`](../requirements.txt) | dependências com versão |
 | [`enquadramento.md`](enquadramento.md) | pergunta, linhas de base e critério, escritos antes do resultado |
 | [`decisoes.md`](decisoes.md) | por que esta pergunta, o hash do enquadramento e as decisões de método |
