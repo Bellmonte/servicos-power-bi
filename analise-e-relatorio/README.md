@@ -63,7 +63,7 @@ Para responder uma pergunta assim com os dados da sua empresa, fale comigo pelo
 
 Custo da demonstração: zero, porque o gerador, o Python e as bibliotecas são gratuitos e nada fica
 hospedado. A base é 100% fictícia, gerada pelo
-[`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com
+[`gerador-de-dados`](https://github.com/Bellmonte/gerador-de-dados), sem vínculo com
 organização ou pessoa real. Ela foi gerada sem ligação entre desconto e volume, e o caso mostra o
 método encontrando essa resposta conhecida.
 

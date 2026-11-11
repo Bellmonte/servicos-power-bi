@@ -10,7 +10,7 @@ refatoração, e o [painel depois (v2)](../painel-depois/README.md), na forma em
 sai do serviço. O [catálogo de técnicas](../catalogo-de-tecnicas.md) é o repertório do serviço.
 
 > **Dados 100% fictícios.** Todos os clientes, vendedores, produtos e valores foram gerados pelo
-> [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem qualquer vínculo com
+> [`gerador-de-dados`](https://github.com/Bellmonte/gerador-de-dados), sem qualquer vínculo com
 > organização ou pessoa real. O painel antes foi **construído de propósito com defeitos comuns de
 > mercado**, os mesmos que aparecem em painel de empresa de verdade.
 
@@ -176,11 +176,11 @@ medida numa máquina com 16 GB de memória; com menos memória, a base de 1 milh
 demonstração, com folga.
 
 **1. Gerar a base.** O painel não leva dado nenhum, só a definição do modelo e das páginas, e por
-isso o primeiro passo é gerar a base com o `port-gerador-dados`. No PowerShell:
+isso o primeiro passo é gerar a base com o `gerador-de-dados`. No PowerShell:
 
 ```powershell
-git clone https://github.com/Bellmonte/port-gerador-dados.git
-cd port-gerador-dados
+git clone https://github.com/Bellmonte/gerador-de-dados.git
+cd gerador-de-dados
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 ```
@@ -243,7 +243,7 @@ python comparar.py C:\dados\paridade\resultado.csv fonte=C:\dados\paridade\fonte
 ```
 
 O `fonte.py` usa o pandas, por isso roda com o Python do ambiente criado no passo 1, e
-`<pasta-do-gerador>` é onde o `port-gerador-dados` foi clonado. O `comparar.py` só usa a
+`<pasta-do-gerador>` é onde o `gerador-de-dados` foi clonado. O `comparar.py` só usa a
 biblioteca padrão, imprime as comparações e as divergências por corte e termina com erro se houver
 qualquer divergência.
 

@@ -11,7 +11,7 @@ A regra de todo passo é a mesma do serviço oferecido: os números de negócio 
 v1. A metodologia, com as medidas de paridade e o protocolo de medição, está em
 [`../evidencias/metodologia.md`](../evidencias/metodologia.md).
 
-> **Dado 100% fictício**, gerado pelo `port-gerador-dados`. Nenhum nome, número ou entidade tem
+> **Dado 100% fictício**, gerado pelo `gerador-de-dados`. Nenhum nome, número ou entidade tem
 > relação com organização ou pessoa real.
 
 ## O modelo reestruturado

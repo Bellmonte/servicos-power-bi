@@ -12,7 +12,7 @@ renderiza mais devagar e dá mais trabalho para manter do que precisava. O resul
 paridade está no [guia técnico](../evidencias/README.md), e a metodologia completa, com o motivo de
 cada defeito e o protocolo de medição, em [`../evidencias/metodologia.md`](../evidencias/metodologia.md).
 
-> **Dado 100% fictício**, gerado pelo `port-gerador-dados`. Nenhum nome, número ou entidade tem
+> **Dado 100% fictício**, gerado pelo `gerador-de-dados`. Nenhum nome, número ou entidade tem
 > relação com organização ou pessoa real.
 
 ## Os defeitos que ele carrega
@@ -31,7 +31,7 @@ cada defeito e o protocolo de medição, em [`../evidencias/metodologia.md`](../
 
 ## Como abrir
 
-O passo a passo completo, com o comando do `port-gerador-dados` para a base de 1 e de 5 milhões de
+O passo a passo completo, com o comando do `gerador-de-dados` para a base de 1 e de 5 milhões de
 linhas e o parâmetro `PastaDados`, está no [guia técnico](../evidencias/README.md#como-subir-na-sua-máquina).
 Em resumo: gerar a base, abrir `painel-antes.pbip`, apontar `PastaDados` para a pasta
 `comercial` da base, terminando com barra invertida, e clicar em **Atualizar**. A atualização relê os

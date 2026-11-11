@@ -6,7 +6,7 @@ decide, o [relatório](../relatorio.md) traz a resposta completa, e aqui está o
 audita ou quer reproduzir.
 
 > **Dados 100% fictícios.** A base é gerada pelo
-> [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com
+> [`gerador-de-dados`](https://github.com/Bellmonte/gerador-de-dados), sem vínculo com
 > organização ou pessoa real.
 
 A análise roda inteira na máquina de quem contrata, e nada fica hospedado.
@@ -24,8 +24,8 @@ análise. O gerador recebe um commit novo de dado todo dia, e o `checkout` fixa 
 usada nesta análise, para a base sair igual mesmo que o gerador mude depois.
 
 ```powershell
-git clone https://github.com/Bellmonte/port-gerador-dados.git
-git -C port-gerador-dados checkout a35d495
+git clone https://github.com/Bellmonte/gerador-de-dados.git
+git -C gerador-de-dados checkout a35d495
 git clone https://github.com/Bellmonte/servicos-power-bi.git servicos
 ```
 
@@ -42,7 +42,7 @@ python -m venv .venv
 em qualquer dia.
 
 ```powershell
-.venv\Scripts\python ..\..\port-gerador-dados\gerar.py comercial --hoje 2026-08-31 --meses 36 --linhas 1000000 --clientes 20000 --produtos 1500 --vendedores 150 --colunas-origem --saida C:\dados\analise-relatorio
+.venv\Scripts\python ..\..\gerador-de-dados\gerar.py comercial --hoje 2026-08-31 --meses 36 --linhas 1000000 --clientes 20000 --produtos 1500 --vendedores 150 --colunas-origem --saida C:\dados\analise-relatorio
 ```
 
 Os arquivos saem em `C:\dados\analise-relatorio\comercial\`, junto do `_manifesto.json`. Para usar

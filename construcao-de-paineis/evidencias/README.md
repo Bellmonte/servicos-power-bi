@@ -5,7 +5,7 @@ paridade e publicar o painel no serviço do Power BI. A [página do serviço](..
 resumo para quem decide, e aqui está o detalhe para quem audita ou quer reproduzir.
 
 > **Dados 100% fictícios.** Clientes, vendedores, produtos e valores foram gerados pelo
-> [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem qualquer vínculo com
+> [`gerador-de-dados`](https://github.com/Bellmonte/gerador-de-dados), sem qualquer vínculo com
 > organização ou pessoa real.
 
 O painel roda no Power BI Desktop, lendo arquivos locais, sem hospedagem e sem custo recorrente.
@@ -51,11 +51,11 @@ Pré-requisitos: Windows com o Power BI Desktop 2.158 ou mais novo, Python 3.12 
 A base ocupa cerca de 110 MB em disco.
 
 **1. Gerar a base.** O painel não leva dado nenhum, só a definição do modelo e das páginas, e por
-isso o primeiro passo é gerar a base com o `port-gerador-dados`. No PowerShell:
+isso o primeiro passo é gerar a base com o `gerador-de-dados`. No PowerShell:
 
 ```powershell
-git clone https://github.com/Bellmonte/port-gerador-dados.git
-cd port-gerador-dados
+git clone https://github.com/Bellmonte/gerador-de-dados.git
+cd gerador-de-dados
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 .venv\Scripts\python gerar.py comercial --hoje 2026-08-31 --meses 36 --linhas 1000000 --clientes 20000 --produtos 1500 --vendedores 150 --colunas-origem --saida C:\dados\painel-comercial
@@ -106,7 +106,7 @@ Com o painel aberto e atualizado no Desktop, a porta local do modelo está no ar
 (na versão da Microsoft Store, em `%USERPROFILE%\Microsoft\Power BI Desktop Store App\AnalysisServicesWorkspaces\`),
 ou no DAX Studio. Os scripts em Python usam o pandas, que já está no ambiente criado no passo 1 para
 o gerador. No PowerShell, a partir da pasta `evidencias\paridade`, troque `<gerador>` pela pasta
-onde o `port-gerador-dados` foi clonado:
+onde o `gerador-de-dados` foi clonado:
 
 ```powershell
 <gerador>\.venv\Scripts\python fonte.py C:\dados\painel-comercial\comercial C:\dados\painel-comercial\paridade\base

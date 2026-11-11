@@ -18,7 +18,7 @@ Toda demonstração sobe do zero numa máquina com Windows seguindo só o guia d
 O trabalho começa no painel e na fonte que a empresa já tem, seja uma planilha de Excel ou um banco já em uso. Administração do Power BI, tenant, licença, gateway e infraestrutura de dados não fazem parte dos serviços.
 
 > **Dados 100% fictícios.** Nomes e números são inventados, e toda base é gerada pelo
-> [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem qualquer vínculo com
+> [`gerador-de-dados`](https://github.com/Bellmonte/gerador-de-dados), sem qualquer vínculo com
 > organização ou pessoa real.
 
 ## Contato

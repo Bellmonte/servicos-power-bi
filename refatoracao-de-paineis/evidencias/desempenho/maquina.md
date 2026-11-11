@@ -13,7 +13,7 @@ máquina, na mesma versão do Power BI Desktop e no mesmo dia.
 | plano de energia | alto desempenho, na tomada, conferido em cada sessão |
 | Power BI Desktop | 2.155.756.0, versão de junho de 2026, na sessão de 05 e 06-10-2026; 2.158.1304 na sessão de 10-10-2026, só da v2 |
 | resolução de tela | 3440 x 1440, Desktop maximizado, zoom em ajustar à página, painel de filtros recolhido |
-| base | 5 milhões de linhas, `base-5m` do `port-gerador-dados`, semente fixa |
+| base | 5 milhões de linhas, `base-5m` do `gerador-de-dados`, semente fixa |
 | data da sessão | 05-10-2026 e 06-10-2026, as duas pontas; 10-10-2026, a v2 padronizada |
 
 O DAX Studio e o Tabular Editor 2 previstos na seção 5 não entram na tabela principal. O tamanho

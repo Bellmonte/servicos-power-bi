@@ -6,7 +6,7 @@ O cenário é o de uma diretoria comercial que precisa de um painel construído 
 
 A base registra a venda por item de pedido, com o produto classificado em três linhas (Essencial, Performance e Premium), o cliente classificado por porte (Pequeno, Médio e Grande) e por região, e o vendedor responsável. Um pedido reúne vários itens e pertence sempre a um único cliente e a um único vendedor. A janela cobre 36 meses, de 01-09-2023 a 31-08-2026.
 
-**Dado fictício.** Todos os dados do painel são 100% fictícios, gerados pelo `port-gerador-dados` com data de corte fixa. Nenhum cliente, vendedor, produto ou valor corresponde a uma empresa real.
+**Dado fictício.** Todos os dados do painel são 100% fictícios, gerados pelo `gerador-de-dados` com data de corte fixa. Nenhum cliente, vendedor, produto ou valor corresponde a uma empresa real.
 
 **Ambiente e custo.** O painel roda no Power BI Desktop da máquina de quem recebe, lendo arquivos locais, sem hospedagem e sem custo recorrente. O custo declarado é zero, porque as ferramentas usadas são gratuitas e nada fica publicado em serviço pago. A entrega inclui um README que sobe o painel do zero numa máquina limpa, os critérios de aceite da seção 4, a base sintética de exemplo e o custo declarado. Como o painel lê arquivos locais e não usa credencial, não há arquivo de configuração de credencial.
 

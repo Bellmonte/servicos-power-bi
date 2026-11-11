@@ -8,7 +8,7 @@ e quanto a empresa recupera limitando o desconto do cliente grande a 10%. A aná
 fases do CRISP-DM, do entendimento do negócio à avaliação, e o relatório se organiza em situação,
 ação e resultado. O trabalho roda na máquina de quem contrata e não deixa nada hospedado.
 
-> **Dados 100% fictícios.** A base foi gerada por sorteio pelo `port-gerador-dados`, sem vínculo com organização ou pessoa real. Os números ilustram o método e não descrevem nenhuma empresa.
+> **Dados 100% fictícios.** A base foi gerada por sorteio pelo `gerador-de-dados`, sem vínculo com organização ou pessoa real. Os números ilustram o método e não descrevem nenhuma empresa.
 
 Cada número do texto aponta, entre colchetes, para a célula do notebook `analise.ipynb` que o
 calcula. A base tem 1.000.000 de linhas de pedido, 249.858 pedidos e 20.000 clientes em 36 meses,

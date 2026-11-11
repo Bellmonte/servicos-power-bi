@@ -80,7 +80,7 @@ Para aplicar a refatoração no seu painel, fale comigo pelo [LinkedIn](https://
 
 Custo da demonstração: zero, porque o Power BI Desktop e o gerador de dados são gratuitos e nada fica
 hospedado. A base é 100% fictícia, gerada pelo
-[`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com organização
+[`gerador-de-dados`](https://github.com/Bellmonte/gerador-de-dados), sem vínculo com organização
 ou pessoa real.
 
 ---

@@ -6,7 +6,7 @@ escritas como asserção: se a base mudar, o notebook para ali.
 
 ## A base
 
-Gerada pelo `port-gerador-dados` com data de corte fixa em 31-08-2026, semente 42 e 36 meses de
+Gerada pelo `gerador-de-dados` com data de corte fixa em 31-08-2026, semente 42 e 36 meses de
 janela, de 01-09-2023 a 31-08-2026. O notebook confere os parâmetros e as somas de controle contra
 o `_manifesto.json` antes de qualquer conta (C03, C05).
 

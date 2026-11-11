@@ -20,7 +20,7 @@ duas pontas. O README declara que a v1 foi construída para representar esses de
 
 ### O que o gerador entrega hoje
 
-Perfil feito sobre a cópia local de `port-gerador-dados/dados/comercial/` (semente 42, janela
+Perfil feito sobre a cópia local de `gerador-de-dados/dados/comercial/` (semente 42, janela
 encerrada em 10-08-2026), com contagem, cardinalidade, nulos, faixa de data, duplicata por chave
 candidata e distribuição das colunas de valor.
 
@@ -75,7 +75,7 @@ pasta local. O feed diário continua com 48.000 linhas.
 
 ### Mudança no gerador
 
-Tudo dentro do `port-gerador-dados`, no cenário `comercial`, sem script paralelo, para o gerador continuar sendo a fonte única do dado. Com os
+Tudo dentro do `gerador-de-dados`, no cenário `comercial`, sem script paralelo, para o gerador continuar sendo a fonte única do dado. Com os
 valores padrão, a saída tem que continuar idêntica à de hoje.
 
 | # | Mudança | Por quê |
