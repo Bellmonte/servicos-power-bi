@@ -2,10 +2,11 @@
 
 **Mesmos números, modelo 74% menor e consultas até 88% mais rápidas.**
 
-O painel comercial funciona e dá os números certos, mas ficou pesado: arquivo grande, atualização
-demorada, página principal lenta e qualquer ajuste pequeno exige mexer em tudo. A refatoração
-reestrutura o painel sem mudar nenhum número de negócio e comprova o ganho medindo antes e depois do
-mesmo jeito.
+O painel de partida funciona e dá os números certos no uso do dia a dia, mas pesa: arquivo grande,
+atualização demorada, página principal lenta, e qualquer ajuste pequeno exige mexer em tudo. Ele foi
+montado de propósito, sobre base sintética, com nove defeitos comuns em painel de empresa. A
+refatoração reestrutura o painel sem mudar nenhum número de negócio e comprova o ganho medindo antes
+e depois do mesmo jeito.
 
 | Antes | Depois |
 |---|---|
@@ -13,7 +14,7 @@ mesmo jeito.
 
 ## Resultado
 
-Caso de exemplo com 5 milhões de linhas de venda, medido na mesma máquina e conferido número a número.
+Demonstração com 5 milhões de linhas de venda, medida na mesma máquina e conferida número a número.
 
 | Tamanho do modelo | Atualização | Consultas da página principal | Números de negócio |
 |---|---|---|---|
@@ -41,7 +42,7 @@ declarados.
 
 ## O que costuma estar errado
 
-Os problemas abaixo aparecem com frequência em painel de empresa, e o caso mostra cada um corrigido.
+Os problemas abaixo aparecem com frequência em painel de empresa, e a demonstração mostra cada um corrigido.
 
 - Tabela única com vendas, produtos, clientes e vendedores repetidos em milhões de linhas.
 - Colunas calculadas linha a linha e colunas pesadas que nenhum visual usa.
@@ -50,12 +51,18 @@ Os problemas abaixo aparecem com frequência em painel de empresa, e o caso most
 - Contas de ano anterior e acumulado que quebram quando entra uma coluna de data nova.
 - Relações nos dois sentidos, listas de filtro que encolhem sem motivo e relação desativada sem dono.
 
-## Um achado do caso
+## O que a conferência encontrou
 
 A conferência de paridade encontrou um erro que o painel antigo escondia. Com um vendedor e um mês
 escolhidos, o ano anterior mostrava erro de cálculo. No painel reestruturado, o mesmo corte mostra
 R$ 269.893,41, valor conferido direto na base. Além de ficar mais leve, o painel passou a calcular
 um número que antes não conseguia.
+
+## Depois da entrega
+
+O registro de mudanças e o catálogo de técnicas servem também ao serviço de manutenção. Cada ajuste
+num painel em uso vira um passo registrado, com o motivo, o efeito e a conferência de que nenhum
+número mudou sem aviso, e o que muda de comportamento fica escrito antes do aceite.
 
 ## Contato
 
@@ -71,7 +78,7 @@ Para aplicar a refatoração no seu painel, fale comigo pelo [LinkedIn](https://
 | [Metodologia](evidencias/metodologia.md) | os defeitos, os indicadores de paridade e os protocolos de medição |
 | [Painel antes](painel-antes/README.md) e [painel depois](painel-depois/README.md) | os dois painéis em PBIP, prontos para abrir no Power BI Desktop |
 
-Custo do caso: zero, porque o Power BI Desktop e o gerador de dados são gratuitos e nada fica
+Custo da demonstração: zero, porque o Power BI Desktop e o gerador de dados são gratuitos e nada fica
 hospedado. A base é 100% fictícia, gerada pelo
 [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com organização
 ou pessoa real.

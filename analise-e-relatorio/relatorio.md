@@ -2,12 +2,11 @@
 
 ## Relatório de análise da política comercial
 
-Este relatório responde a uma pergunta de política comercial sobre a base de vendas de uma
-distribuidora fictícia: o desconto concedido ao cliente está trazendo volume que pague o que custa,
+Este relatório responde a uma pergunta de política comercial sobre a base sintética de vendas de
+uma distribuidora: o desconto concedido ao cliente está trazendo volume que pague o que custa,
 e quanto a empresa recupera limitando o desconto do cliente grande a 10%. A análise segue as seis
 fases do CRISP-DM, do entendimento do negócio à avaliação, e o relatório se organiza em situação,
-ação e resultado. O trabalho é um entregável de **etapa 1**, que roda na máquina de quem contrata
-e não deixa nada hospedado.
+ação e resultado. O trabalho roda na máquina de quem contrata e não deixa nada hospedado.
 
 > **Dados 100% fictícios.** A base foi gerada por sorteio pelo `port-gerador-dados`, sem vínculo com organização ou pessoa real. Os números ilustram o método e não descrevem nenhuma empresa.
 

@@ -6,8 +6,8 @@ sistema visual B&B já aplicado no caso de refatoração, descrito em
 e este documento lista só o que muda ou se acrescenta. O layout página a página está em
 [`LAYOUT.md`](LAYOUT.md) e o desenho de tela em [`mockup.html`](mockup.html).
 
-O trabalho está na etapa de entregável: um arquivo que roda na máquina de quem recebe, sem
-nada hospedado, com dado sintético e custo zero.
+É um arquivo que roda na máquina de quem recebe, sem nada hospedado, com dado sintético e custo
+zero.
 
 ## O que vem do sistema B&B sem mudança
 
@@ -49,8 +49,8 @@ personalizado por cima do tema base do Desktop.
 
 O tema cobre todos os tipos de visual que as quatro páginas usam: `textbox`, `shape`,
 `pageNavigator`, `slicer`, `lineClusteredColumnComboChart`, `clusteredBarChart`, `tableEx` e
-`pivotTable`. O `cardVisual` fica de fora dele de propósito, como no caso de refatoração, porque
-`padding`, `spacing` e `divider` no tema apagam o cartão novo (lição L45); por isso os cartões de
+`pivotTable`. O `cardVisual` fica de fora dele de propósito, como no painel da refatoração, porque
+`padding`, `spacing` e `divider` no tema apagam o cartão novo; por isso os cartões de
 indicadores e o rodapé são formatados no próprio visual. O tema já passou pela conferência de chave
 contra a lista de objetos do Desktop instalado, e mexer nele obrigaria a repetir essa conferência
 sem ganho visível.

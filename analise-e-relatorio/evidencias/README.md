@@ -1,7 +1,7 @@
 # Guia técnico: análise da política de desconto
 
 Este guia reúne o método, a prova de que o critério veio antes do resultado e o passo a passo para
-refazer a análise numa máquina limpa. A [página do caso](../README.md) traz o resumo para quem
+refazer a análise numa máquina limpa. A [página do serviço](../README.md) traz o resumo para quem
 decide, o [relatório](../relatorio.md) traz a resposta completa, e aqui está o detalhe para quem
 audita ou quer reproduzir.
 
@@ -9,8 +9,7 @@ audita ou quer reproduzir.
 > [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com
 > organização ou pessoa real.
 
-O trabalho está na **etapa 1** da régua de entrega, com a análise rodando na máquina de quem
-contrata e nada hospedado.
+A análise roda inteira na máquina de quem contrata, e nada fica hospedado.
 
 ## Como subir na sua máquina
 
@@ -22,12 +21,12 @@ a criação do ambiente falha com erro pouco claro quando a pasta é muito funda
 
 **1. Clonar os dois repositórios lado a lado.** O gerador produz a base, e este repositório traz a
 análise. O gerador recebe um commit novo de dado todo dia, e o `checkout` fixa o código na versão
-usada no caso, para a base sair igual mesmo que o gerador mude depois.
+usada nesta análise, para a base sair igual mesmo que o gerador mude depois.
 
 ```powershell
 git clone https://github.com/Bellmonte/port-gerador-dados.git
 git -C port-gerador-dados checkout a35d495
-git clone https://github.com/Bellmonte/bb-servicos-power-bi.git servicos
+git clone https://github.com/Bellmonte/servicos-power-bi.git servicos
 ```
 
 **2. Criar o ambiente da análise.** Um ambiente só serve para gerar a base e para executar o
@@ -59,6 +58,7 @@ outra pasta, troque o `--saida` e aponte a variável de ambiente `BASE_ANALISE` 
 A execução regrava os quatro gráficos em `imagens/`, os números em `evidencias/resultados.json` e
 as saídas do próprio notebook, que por isso aparece como alterado no Git mesmo quando os números
 são os mesmos.
+
 Logo depois dos parâmetros, a célula C03 confere a base pelo manifesto e para com erro se ela
 não for a do comando acima.
 
@@ -116,7 +116,7 @@ junto do registro do que já se sabia antes.
 
 Os roteiros de método seguidos estão listados no fim do enquadramento. O [perfilamento](perfilamento.md)
 resume o estado da base e as decisões sobre o que foi encontrado. O parecer da revisão do
-notebook está em [`parecer-revisor-notebook.md`](parecer-revisor-notebook.md).
+notebook está em [`revisao-do-notebook.md`](revisao-do-notebook.md).
 
 ## O que tem aqui
 
@@ -130,7 +130,7 @@ notebook está em [`parecer-revisor-notebook.md`](parecer-revisor-notebook.md).
 | [`perfilamento.md`](perfilamento.md) | o estado da base e o que foi decidido sobre ele |
 | [`resultados.json`](resultados.json) | cada número do relatório, com a célula que o gerou |
 | [`conferir_relatorio.py`](conferir_relatorio.py) | a conferência automática entre relatório e notebook |
-| [`parecer-revisor-notebook.md`](parecer-revisor-notebook.md) | a revisão do notebook contra o padrão de código |
+| [`revisao-do-notebook.md`](revisao-do-notebook.md) | a revisão do notebook contra o padrão de código |
 
 ## Custo
 

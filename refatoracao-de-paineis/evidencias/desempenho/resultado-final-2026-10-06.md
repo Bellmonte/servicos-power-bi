@@ -1,8 +1,8 @@
-# Medição final do caso, painel de partida (v1) contra painel reestruturado (v2)
+# Medição final, painel de partida (v1) contra painel reestruturado (v2)
 
 Sessão de medição final, em 06-10-2026, sobre a base de 5 milhões de linhas, na máquina declarada em
 [`maquina.md`](maquina.md), com o plano de energia em alto desempenho e o Power BI Desktop 2.155.756.
-O método é o da seção 5 da [especificação](../metodologia.md), com os desvios declarados no
+O método é o da seção 5 da [metodologia](../metodologia.md), com os desvios declarados no
 `maquina.md`. Cada célula traz a mediana e, entre parênteses, a faixa das cinco execuções. Uma
 diferença só é afirmada quando as faixas da v1 e da v2 não se sobrepõem.
 

@@ -1,6 +1,6 @@
 # Máquina de medição
 
-Registro exigido pela seção 5 da [especificação](../metodologia.md). Vale para a sessão única de
+Registro exigido pela seção 5 da [metodologia](../metodologia.md). Vale para a sessão única de
 medição final, em que o painel de partida (v1) e o painel reestruturado (v2) são medidos na mesma
 máquina, na mesma versão do Power BI Desktop e no mesmo dia.
 
@@ -38,7 +38,7 @@ tempo que o usuário vê na tela. As consultas medidas pelo script são extraíd
 analisador por `extrai_consultas.py`, então frio e quente medem as mesmas consultas.
 
 **Duas páginas.** A página de referência continua sendo o Detalhe de vendas, a mais lenta no
-ensaio. A Visão geral entra também, aprovada em 05-10-2026, porque o ganho do D6 precisa ser
+ensaio. A Visão geral entra também, incluída em 05-10-2026, porque o ganho do D6 precisa ser
 conferido em 5 milhões antes de virar argumento.
 
 ## Sessão de 10-10-2026 e o desvio de versão

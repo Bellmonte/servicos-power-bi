@@ -1,12 +1,12 @@
 # Guia técnico: refatoração de um painel comercial
 
 Este guia reúne a medição completa, a prova de paridade e o passo a passo para refazer tudo numa
-máquina limpa. A [página do caso](../README.md) traz o resumo para quem decide, e aqui está o
+máquina limpa. A [página do serviço](../README.md) traz o resumo para quem decide, e aqui está o
 detalhe para quem audita ou quer reproduzir.
 
 Os dois painéis estão em formato PBIP, que é o projeto do Power BI em texto: o
-[painel antes (v1 nos registros)](../painel-antes/README.md), com os defeitos que motivam a
-refatoração, e o [painel depois (v2 nos registros)](../painel-depois/README.md), na forma em que ele
+[painel antes (v1)](../painel-antes/README.md), com os defeitos que motivam a
+refatoração, e o [painel depois (v2)](../painel-depois/README.md), na forma em que ele
 sai do serviço. O [catálogo de técnicas](../catalogo-de-tecnicas.md) é o repertório do serviço.
 
 > **Dados 100% fictícios.** Todos os clientes, vendedores, produtos e valores foram gerados pelo
@@ -100,7 +100,7 @@ serviço.
 
 ![Exibição de modelo do painel reestruturado (v2), com Fact_Vendas no centro, as dimensões Dim_Produto, Dim_Cliente, Dim_Vendedor, Dim_Regiao e Dim_Calendario em volta, todas as relações de um para muitos num sentido só, e a tabela Medidas à parte](../imagens/v2-modelo.png)
 
-A [especificação](metodologia.md) traz cada problema com o motivo de existir, o efeito esperado em
+A [metodologia](metodologia.md) traz cada problema com o motivo de existir, o efeito esperado em
 cada medição e o protocolo completo de medição e de paridade.
 
 ## Os números de negócio não mudaram
@@ -203,7 +203,8 @@ linhas e as somas de controle. A data `--hoje 2026-08-31` precisa ficar fixa, po
 base sair igual em qualquer máquina e em qualquer dia, com os mesmos números deste README. Os dois
 comandos gravam na mesma pasta, e rodar um depois do outro troca a base.
 
-**2. Abrir e apontar para a base.** Clone este repositório e abra
+**2. Abrir e apontar para a base.** Clone este repositório
+(`git clone https://github.com/Bellmonte/servicos-power-bi.git`) e abra
 `refatoracao-de-paineis/painel-antes/painel-antes.pbip` no Power BI Desktop. O parâmetro
 `PastaDados` já vem com `C:\dados\painel-comercial\comercial\`, e quem gerou a base nessa pasta pula para o
 passo 3. Para usar outra pasta, vá em **Página Inicial > Transformar dados > Editar parâmetros** e
@@ -261,8 +262,8 @@ como na paridade.
 | tempo das consultas | `python extrai_consultas.py <arquivo.json> vg consultas\v1-visao-geral.dax` tira do JSON as consultas da página (`vg` para a Visão geral, `dv` para o Detalhe de vendas), e `medir_consultas.ps1 -Porta <porta> -Arquivo consultas\v1-visao-geral.dax -Saida consultas.csv -Ponta v1` mede cada uma a frio e a quente |
 
 O protocolo pede a v1 e a v2 medidas na mesma máquina, na mesma versão do Desktop e no mesmo dia,
-com o painel de filtros do Detalhe de vendas sem detalhamento aplicado. A rodada final deste
-caso manteve a mesma máquina e a mesma base, e o desvio de versão está declarado no resultado.
+com o painel de filtros do Detalhe de vendas sem detalhamento aplicado. A rodada final desta
+demonstração manteve a mesma máquina e a mesma base, e o desvio de versão está declarado no resultado.
 Numa máquina diferente os milissegundos mudam, e o que deve se repetir é a direção da diferença e o critério das faixas. Os
 scripts procuram a biblioteca do Desktop em `C:\Program Files\Microsoft Power BI Desktop\bin\`, que
 é onde o instalador da Microsoft coloca; quem usa a versão da Microsoft Store troca o caminho na

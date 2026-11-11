@@ -5,7 +5,7 @@ Ela orientou a ampliação do gerador, a construção da v1, a refatoração e a
 
 ## 1. Objetivo
 
-O caso é um entregável que roda na máquina de quem abre, com base sintética, README que sobe do
+A demonstração é um entregável que roda na máquina de quem abre, com base sintética, README que sobe do
 zero e custo declarado. Custo: zero, porque todas as ferramentas são gratuitas e nada fica
 hospedado.
 
@@ -333,8 +333,7 @@ filtros recolhido.
 **Conferência do cache.** Na construção, a primeira execução depois de limpar o cache precisa ser mais
 lenta que as seguintes. Se não for, a limpeza não pegou e o protocolo a frio precisa ser revisto
 antes de seguir. O formato exato do JSON do analisador e a presença do Refresh Profile no DAX
-Studio precisam ser conferidos na versão instalada, porque não foram verificados nesta
-especificação.
+Studio precisam ser conferidos na versão instalada.
 
 **Diagnóstico de apoio, fora da tabela principal.** Server Timings do DAX Studio na consulta do
 visual mais lento (motor de fórmulas contra motor de armazenamento), contagem de violações do Best
@@ -342,16 +341,8 @@ Practice Analyzer do Tabular Editor 2 com o conjunto de regras publicado pela Mi
 fixada, e contagem de tabelas, colunas e visuais. É aqui que D4, D7 e D8 aparecem com número.
 
 **Registro.** Cada execução vira uma linha em `desempenho/resultados.csv` com as colunas `sessao`,
-`ponta`, `grandeza`, `estado`, `cache`, `repeticao`, `valor`, `unidade`. O README mostra o resumo:
-
-| Grandeza | Unidade | v1, mediana | v1, faixa | v2, mediana | v2, faixa | Variação |
-|---|---|---|---|---|---|---|
-| tamanho do modelo | MB | | | | | |
-| tempo de atualização | s | | | | | |
-| renderização, estado A, frio | ms | | | | | |
-| renderização, estado A, quente | ms | | | | | |
-| renderização, estado B, frio | ms | | | | | |
-| renderização, estado B, quente | ms | | | | | |
+`ponta`, `grandeza`, `estado`, `cache`, `repeticao`, `valor`, `unidade`. O resumo preenchido está
+no [guia técnico](README.md#o-resultado).
 
 **Critério de diferença.** Uma diferença só é afirmada quando as faixas da v1 e da v2 não se
 sobrepõem. Se sobrepuserem, o README diz que não houve diferença mensurável naquela grandeza.
@@ -422,11 +413,11 @@ mudanças conta esses passos em linguagem de negócio.
 
 ```
 refatoracao-de-paineis/
-  README.md                       a página do caso: resultado, o que se recebe e como funciona
+  README.md                       a página do serviço: resultado, o que se recebe e como funciona
   registro-de-mudancas.md         registro de mudanças, a prova da manutenção
   catalogo-de-tecnicas.md         o repertório de técnicas do serviço
-  painel-antes/                   PBIP do painel de partida (v1 nos registros)
-  painel-depois/                  PBIP do painel reestruturado (v2 nos registros), com o sistema visual em design/
+  painel-antes/                   PBIP do painel de partida (v1)
+  painel-depois/                  PBIP do painel reestruturado (v2), com o sistema visual em design/
   evidencias/
     README.md                     guia técnico: medição completa, paridade e como refazer
     metodologia.md                esta especificação
@@ -439,11 +430,11 @@ A base do gerador fica fora do repositório, numa pasta local apontada pelo par�
 
 ## 9. Decisões de escopo
 
-As quatro decisões foram tomadas em 27-09-2026, todas conforme a recomendação.
+As quatro decisões foram tomadas em 27-09-2026.
 
 | Decisão | Opções | Recomendação | Decidido em 27-09-2026 |
 |---|---|---|---|
-| volume deste caso | 1 milhão, mais leve e rápido de iterar; 5 milhões; duas medições (1 e 5 milhões) mostrando como a diferença cresce | 5 milhões, com 1 milhão usado só durante a construção | 5 milhões no episódio e 1 milhão na construção. Plano B de 3 milhões se a atualização da v1 estourar a memória da máquina de 15,8 GB |
-| defeito de dobra de consulta | trocar pelo D9, mantendo tudo em CSV; acrescentar um banco local (SQL Server Express ou Postgres) para mostrar dobra de verdade | trocar pelo D9. O banco local quebra o "sobe do zero lendo o README" e a dobra aparece melhor numa peça futura com fonte relacional | a dobra sai e entra o D9. |
-| nome de cliente repetido | corrigir no gerador para toda saída, mudando uma vez 12 nomes no feed público; corrigir só com a opção deste caso; manter e usar como defeito plantado | corrigir para toda saída. Nenhum número muda, o E2 tropeçaria no mesmo problema, e defeito plantado em nome confundiria a paridade | corrigir para toda saída, implementado na ampliação do gerador |
-| defeito de regra de negócio (média de percentuais no lugar de razão das somas), que faria um número mudar com aviso | incluir neste caso; deixar para um caso de manutenção | deixar fora do E1. A definição de pronto da medição final pede paridade sem divergência, e a peça fica mais forte com os números batendo | fica fora do E1 |
+| volume da demonstração | 1 milhão, mais leve e rápido de iterar; 5 milhões; duas medições (1 e 5 milhões) mostrando como a diferença cresce | 5 milhões, com 1 milhão usado só durante a construção | 5 milhões na medição e 1 milhão na construção. Plano B de 3 milhões se a atualização da v1 estourar a memória da máquina de 15,8 GB |
+| defeito de dobra de consulta | trocar pelo D9, mantendo tudo em CSV; acrescentar um banco local (SQL Server Express ou Postgres) para mostrar dobra de verdade | trocar pelo D9. O banco local quebra o "sobe do zero lendo o README", e a dobra de consulta só aparece com fonte relacional | a dobra sai e entra o D9. |
+| nome de cliente repetido | corrigir no gerador para toda saída, mudando uma vez 12 nomes no feed público; corrigir só com a opção desta demonstração; manter e usar como defeito plantado | corrigir para toda saída. Nenhum número muda, qualquer painel sobre a mesma base tropeçaria no mesmo problema, e defeito plantado em nome confundiria a paridade | corrigir para toda saída, implementado na ampliação do gerador |
+| defeito de regra de negócio (média de percentuais no lugar de razão das somas), que faria um número mudar com aviso | incluir nesta demonstração; deixar de fora | deixar de fora. A definição de pronto da medição final pede paridade sem divergência, e a demonstração fica mais forte com os números batendo | fica de fora |

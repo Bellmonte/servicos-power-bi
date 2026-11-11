@@ -1,13 +1,14 @@
 # Registro de mudanças da refatoração
 
 Este é o registro do que foi mudado no painel comercial entre o painel de partida (v1) e o painel
-reestruturado (v2), em que ordem e por quê, no formato que acompanha a entrega do serviço. Cada
-linha é um passo do trabalho na pasta
+reestruturado (v2), em que ordem e por quê, no formato que acompanha toda entrega de refatoração e
+de manutenção. Cada linha é um passo do trabalho na pasta
 [`painel-depois/`](painel-depois/), registrado durante o serviço com o motivo da
-mudança, e a especificação dos defeitos está na [seção 3 da especificação](evidencias/metodologia.md).
+mudança, e a descrição dos defeitos está na [seção 3 da metodologia](evidencias/metodologia.md).
 
 A regra de todas as mudanças foi a do serviço: nenhuma regra de negócio muda, e as medidas
-acordadas precisam dar o mesmo número na v1 e na v2 nos cortes da seção 6. As duas exceções de
+acordadas precisam dar o mesmo número na v1 e na v2 nos cortes do protocolo de paridade, na seção 6
+da metodologia. As duas exceções de
 comportamento estão descritas no fim, porque quem contrata o serviço precisa conhecê-las antes de
 aceitar a entrega.
 
@@ -44,13 +45,13 @@ mudança desta seção mexe em regra ou em número.
 
 ## Padronização
 
-Em 10-10-2026 o painel reestruturado foi reconstruído no padrão de desenvolvimento da B&B: modelo
+Em 10-10-2026 o painel reestruturado foi reconstruído no padrão de desenvolvimento do serviço: modelo
 em estrela com prefixo de papel nas tabelas, medidas numa tabela própria com nome de negócio,
 unidade e descrição, calendário gerado por função e o chassi de tela com cabeçalho, faixa de
 indicadores e rodapé. A reconstrução mexe em nome, organização e forma, e a regra de cada número
 continua a mesma.
 
-**Número muda: não.** As dezesseis medidas da seção 4 da especificação mantêm o resultado em todos
+**Número muda: não.** As dezesseis medidas da seção 4 da metodologia mantêm o resultado em todos
 os cortes, e o que mudou nelas foi o nome, a tabela onde moram e, em duas, a forma da fórmula.
 
 | Mudança | O que mudou | Número muda |

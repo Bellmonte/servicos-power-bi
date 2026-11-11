@@ -14,11 +14,11 @@ junto com o ponto que a faria mudar, que é justamente o risco que o dado não c
 
 ## Resultado
 
-Caso de exemplo com 1 milhão de linhas de pedido, 20 mil clientes e 36 meses de vendas.
+Demonstração com 1 milhão de linhas de pedido, 20 mil clientes e 36 meses de vendas.
 
 | O que a leitura simples dizia | O que o dado sustenta | Decisão | Ganho do teto em 12 meses |
 |---|---|---|---|
-| **3,4 vezes mais itens**<br>nas linhas com mais de 10% de desconto | **nenhum efeito mensurável**<br>dentro do mesmo porte, contra +3,2% por ponto que pagariam o desconto | **teto de 10%**<br>pelo critério definido antes | **R$ 5,5 milhões**<br>de margem, se nenhum cliente sair |
+| **3,4 vezes mais itens**<br>nas linhas com mais de 10% de desconto | **nenhum efeito mensurável**<br>dentro do mesmo porte, quando o desconto só se pagaria com +3,2% de volume por ponto | **teto de 10%**<br>pelo critério definido antes | **R$ 5,5 milhões**<br>de margem, se nenhum cliente sair |
 
 A diferença que a leitura simples mostrava vinha toda do porte, porque só o cliente grande recebe
 mais de 10% de desconto, e ele compra mais por ser grande. O ganho desaparece se clientes
@@ -61,7 +61,7 @@ Para responder uma pergunta assim com os dados da sua empresa, fale comigo pelo
 | [Enquadramento](evidencias/enquadramento.md) | pergunta, linhas de base e critério, escritos antes do resultado |
 | [Perfilamento](evidencias/perfilamento.md) | o estado da base antes da análise |
 
-Custo do caso: zero, porque o gerador, o Python e as bibliotecas são gratuitos e nada fica
+Custo da demonstração: zero, porque o gerador, o Python e as bibliotecas são gratuitos e nada fica
 hospedado. A base é 100% fictícia, gerada pelo
 [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com
 organização ou pessoa real. Ela foi gerada sem ligação entre desconto e volume, e o caso mostra o

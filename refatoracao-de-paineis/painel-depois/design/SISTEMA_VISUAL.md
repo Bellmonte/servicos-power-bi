@@ -1,11 +1,11 @@
 # Sistema visual do painel reestruturado (v2)
 
 Escrito em 27-09-2026, depois da refatoração e antes do redesenho visual da v2, e refeito em
-10-10-2026, quando o painel foi reconstruído no padrão de desenvolvimento da B&B. É o acabamento
+10-10-2026, quando o painel foi reconstruído no padrão de desenvolvimento do serviço. É o acabamento
 visual de um entregável que roda na máquina de quem abre, sem nada hospedado. O layout página a
 página está em [`LAYOUT.md`](LAYOUT.md).
 
-A régua deste documento é o padrão de desenvolvimento de painel da B&B. Onde o padrão fixa papel e
+A régua deste documento é o padrão de desenvolvimento de painel do serviço. Onde o padrão fixa papel e
 proporção, este documento fixa o valor de cor e de fonte deste painel.
 
 ## Conceito

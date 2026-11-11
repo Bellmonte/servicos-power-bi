@@ -12,8 +12,8 @@ entrega quando cada número foi conferido contra a conta feita direto na base.
 
 ## Resultado
 
-Caso de exemplo: painel comercial para a diretoria de uma distribuidora, sobre 1 milhão de linhas de
-venda de 01-09-2023 a 31-08-2026.
+Demonstração: painel comercial pensado para a diretoria comercial, sobre 1 milhão de linhas de venda
+de 01-09-2023 a 31-08-2026.
 
 | Decisões apoiadas | Indicadores | Páginas | Números de negócio |
 |---|---|---|---|
@@ -29,7 +29,7 @@ venda de 01-09-2023 a 31-08-2026.
   quando usar cada indicador.
 - **Comprovação de paridade**, com os indicadores conferidos contra a conta direta na base em nove
   cortes, de mês a cliente.
-- **Guia técnico** para subir o painel do zero e publicá-lo na web.
+- **Guia técnico** para subir o painel do zero e refazer a paridade.
 
 ## Como funciona
 
@@ -66,11 +66,11 @@ Para construir um painel assim para a sua área, fale comigo pelo
 |---|---|
 | [Levantamento de indicadores](levantamento-de-indicadores.md) ([Word](levantamento-de-indicadores.docx)) | decisões, indicadores, regras e critérios de aceite |
 | [Dicionário de medidas](dicionario-de-medidas.md) | cada indicador com definição, fórmula e quando usar |
-| [Guia técnico](evidencias/README.md) | como subir do zero, refazer a paridade e publicar na web |
-| [Decisões do caso](evidencias/decisoes.md) | cada escolha da construção e o motivo |
+| [Guia técnico](evidencias/README.md) | como subir do zero, refazer a paridade e publicar no serviço do Power BI |
+| [Decisões da construção](evidencias/decisoes.md) | cada escolha da construção e o motivo |
 | [Layout e sistema visual](painel/design/LAYOUT.md) | o desenho das páginas, aprovado antes da construção |
 
-Custo do caso: zero, porque o Power BI Desktop e o gerador de dados são gratuitos e nada fica
+Custo da demonstração: zero, porque o Power BI Desktop e o gerador de dados são gratuitos e nada fica
 hospedado. A base é 100% fictícia, gerada pelo
 [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem vínculo com organização
 ou pessoa real.

@@ -1,7 +1,7 @@
 # Paridade entre o painel de partida (v1) e o reestruturado (v2)
 
 Aqui estão as ferramentas do protocolo de paridade da seção 6 da
-[especificação](../metodologia.md). Elas conferem as 16 medidas da seção 4 em nove cortes (total,
+[metodologia](../metodologia.md). Elas conferem as 16 medidas da seção 4 em nove cortes (total,
 ano-mês, região, categoria, porte, vendedor, cliente, ano-mês por região e estado B) e cruzam três
 pontas: a fonte, que é a conta feita direto nos CSV do gerador, a v1 e a v2.
 

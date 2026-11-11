@@ -1,19 +1,19 @@
 # Guia técnico: construção de um painel comercial
 
 Este guia reúne o que é preciso para subir o painel do zero numa máquina limpa, refazer a prova de
-paridade e publicar o painel na web. A [página do caso](../README.md) traz o resumo para quem decide,
-e aqui está o detalhe para quem audita ou quer reproduzir.
+paridade e publicar o painel no serviço do Power BI. A [página do serviço](../README.md) traz o
+resumo para quem decide, e aqui está o detalhe para quem audita ou quer reproduzir.
 
 > **Dados 100% fictícios.** Clientes, vendedores, produtos e valores foram gerados pelo
 > [`port-gerador-dados`](https://github.com/Bellmonte/port-gerador-dados), sem qualquer vínculo com
 > organização ou pessoa real.
 
-O trabalho está na etapa de entregável: o painel roda no Power BI Desktop da máquina de quem recebe,
-lendo arquivos locais, sem hospedagem e sem custo recorrente. **Custo: zero.** O Power BI Desktop, o
-Python e o gerador são gratuitos, e nada fica hospedado. A publicação na web, descrita no fim, é a
-única parte que depende de licença paga, e ela é opcional.
+O painel roda no Power BI Desktop, lendo arquivos locais, sem hospedagem e sem custo recorrente.
+**Custo: zero.** O Power BI Desktop, o Python e o gerador são gratuitos, e nada fica hospedado. A
+publicação no serviço do Power BI, descrita no fim, é a única parte que depende de licença paga, e
+ela é opcional.
 
-## O que tem no caso
+## O que tem na demonstração
 
 | Pasta ou arquivo | O que é |
 |---|---|
@@ -64,11 +64,11 @@ python -m venv .venv
 A base sai em cerca de dez segundos em `C:\dados\painel-comercial\comercial\`, com seis arquivos CSV e
 um `_manifesto.json` com a contagem de linhas e as somas de controle. A data `--hoje 2026-08-31`
 precisa ficar fixa, porque é ela que faz a base sair igual em qualquer máquina e em qualquer dia, com
-os mesmos números deste caso. O manifesto confere: 1.000.000 de linhas de venda e receita líquida de
+os mesmos números desta demonstração. O manifesto confere: 1.000.000 de linhas de venda e receita líquida de
 R$ 2.121.440.181,12.
 
 **2. Abrir e apontar para a base.** Clone este repositório com
-`git clone https://github.com/Bellmonte/bb-servicos-power-bi.git` e abra
+`git clone https://github.com/Bellmonte/servicos-power-bi.git` e abra
 `construcao-de-paineis\painel\painel-comercial.pbip` no Power BI Desktop. O parâmetro `pPastaDados`
 já vem com `C:\dados\painel-comercial\comercial\`, e quem gerou a base nessa pasta pula para o passo
 3. Para usar outra pasta, vá em **Página Inicial > Transformar dados > Editar parâmetros** e cole o
@@ -122,26 +122,13 @@ pelo site quanto na da Microsoft Store.
 O `fonte.py` leva cerca de 30 segundos e as consultas ao modelo, menos de um minuto. Os resultados
 são CSV e ficam fora do git.
 
-## Publicação na web
+## Publicação no serviço do Power BI
 
-O painel está pronto para ser publicado, e a publicação ficou para o responsável pelo serviço, porque
-ela exige uma conta do Power BI com licença Pro, ou Premium por usuário, num tenant próprio. O
-roteiro é este:
-
-1. **Publicar.** Com o painel aberto e atualizado no Desktop, clique em **Página Inicial > Publicar**,
-   entre com a conta do tenant próprio e escolha um workspace dedicado aos casos de demonstração. O modelo vai com o
-   dado importado, que é o retrato da base na data fixa.
-2. **Gerar o link público.** No serviço, abra o relatório e vá em **Arquivo > Inserir relatório >
-   Publicar na Web (público)**. A opção precisa estar liberada pelo administrador do tenant em
-   **Configurações do locatário > Publicar na Web**. Esse link fica visível para qualquer pessoa na
-   internet, e por isso só se publica painel com dado fictício, como este.
-3. **Levar o link para o caso.** Copie o link e o código de incorporação, ponha o link na página do
-   caso e no perfil profissional, e confira numa janela anônima que o painel abre sem login.
-
-Como a base é lida de arquivos locais, o painel publicado não se atualiza sozinho, e isso é suficiente
-para uma demonstração com data fixa. Atualização agendada pediria um gateway ou a troca da fonte pelo
-feed diário do gerador, que é trabalho da etapa de solução hospedada. O custo da licença, quando a
-publicação for feita, entra declarado na página do caso.
+O painel sai pronto para publicação, e publicar depende de uma conta do Power BI com licença Pro ou
+Premium por usuário, que é da empresa. Com o painel aberto e atualizado no Desktop, **Página Inicial >
+Publicar** leva o modelo e as páginas para o workspace escolhido. Como a base é lida de arquivos
+locais, o painel publicado não se atualiza sozinho. A atualização agendada pede um gateway ou uma
+fonte que o serviço alcance, e essa configuração fica com quem administra o ambiente.
 
 ## Limites declarados
 

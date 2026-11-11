@@ -3,13 +3,13 @@
 Este catálogo reúne o que dá para fazer num painel Power BI herdado, aquele que funciona e dá o
 número certo, mas ficou pesado, lento para atualizar e difícil de mexer. Cada técnica vem com o
 problema que ela resolve, como ela é aplicada, o que melhora e como o ganho é provado, porque
-refatoração sem prova vira opinião. Algumas aparecem aplicadas neste caso deste caso, sobre
-base sintética, e estão marcadas com o defeito correspondente da
-[especificação](evidencias/metodologia.md#3-defeitos-da-v1) ou com a etapa do registro de mudanças em que
+refatoração sem prova vira opinião. Algumas aparecem aplicadas na demonstração, sobre base
+sintética, e estão marcadas com o defeito correspondente da
+[metodologia](evidencias/metodologia.md#3-defeitos-da-v1) ou com a etapa do registro de mudanças em que
 entram. As demais fazem parte do repertório do serviço e entram quando o painel pede.
 
-O catálogo cobre a **etapa 1** do serviço: painel que roda no ambiente de quem contrata, sem
-hospedagem e sem dado sob guarda de terceiro.
+O catálogo cobre painel que roda no ambiente de quem contrata, sem hospedagem e sem dado sob guarda
+de terceiro.
 
 O princípio que vale para todas é o mesmo do [registro de mudanças](registro-de-mudancas.md): nenhuma regra de
 negócio muda, e o que muda de comportamento aparece escrito como exceção antes da entrega.

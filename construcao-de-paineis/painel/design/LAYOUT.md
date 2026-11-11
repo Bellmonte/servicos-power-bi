@@ -266,7 +266,7 @@ desconto médio por mês"; barras, "Margem percentual por vendedor, da menor par
 ## Medidas de exibição que o desenho pede ao modelo
 
 Ocultas, na pasta `.Internas\UI`, fora da paridade e do levantamento. Cada uma lê a medida de
-negócio e devolve texto com `FORMAT ( valor, "<máscara>", "pt-BR" )` (lições L47 e L48), guarda o
+negócio e devolve texto com `FORMAT ( valor, "<máscara>", "pt-BR" )`, guarda o
 vazio com `IF ( NOT ISBLANK ( v ), ... )` para o cartão desenhar o hífen, e não muda o formato da
 medida de negócio, que continua fixo para tabela, gráfico e exportação.
 

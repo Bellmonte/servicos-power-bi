@@ -1,7 +1,7 @@
 # Painel comercial antes da refatoração (v1)
 
-Este é o painel comercial na versão de partida do caso de refatoração, a que chega ao serviço de
-refatoração, em formato PBIP com o modelo em TMDL. Ele foi **construído de propósito com defeitos
+Este é o painel comercial na versão de partida, a que chega ao serviço de refatoração, em formato
+PBIP com o modelo em TMDL. Ele foi **construído de propósito com defeitos
 comuns de mercado**, para ser medido, refatorado e medido de novo, e o resultado da refatoração é o
 [painel reestruturado (v2)](../painel-depois/README.md).
 
@@ -9,7 +9,7 @@ Os números dele estão certos nos cortes de uso do dia a dia, com uma exceção
 encontrou: o ano anterior quebra quando o filtro deixa dias sem venda no período, como um vendedor
 num mês. Fora isso, o problema dele está no jeito como chega aos números: pesa mais, atualiza e
 renderiza mais devagar e dá mais trabalho para manter do que precisava. O resultado da medição e da
-paridade está no [guia técnico](../evidencias/README.md), e a especificação completa, com o motivo de
+paridade está no [guia técnico](../evidencias/README.md), e a metodologia completa, com o motivo de
 cada defeito e o protocolo de medição, em [`../evidencias/metodologia.md`](../evidencias/metodologia.md).
 
 > **Dado 100% fictício**, gerado pelo `port-gerador-dados`. Nenhum nome, número ou entidade tem

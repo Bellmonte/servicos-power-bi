@@ -1,6 +1,6 @@
 # Paridade em 5 milhões de linhas depois da padronização, 10-10-2026
 
-A v2 foi reconstruída no padrão de desenvolvimento da B&B: modelo em estrela com `Fact_` e `Dim_`,
+A v2 foi reconstruída no padrão de desenvolvimento do serviço: modelo em estrela com `Fact_` e `Dim_`,
 tabela `Medidas`, calendário gerado por função e ano anterior por `DATEADD`. As 16 medidas da seção 4
 da especificação mudaram de nome, de tabela e, em duas delas, de forma. Esta rodada confere que
 nenhum resultado mudou com isso, comparando a base de origem, calculada direto dos CSV por

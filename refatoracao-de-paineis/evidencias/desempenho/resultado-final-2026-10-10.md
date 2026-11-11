@@ -5,7 +5,7 @@ declarada em [`maquina.md`](maquina.md), com o plano de energia em alto desempen
 Desktop 2.158.1304. A v1 não mudou desde a medição de 06-10-2026, feita na mesma máquina e na mesma
 base com o Desktop 2.155.756, e os números dela vêm de
 [`resultado-final-2026-10-06.md`](resultado-final-2026-10-06.md). O método é o da seção 5 da
-[especificação](../metodologia.md), com os desvios declarados no `maquina.md`. Cada célula traz a
+[metodologia](../metodologia.md), com os desvios declarados no `maquina.md`. Cada célula traz a
 mediana e, entre parênteses, a faixa das cinco execuções, e uma diferença só é afirmada quando as
 faixas não se sobrepõem.
 

@@ -1,13 +1,13 @@
 # Layout do painel reestruturado (v2)
 
 Escrito em 27-09-2026, antes do redesenho visual da v2, e refeito em 10-10-2026, quando o painel
-foi reconstruído no padrão de desenvolvimento da B&B. Este documento diz o que cada página faz, que visual fica onde, com quais campos do modelo,
+foi reconstruído no padrão de desenvolvimento do serviço. Este documento diz o que cada página faz, que visual fica onde, com quais campos do modelo,
 e para onde foi cada número que o painel de partida (v1) mostrava. O visual (cor, fonte, grade,
 tema) está em [`SISTEMA_VISUAL.md`](SISTEMA_VISUAL.md). O [`mockup.html`](mockup.html) é o desenho de
 27-09-2026 e continua valendo para o conteúdo de cada página; o chassi mudou em 10-10-2026 e está
 descrito aqui.
 
-O padrão aplicado é o de desenvolvimento de painel da B&B, e a mecânica de cada visual foi conferida
+O padrão aplicado é o de desenvolvimento de painel do serviço, e a mecânica de cada visual foi conferida
 contra visuais de referência gravados pelo Desktop. Os nomes de visual reaproveitam os que já existiam sempre que o visual
 continua, para o diff contar a história de uma edição e não de uma troca.
 

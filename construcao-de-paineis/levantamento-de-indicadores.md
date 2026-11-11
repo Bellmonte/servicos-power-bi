@@ -2,13 +2,13 @@
 
 ## Contexto
 
-A diretoria comercial de uma distribuidora precisa de um painel construído do zero para acompanhar o resultado de vendas e apoiar quatro decisões recorrentes: onde concentrar o esforço comercial, como ajustar a política de desconto, quais clientes reativar e como acompanhar cada vendedor. Este documento registra o que foi definido a partir das anotações feitas nas reuniões de levantamento: as decisões que o painel apoia, os vinte indicadores com a regra de cada um, as regras gerais de leitura, os critérios de aceite e o que fica fora desta entrega. Ele funciona como contrato entre o levantamento, o dicionário de medidas e o painel, e por isso os nomes de indicador escritos aqui são os mesmos que aparecem no modelo.
+O cenário é o de uma diretoria comercial que precisa de um painel construído do zero para acompanhar o resultado de vendas e apoiar quatro decisões recorrentes: onde concentrar o esforço comercial, como ajustar a política de desconto, quais clientes reativar e como acompanhar cada vendedor. Este documento é o levantamento que abre o serviço de construção, preenchido para esse cenário: as decisões que o painel apoia, os vinte indicadores com a regra de cada um, as regras gerais de leitura, os critérios de aceite e o que fica fora desta entrega. Ele funciona como contrato entre o levantamento, o dicionário de medidas e o painel, e por isso os nomes de indicador escritos aqui são os mesmos que aparecem no modelo.
 
 A base registra a venda por item de pedido, com o produto classificado em três linhas (Essencial, Performance e Premium), o cliente classificado por porte (Pequeno, Médio e Grande) e por região, e o vendedor responsável. Um pedido reúne vários itens e pertence sempre a um único cliente e a um único vendedor. A janela cobre 36 meses, de 01-09-2023 a 31-08-2026.
 
 **Dado fictício.** Todos os dados do painel são 100% fictícios, gerados pelo `port-gerador-dados` com data de corte fixa. Nenhum cliente, vendedor, produto ou valor corresponde a uma empresa real.
 
-**Etapa da entrega.** O trabalho está na etapa de entregável, que roda no Power BI Desktop da máquina de quem recebe, lendo arquivos locais, sem hospedagem e sem custo recorrente. O custo declarado é zero, porque as ferramentas usadas são gratuitas e nada fica publicado em serviço pago. Para essa etapa, a entrega precisa de um README que sobe do zero numa máquina limpa, de uma definição de pronto escrita, de dado de exemplo sintético e do custo declarado. Como o painel lê arquivos locais e não usa credencial, o arquivo de variáveis de ambiente fica dispensado.
+**Ambiente e custo.** O painel roda no Power BI Desktop da máquina de quem recebe, lendo arquivos locais, sem hospedagem e sem custo recorrente. O custo declarado é zero, porque as ferramentas usadas são gratuitas e nada fica publicado em serviço pago. A entrega inclui um README que sobe o painel do zero numa máquina limpa, os critérios de aceite da seção 4, a base sintética de exemplo e o custo declarado. Como o painel lê arquivos locais e não usa credencial, não há arquivo de configuração de credencial.
 
 ## 1. Decisões que o painel apoia
 
@@ -60,7 +60,7 @@ São vinte indicadores, organizados em cinco grupos: receita, desconto e margem,
 
 **Região é a do cliente.** Todo corte por região usa a região do cliente que fez a compra. O cadastro de vendedores também tem uma região, que não é usada em nenhum indicador nem em nenhum corte do painel.
 
-**Por que o indicador de clientes novos ficou de fora.** Na base deste painel, quase todo cliente faz a primeira compra no primeiro ano da janela. Um indicador de clientes novos ficaria praticamente zerado a partir de 2025 e levaria à leitura errada de que a distribuidora parou de conquistar clientes. O tema volta quando houver histórico de cadastro anterior à janela.
+**Por que o indicador de clientes novos ficou de fora.** Na base deste painel, quase todo cliente faz a primeira compra no primeiro ano da janela. Um indicador de clientes novos ficaria praticamente zerado a partir de 2025 e levaria à leitura errada de que a empresa parou de conquistar clientes. O tema volta quando houver histórico de cadastro anterior à janela.
 
 **Medidas de apoio de tela.** O modelo tem medidas ocultas que só servem à apresentação, como o texto do rodapé e os valores abreviados dos cartões. Como não são indicadores, ficam fora deste levantamento e da paridade, e o dicionário de medidas as descreve num parágrafo à parte.
 
@@ -108,7 +108,7 @@ Vazio dos dois lados conta como igual. A tolerância existe só para absorver a 
 
 - **Meta.** O painel apoia a definição de meta de margem por vendedor, mas a base não traz meta e o painel não compara realizado contra meta.
 - **Previsão.** Nenhum indicador projeta receita, margem ou atividade de clientes para o futuro.
-- **Publicação hospedada com atualização agendada.** Publicar o painel num serviço, agendar a atualização e controlar o acesso por perfil, como vendedor vendo só os próprios números, pertencem à etapa de solução hospedada e ficam para outra entrega.
+- **Publicação hospedada com atualização agendada.** Publicar o painel num serviço, agendar a atualização e controlar o acesso por perfil, como vendedor vendo só os próprios números, dependem de licença e de configuração do serviço do Power BI, e ficam fora desta entrega.
 - **Clientes novos.** Fica de fora pelo motivo explicado na seção 3.
 - **Peso de mercado da região.** A base traz esse atributo, mas nenhuma das quatro decisões depende dele.
 - **Região do vendedor.** Não é usada em nenhum corte, conforme a seção 3.

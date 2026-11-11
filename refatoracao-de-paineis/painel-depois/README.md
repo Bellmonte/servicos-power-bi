@@ -1,14 +1,14 @@
 # Painel comercial depois da refatoração (v2)
 
-Este é o painel comercial depois da refatoração do caso, em formato PBIP com o modelo em
+Este é o painel comercial depois da refatoração, em formato PBIP com o modelo em
 TMDL. Ele nasceu como cópia idêntica do [painel de partida (v1)](../painel-antes/README.md),
 e cada defeito foi corrigido num passo próprio, com o motivo escrito. Em 10-10-2026 ele foi
-reconstruído no padrão de desenvolvimento da B&B, sem mudar nenhum número. O que mudou, em que ordem
+reconstruído no padrão de desenvolvimento do serviço, sem mudar nenhum número. O que mudou, em que ordem
 e por quê está no [registro de mudanças](../registro-de-mudancas.md), e o resultado da medição e da paridade está
 no [guia técnico](../evidencias/README.md).
 
 A regra de todo passo é a mesma do serviço oferecido: os números de negócio continuam iguais aos da
-v1. A especificação, com as medidas de paridade e o protocolo de medição, está em
+v1. A metodologia, com as medidas de paridade e o protocolo de medição, está em
 [`../evidencias/metodologia.md`](../evidencias/metodologia.md).
 
 > **Dado 100% fictício**, gerado pelo `port-gerador-dados`. Nenhum nome, número ou entidade tem
@@ -63,7 +63,7 @@ anterior não tem leitura.
 
 Duas coisas importam para quem for medir. O Detalhe de vendas faz quatro consultas a mais que o da
 v1, que são as listas das três caixas sincronizadas e o texto do rodapé. E o painel de filtros dessa
-página precisa estar sem detalhamento aplicado antes da medição (seção 5 da especificação).
+página precisa estar sem detalhamento aplicado antes da medição (seção 5 da metodologia).
 
 ## Como abrir
 
